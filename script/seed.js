@@ -19,7 +19,9 @@ async function seed() {
     Product.create({name: 'Pirelli Race Tire', price: 200.0}),
     Product.create({name: 'Hankook Summer Tire', price: 150.0}),
     Product.create({name: 'Falken All-Season Tire', price: 115.0}),
-    Product.create({name: 'Big-O Tire', price: 1000.0})
+    Product.create({name: 'Big-O Tire', price: 1000.0}),
+    Product.create({name: 'Big-O Turbo Kit', price: 6000.0}),
+    Product.create({name: 'Big-O E85 Kit', price: 1500.0})
   ])
 
   console.log(`seeded ${users.length} users`)
