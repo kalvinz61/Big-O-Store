@@ -8,7 +8,7 @@ async function seed() {
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
+    User.create({email: 'admin@email.com', password: 'admin', isAdmin: true}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
@@ -19,7 +19,9 @@ async function seed() {
     Product.create({name: 'Pirelli Race Tire', price: 200.0}),
     Product.create({name: 'Hankook Summer Tire', price: 150.0}),
     Product.create({name: 'Falken All-Season Tire', price: 115.0}),
-    Product.create({name: 'Big-O Tire', price: 1000.0})
+    Product.create({name: 'Big-O Tire', price: 1000.0}),
+    Product.create({name: 'Big-O Turbo Kit', price: 6000.0}),
+    Product.create({name: 'Big-O E85 Kit', price: 1500.0})
   ])
 
   console.log(`seeded ${users.length} users`)
