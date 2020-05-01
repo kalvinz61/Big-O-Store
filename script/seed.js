@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Cart} = require('../server/db/models')
+const {User, Product, Cart, CartProducts} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -12,19 +12,35 @@ async function seed() {
     User.create({email: 'murphy@email.com', password: '123'})
   ])
 
-  const products = await Promise.all([
-    Product.create({name: 'Borla Exhaust', price: 600.0}),
-    Product.create({name: 'Cobb Tuning Exhaust', price: 800.0}),
-    Product.create({name: 'Big O Exhaust', price: 9999.99}),
-    Product.create({name: 'Pirelli Race Tire', price: 200.0}),
-    Product.create({name: 'Hankook Summer Tire', price: 150.0}),
-    Product.create({name: 'Falken All-Season Tire', price: 115.0}),
-    Product.create({name: 'Big-O Tire', price: 1000.0}),
-    Product.create({name: 'Big-O Turbo Kit', price: 6000.0}),
-    Product.create({name: 'Big-O E85 Kit', price: 1500.0})
+  const carts = await Promise.all([
+    Cart.create({userId: users[0].id}),
+    Cart.create({userId: users[1].id})
   ])
 
-  const cart = await Promise.all([Cart.create({userId: users[0].id})])
+  const products = await Promise.all([
+    Product.create({name: 'Borla Exhaust', price: 600.99, stock: 15}),
+    Product.create({name: 'Cobb Tuning Exhaust', price: 800.99, stock: 20}),
+    Product.create({name: 'Big O Exhaust', price: 9999.99, stock: 50}),
+    Product.create({name: 'Pirelli Race Tire', price: 200.99, stock: 23}),
+    Product.create({name: 'Hankook Summer Tire', price: 150.99, stock: 12}),
+    Product.create({name: 'Falken All-Season Tire', price: 115.99, stock: 31}),
+    Product.create({name: 'Big-O Tire', price: 1000.99, stock: 12}),
+    Product.create({name: 'Big-O Turbo Kit', price: 6000.99, stock: 11}),
+    Product.create({name: 'Big-O E85 Kit', price: 1500.99, stock: 2})
+  ])
+
+  await Promise.all([
+    CartProducts.create({
+      cartId: carts[0].id,
+      productId: products[2].id,
+      quantity: 3
+    }),
+    CartProducts.create({
+      cartId: carts[1].id,
+      productId: products[5].id,
+      quantity: 2
+    })
+  ])
 }
 
 // We've separated the `seed` function from the `runSeed` function.

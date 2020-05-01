@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {STRING, UUID, UUIDV4, DECIMAL} = Sequelize
+const {STRING, UUID, UUIDV4, DECIMAL, INTEGER} = Sequelize
 
 const Product = db.define('product', {
   id: {
@@ -24,6 +24,10 @@ const Product = db.define('product', {
       min: 0.01,
       max: 9999.99
     }
+  },
+  stock: {
+    type: INTEGER,
+    allowNull: false
   }
 })
 
