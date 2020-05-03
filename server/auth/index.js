@@ -4,6 +4,7 @@ module.exports = router
 
 router.post('/login', async (req, res, next) => {
   try {
+    req.logout() //logs out the current guest user
     const user = await User.findOne({where: {email: req.body.email}})
     if (!user) {
       console.log('No such user found:', req.body.email)
@@ -42,4 +43,5 @@ router.get('/me', (req, res) => {
   res.json(req.user)
 })
 
+router.use('/guest', require('./guest'))
 router.use('/google', require('./google'))
