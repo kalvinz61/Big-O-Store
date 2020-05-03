@@ -1,6 +1,6 @@
 const router = require('express').Router()
 const {Product} = require('../db/models')
-// const {isAdmin} = require('../middleware')
+const {isAdmin} = require('../middleware')
 
 //get ALL products
 router.get('/', async (req, res, next) => {
@@ -24,8 +24,9 @@ router.get('/:id', async (req, res, next) => {
   }
 })
 
-//add a new product through the site, with middleware to check if admin did it TODO
-router.post('/', async (req, res, next) => {
+//TO DO
+//add a new product through the site, with middleware to check if admin did it
+router.post('/', isAdmin, async (req, res, next) => {
   try {
     const product = await Product.create(req.body)
     res.status(201).json(product)

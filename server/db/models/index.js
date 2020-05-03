@@ -5,9 +5,10 @@ const CartsProducts = require('./carts_products')
 const Guest = require('./guest')
 
 Guest.hasOne(Cart)
+Cart.belongsTo(Guest)
+
 User.hasOne(Cart)
 Cart.belongsTo(User)
-Cart.belongsTo(Guest)
 
 Cart.belongsToMany(Product, {through: CartsProducts})
 Product.belongsToMany(Cart, {through: CartsProducts})
@@ -21,6 +22,7 @@ Product.belongsToMany(Cart, {through: CartsProducts})
 module.exports = {
   User,
   Product,
+  Guest,
   Cart,
   CartsProducts
 }

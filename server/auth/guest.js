@@ -3,7 +3,7 @@ const Guest = require('../db/models/guest')
 const Cart = require('../db/models/cart')
 module.exports = router
 
-//create a new guest
+//create a new guest and attach a new cart to it
 router.post('/new', async (req, res, next) => {
   try {
     const guest = await Guest.create() //set the new guest
