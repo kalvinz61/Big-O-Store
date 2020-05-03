@@ -31,8 +31,16 @@ async function seed() {
 
   await Promise.all([
     carts[0].addProduct(products[2]),
+    carts[0].addProduct(products[5]),
     carts[1].addProduct(products[1])
   ])
+
+  const log = await Cart.findOne({
+    where: {id: carts[0].id},
+    include: [Product]
+  })
+
+  // console.log(log.get().products)
 }
 
 // We've separated the `seed` function from the `runSeed` function.
