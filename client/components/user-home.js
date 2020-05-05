@@ -7,7 +7,7 @@ import {loadProducts} from '../store/allProducts'
 /**
  * COMPONENT
  */
-export const Home = props => {
+export const UserHome = props => {
   const {email, load} = props
 
   useEffect(() => {
@@ -38,11 +38,11 @@ const mapDispatch = dispatch => {
   }
 }
 
-export default connect(mapState, mapDispatch)(Home)
+export default connect(mapState, mapDispatch)(UserHome)
 
 /**
  * PROP TYPES
  */
-Home.propTypes = {
+UserHome.propTypes = {
   email: PropTypes.string
 }
