@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {STRING, UUID, UUIDV4, DECIMAL, INTEGER} = Sequelize
+const {STRING, UUID, UUIDV4, DECIMAL, INTEGER, TEXT} = Sequelize
 
 const Product = db.define('product', {
   id: {
@@ -16,18 +16,25 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: DECIMAL(6, 2),
+    type: DECIMAL(8, 2),
     allowNull: false,
     validate: {
       isNumeric: true,
       isDecimal: true,
       min: 0.01,
-      max: 9999.99
+      max: 100000.99
     }
   },
   stock: {
     type: INTEGER,
     allowNull: false
+  },
+  description: {
+    type: TEXT,
+    defaultValue: '',
+    validate: {
+      len: [0, 1000]
+    }
   }
 })
 
