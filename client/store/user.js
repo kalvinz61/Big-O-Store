@@ -21,9 +21,31 @@ const removeUser = () => ({type: REMOVE_USER})
 /**
  * THUNK CREATORS
  */
-export const me = () => async dispatch => {
+
+export const newGuest = () => async dispatch => {
   try {
-    const res = await axios.get('/auth/me')
+    const guest = (await axios.get('/auth/guest/new')).data
+    console.log(guest) //TODO
+    return dispatch(getUser(guest))
+  } catch (ex) {
+    console.log(ex)
+  }
+}
+
+export const getGuest = () => async dispatch => {
+  try {
+    const guestID = window.localStorage.getItem('guestID')
+    const guest = (await axios.get(`/auth/guest/${guestID}`)).data
+    return dispatch(getUser(guest))
+  } catch (ex) {
+    console.log(ex)
+  }
+}
+
+export const me = () => async dispatch => {
+  let res
+  try {
+    res = await axios.get('/auth/me')
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -33,6 +55,10 @@ export const me = () => async dispatch => {
 export const auth = (email, password, method) => async dispatch => {
   let res
   try {
+    // set the guest ID in localStorage here for retrieval later if the user logs out or session expires
+    const guest = (await axios.get('/auth/me')).data
+    window.localStorage.setItem('guestID', guest.id)
+
     res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
     return dispatch(getUser({error: authError}))
