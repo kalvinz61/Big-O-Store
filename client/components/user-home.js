@@ -13,7 +13,7 @@ export const UserHome = props => {
 
   useEffect(() => {
     loadProds()
-    // loadCrt()
+    loadCrt()
   })
   return (
     <div>
@@ -36,10 +36,10 @@ const mapDispatch = dispatch => {
   return {
     loadProds: () => {
       dispatch(loadProducts())
+    },
+    loadCrt: () => {
+      dispatch(loadCart())
     }
-    // loadCrt: () => {
-    //   dispatch(loadCart())
-    // }
   }
 }
 

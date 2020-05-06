@@ -10,7 +10,8 @@ const Product = props => {
   return (
     <div>
       <div>{state.product.name}</div>
-      <div>{state.product.price}</div>
+      <div>${state.product.price}</div>
+      <div>Description: {state.product.description}</div>
       <br />
       <button>Add to cart</button>
     </div>
