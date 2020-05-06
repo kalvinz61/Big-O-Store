@@ -2,13 +2,14 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-const ListProduct = product => {
+const CartItem = product => {
   return (
     <div>
       <div>
         <Link to={`/products/${product.id}`}>{product.name}</Link>
       </div>
-      <button>Add to cart</button>
+      <button>Qty</button>
+      <button>Delete</button>
     </div>
   )
 }
@@ -19,4 +20,4 @@ const mapState = ({product}) => {
   }
 }
 
-export default connect(mapState, null)(ListProduct)
+export default connect(mapState, null)(CartItem)

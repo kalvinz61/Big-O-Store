@@ -5,14 +5,14 @@ import ListProduct from './listProduct'
 const AllProducts = products => {
   return (
     <ul>
-      {products.products.map(product => {
+      {products.products.allProducts.map(product => {
         return <ListProduct key={product.id} {...product} />
       })}
     </ul>
   )
 }
 
-const mapState = ({products}) => {
+const mapState = products => {
   return {
     products
   }
