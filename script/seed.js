@@ -1,17 +1,16 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Cart} = require('../server/db/models')
+const {User, Product, Cart, CartsProducts} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'admin@email.com', password: 'admin', isAdmin: true}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({email: 'admin@gmail.com', password: 'admin', isAdmin: true}),
+    User.create({email: 'murphy@gmail.com', password: '123'})
   ])
-
   const carts = await Promise.all([
     Cart.create({userId: users[0].id}),
     Cart.create({userId: users[1].id})
@@ -21,24 +20,40 @@ async function seed() {
     Product.create({name: 'Borla Exhaust', price: 600.99, stock: 15}),
     Product.create({name: 'Cobb Tuning Exhaust', price: 800.99, stock: 20}),
     Product.create({name: 'Big O Exhaust', price: 9999.99, stock: 50}),
-    Product.create({name: 'Pirelli Race Tire', price: 200.99, stock: 23}),
-    Product.create({name: 'Hankook Summer Tire', price: 150.99, stock: 12}),
+    Product.create({name: 'Hoosier Race Tire', price: 400.99, stock: 23}),
+    Product.create({name: 'Bridgestone Summer Tire', price: 150.99, stock: 12}),
     Product.create({name: 'Falken All-Season Tire', price: 115.99, stock: 31}),
     Product.create({name: 'Big-O Tire', price: 1000.99, stock: 12}),
-    Product.create({name: 'Big-O Turbo Kit', price: 6000.99, stock: 11}),
-    Product.create({name: 'Big-O E85 Kit', price: 1500.99, stock: 2})
+    Product.create({name: 'Big-O Turbo Kit', price: 15000.99, stock: 11}),
+    Product.create({name: 'Big-O Flex Fuel Kit', price: 1500.99, stock: 2}),
+    Product.create({name: 'Ohlins Coilovers', price: 2500.99, stock: 2})
   ])
 
   await Promise.all([
+    carts[0].addProduct(products[0]),
     carts[0].addProduct(products[2]),
-    carts[0].addProduct(products[5]),
-    carts[1].addProduct(products[1])
+    carts[1].addProduct(products[1]),
+    carts[2].addProduct(products[3]),
+    carts[2].addProduct(products[4]),
+    carts[2].addProduct(products[6]),
+    carts[3].addProduct(products[6]),
+    carts[4].addProduct(products[5]),
+    carts[4].addProduct(products[4])
   ])
-
-  const log = await Cart.findOne({
-    where: {id: carts[0].id},
-    include: [Product]
+  //updating a cart item quantity
+  await CartsProducts.findOne({
+    where: {
+      cartId: carts[0].id,
+      productId: products[0].id
+    }
+  }).then(foundCartItem => {
+    foundCartItem.update({quantity: foundCartItem.quantity + 5})
   })
+
+  // const log = await Cart.findOne({
+  //   where: {id: carts[0].id},
+  //   include: [Product]
+  // })
 
   // console.log(log.get().products)
 }
