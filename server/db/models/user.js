@@ -12,7 +12,7 @@ const User = db.define('user', {
   email: {
     type: STRING,
     unique: true,
-    allowNull: false
+    allowNull: true
   },
   password: {
     type: STRING,
@@ -20,7 +20,8 @@ const User = db.define('user', {
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('password')
-    }
+    },
+    allowNull: true
   },
   salt: {
     type: STRING,
@@ -28,7 +29,8 @@ const User = db.define('user', {
     // This is a hack to get around Sequelize's lack of a "private" option.
     get() {
       return () => this.getDataValue('salt')
-    }
+    },
+    allowNull: true
   },
   googleId: {
     type: STRING
@@ -68,9 +70,11 @@ User.encryptPassword = function(plainText, salt) {
  * hooks
  */
 const setSaltAndPassword = user => {
-  if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
+  if (user.email) {
+    if (user.changed('password')) {
+      user.salt = User.generateSalt()
+      user.password = User.encryptPassword(user.password(), user.salt())
+    }
   }
 }
 
