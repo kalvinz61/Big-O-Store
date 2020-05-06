@@ -22,20 +22,20 @@ const removeUser = () => ({type: REMOVE_USER})
  * THUNK CREATORS
  */
 
-export const newGuest = () => async dispatch => {
-  try {
-    const guest = (await axios.get('/auth/guest/new')).data
-    console.log(guest) //TODO
-    return dispatch(getUser(guest))
-  } catch (ex) {
-    console.log(ex)
-  }
-}
-
 export const getGuest = () => async dispatch => {
   try {
+    //check for the guest in local storage
     const guestID = window.localStorage.getItem('guestID')
-    const guest = (await axios.get(`/auth/guest/${guestID}`)).data
+
+    if (!guestID) {
+      //if there's NO guest, we have to make a new one, and set it in local storage
+      // to the new customer's browser. Local storage has no expiry date, unless we make one for it
+      const newGuest = (await axios.post('/auth/guest/new')).data
+      window.localStorage.setItem('guestID', newGuest.id)
+      return dispatch(getUser(newGuest))
+    }
+    //Else if that user has already been a guest before, we get that guest back
+    const guest = (await axios.post(`/auth/guest`, {guestID: guestID})).data
     return dispatch(getUser(guest))
   } catch (ex) {
     console.log(ex)
