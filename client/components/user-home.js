@@ -3,15 +3,17 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import AllProducts from './allProducts'
 import {loadProducts} from '../store/allProducts'
+import {loadCart} from '../store/cart'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, load} = props
+  const {email, loadProds, loadCrt} = props
 
   useEffect(() => {
-    load()
+    loadProds()
+    // loadCrt()
   })
   return (
     <div>
@@ -32,9 +34,12 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    load: () => {
+    loadProds: () => {
       dispatch(loadProducts())
     }
+    // loadCrt: () => {
+    //   dispatch(loadCart())
+    // }
   }
 }
 
