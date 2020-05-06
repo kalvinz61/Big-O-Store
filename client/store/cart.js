@@ -1,40 +1,24 @@
 import axios from 'axios'
 
-/**
- * ACTION TYPES
- */
 const LOAD_CART = 'LOAD_CART'
 
-/**
- * INITIAL STATE
- */
-const initialState = {}
+const _loadCart = cart => ({
+  type: LOAD_CART,
+  cart
+})
 
-/**
- * ACTION CREATORS
- */
-const _loadCart = cart => ({type: LOAD_CART, cart})
-
-/**
- * THUNK CREATORS
- */
-
-export const loadCart = () => async dispatch => {
-  try {
-    const cart = await axios.get(`/api/cart`).data
+export const loadCart = () => {
+  return async dispatch => {
+    const cart = (await axios.get('/api/cart')).data
     dispatch(_loadCart(cart))
-  } catch (err) {
-    console.error(err)
   }
 }
+const initialState = []
 
-/**
- * REDUCER
- */
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
-      return action.product
+      return action.cart
     default:
       return state
   }

@@ -9,11 +9,17 @@ async function seed() {
 
   const users = await Promise.all([
     User.create({email: 'admin@gmail.com', password: 'admin', isAdmin: true}),
-    User.create({email: 'murphy@gmail.com', password: '123'})
+    User.create({email: 'murphy@gmail.com', password: '123'}),
+    User.create(),
+    User.create(),
+    User.create()
   ])
   const carts = await Promise.all([
     Cart.create({userId: users[0].id}),
-    Cart.create({userId: users[1].id})
+    Cart.create({userId: users[1].id}),
+    Cart.create({userId: users[2].id}),
+    Cart.create({userId: users[2].id}),
+    Cart.create({userId: users[2].id})
   ])
 
   const products = await Promise.all([
