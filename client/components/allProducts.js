@@ -5,9 +5,9 @@ import ListProduct from './listProduct'
 const AllProducts = products => {
   return (
     <ul>
-      {products.products.allProducts.map(product => {
+      {/* {products.products.allProducts.map(product => {
         return <ListProduct key={product.id} {...product} />
-      })}
+      })} */}
     </ul>
   )
 }
