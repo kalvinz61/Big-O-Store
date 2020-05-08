@@ -2,7 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import CartItem from './cartItem'
 
-const Cart = props => {
+const Cart = cart => {
+  console.log(cart)
   return (
     <div>
       <button>Checkout</button>
@@ -22,7 +23,7 @@ const Cart = props => {
 
 const mapState = state => {
   return {
-    state
+    cart: state.cart
   }
 }
 

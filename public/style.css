@@ -19,3 +19,15 @@ form div {
   margin: 1em;
   display: inline-block;
 }
+.allProducts {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+.listProduct {
+  border: solid 2px black;
+  width: 200px;
+  height: 200px;
+  padding: 1rem;
+  margin: 1rem;
+}
