@@ -14,7 +14,7 @@ export const UserHome = props => {
   useEffect(() => {
     loadProds()
     loadCrt()
-  })
+  }, [])
   return (
     <div>
       <h3>Welcome, {email}</h3>
