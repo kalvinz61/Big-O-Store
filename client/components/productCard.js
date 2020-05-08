@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 
-const ListProduct = product => {
+const ProductCard = product => {
   return (
     <div>
       <div className="listProduct">
@@ -22,4 +22,4 @@ const mapState = ({product}) => {
   }
 }
 
-export default connect(mapState, null)(ListProduct)
+export default connect(mapState, null)(ProductCard)

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import CartItem from './cartItem'
 
 const Cart = cart => {
-  console.log(cart)
+  console.log('cart', cart)
   return (
     <div>
       <button>Checkout</button>
@@ -21,10 +21,8 @@ const Cart = cart => {
   )
 }
 
-const mapState = state => {
-  return {
-    cart: state.cart
-  }
-}
+const mapState = ({cart}) => ({
+  cart
+})
 
 export default connect(mapState, null)(Cart)

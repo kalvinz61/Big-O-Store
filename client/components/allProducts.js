@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import ListProduct from './listProduct'
+import ProductCard from './productCard'
 
 const AllProducts = state => {
   return (
     <div className="allProducts">
       {state.products.map(product => {
-        return <ListProduct key={product.id} {...product} />
+        return <ProductCard key={product.id} {...product} />
       })}
     </div>
   )
