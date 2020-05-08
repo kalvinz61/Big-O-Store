@@ -4,13 +4,18 @@ import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, Cart, Product} from './components'
 import {me} from './store'
+import {retrieveGuestSession} from './store/user'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
+    if (window.localStorage.getItem('guestID') === this.props.id) {
+      this.props.loadInitialGuest()
+    } else {
+      this.props.loadInitialData()
+    }
   }
 
   render() {
@@ -40,14 +45,18 @@ class Routes extends Component {
  */
 const mapState = state => {
   return {
+    id: state.user.id,
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.email
   }
 }
 
 const mapDispatch = dispatch => {
   return {
+    loadInitialGuest() {
+      dispatch(retrieveGuestSession())
+    },
     loadInitialData() {
       dispatch(me())
     }
