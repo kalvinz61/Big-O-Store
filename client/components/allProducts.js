@@ -4,11 +4,11 @@ import ListProduct from './listProduct'
 
 const AllProducts = state => {
   return (
-    <ul>
+    <div className="allProducts">
       {state.products.map(product => {
         return <ListProduct key={product.id} {...product} />
       })}
-    </ul>
+    </div>
   )
 }
 
