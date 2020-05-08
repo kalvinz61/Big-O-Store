@@ -22,15 +22,14 @@ const removeUser = () => ({type: REMOVE_USER})
  * THUNK CREATORS
  */
 
-export const getGuest = () => async dispatch => {
+export const retrieveGuestSession = () => async dispatch => {
   try {
     //check for the guest in local storage
     const guestID = window.localStorage.getItem('guestID')
-
     if (!guestID) {
-      //if there's NO guest, we have to make a new one, and set it in local storage
+      //if there's NO old guest session, we have to make a new one, and set it in local storage
       // to the new customer's browser. Local storage has no expiry date, unless we make one for it
-      const newGuest = (await axios.post('/auth/guest/new')).data
+      const newGuest = (await axios.post('/auth/guest')).data
       window.localStorage.setItem('guestID', newGuest.id)
       return dispatch(getUser(newGuest))
     }
@@ -57,8 +56,11 @@ export const auth = (email, password, method) => async dispatch => {
   try {
     // set the guest ID in localStorage here for retrieval later if the user logs out or session expires
     const guest = (await axios.get('/auth/me')).data
-    window.localStorage.setItem('guestID', guest.id)
 
+    if (!guest.email) {
+      //Defensiveness to make sure it's a guest
+      window.localStorage.setItem('guestID', guest.id)
+    }
     res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
     return dispatch(getUser({error: authError}))
@@ -74,9 +76,11 @@ export const auth = (email, password, method) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    await axios.post('/auth/logout')
-    dispatch(removeUser())
-    history.push('/login')
+    const guest = await axios.post('/auth/logout', {
+      guestID: window.localStorage.getItem('guestID')
+    })
+    dispatch(getUser(guest))
+    history.push('/')
   } catch (err) {
     console.error(err)
   }
