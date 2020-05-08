@@ -19,6 +19,14 @@ export const loadCart = () => {
     dispatch(_loadCart(cart))
   }
 }
+
+export const addToCart = product => {
+  return async dispatch => {
+    const cart = (await axios.post('/api/cart')).data
+    dispatch(_addToCart(cart))
+  }
+}
+
 const initialState = []
 
 export default function(state = initialState, action) {
