@@ -11,9 +11,10 @@ import {retrieveGuestSession} from './store/user'
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
-    if (!this.props.isLoggedIn) {
+    if (window.localStorage.getItem('guestID') === this.props.id) {
       this.props.loadInitialGuest()
+    } else {
+      this.props.loadInitialData()
     }
   }
 
@@ -44,6 +45,7 @@ class Routes extends Component {
  */
 const mapState = state => {
   return {
+    id: state.user.id,
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
     isLoggedIn: !!state.user.email
@@ -53,11 +55,9 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialGuest() {
-      console.log('RETRIEVING GUEST')
       dispatch(retrieveGuestSession())
     },
     loadInitialData() {
-      console.log('LOADING INITIAL DATA')
       dispatch(me())
     }
   }
