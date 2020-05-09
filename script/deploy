@@ -39,6 +39,8 @@ webpack -p
 # "force" add the otherwise gitignored build files
 git add -f public/bundle.js public/bundle.js.map
 
+npm run seed
+
 # create a commit, even if nothing changed
 git commit --allow-empty -m 'Deploying'
 
