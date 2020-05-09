@@ -35,6 +35,10 @@ const Product = db.define('product', {
     validate: {
       len: [0, 1000]
     }
+  },
+  imageUrl: {
+    type: STRING,
+    defaultValue: ''
   }
 })
 

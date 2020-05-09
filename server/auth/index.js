@@ -13,6 +13,17 @@ const createGuest = async () => {
   return user
 }
 
+//create a new guest user and attach a new cart to it
+router.post('/guest/new', async (req, res, next) => {
+  try {
+    const guest = await createGuest()
+    return req.login(guest, err => (err ? next(err) : res.json(guest)))
+  } catch (ex) {
+    console.log(ex)
+    next(ex)
+  }
+})
+
 //retrieve the guest ID from localStorage and log it in
 router.post('/guest/retrieve', async (req, res, next) => {
   if (req.user) {
@@ -25,17 +36,6 @@ router.post('/guest/retrieve', async (req, res, next) => {
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (ex) {
     console.log(ex)
-  }
-})
-
-//create a new guest user and attach a new cart to it
-router.post('/guest/new', async (req, res, next) => {
-  try {
-    const guest = await createGuest()
-    return req.login(guest, err => (err ? next(err) : res.json(guest)))
-  } catch (ex) {
-    console.log(ex)
-    next(ex)
   }
 })
 

@@ -13,8 +13,8 @@ export const UserHome = props => {
 
   useEffect(() => {
     loadProds()
-    // loadCrt()
-  })
+    loadCrt()
+  }, [])
   return (
     <div>
       <h3>Welcome, {email}</h3>
@@ -36,10 +36,11 @@ const mapDispatch = dispatch => {
   return {
     loadProds: () => {
       dispatch(loadProducts())
+    },
+    loadCrt: () => {
+      console.log('loading cart')
+      dispatch(loadCart())
     }
-    // loadCrt: () => {
-    //   dispatch(loadCart())
-    // }
   }
 }
 

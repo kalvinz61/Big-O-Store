@@ -1,29 +1,29 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
-import CartItem from './cartItem'
-
-const Cart = props => {
-  return (
+import {CartItem} from './cartItem'
+import {loadCart} from '../store/cart'
+const Cart = ({cart, loadCart}) => {
+  useEffect(() => {
+    loadCart()
+  }, [])
+  return cart.products ? (
     <div>
+      {cart.products.map(product => {
+        return <CartItem key={product.id} {...product} />
+      })}
       <button>Checkout</button>
-      <ul>
-        {
-          // props.cart.products.map( products =>
-          // {
-          //     return(
-          //         <CartItem key = { product.id } {...product} />
-          //     )
-          // })
-        }
-      </ul>
     </div>
+  ) : (
+    <div>Your Cart is empty</div>
   )
 }
 
-const mapState = state => {
-  return {
-    state
-  }
-}
+const mapState = ({cart}) => ({
+  cart
+})
 
-export default connect(mapState, null)(Cart)
+const mapDispatch = dispatch => ({
+  loadCart: () => dispatch(loadCart())
+})
+
+export default connect(mapState, mapDispatch)(Cart)

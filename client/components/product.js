@@ -1,26 +1,30 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {loadProduct} from '../store/product'
+import Button from '@material-ui/core/Button'
 
 const Product = props => {
-  const {state, ownProps, load} = props
+  const {load, product} = props
   useEffect(() => {
-    load(ownProps.location.pathname.slice(10))
+    load(props.match.params.id)
   }, [])
   return (
     <div>
-      <div>{state.product.name}</div>
-      <div>{state.product.price}</div>
+      <div>{product.name}</div>
+      <div>${product.price}</div>
+      <div>Description: {product.description}</div>
+      <img src={product.imageUrl} />
       <br />
-      <button>Add to cart</button>
+      <Button variant="contained" color="primary">
+        Add to cart
+      </Button>
     </div>
   )
 }
 
-const mapState = (state, ownProps) => {
+const mapState = state => {
   return {
-    state,
-    ownProps
+    product: state.product
   }
 }
 
