@@ -18,11 +18,9 @@ router.get('/', async (req, res, next) => {
 router.post('/add', async (req, res, next) => {
   try {
     let cart = await Cart.findOne({
-      where: {userId: req.user.id}
+      where: {userId: req.user.id},
+      include: [Product]
     })
-    // this means the user wasn't logged in and instead we have to find a cart with guestId
-    if (!cart) cart = await Cart.findOne({where: {guestId: req.user.id}})
-
     const product = await Product.findByPk(req.body.id)
     await cart.addProduct(product)
 
