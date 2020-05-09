@@ -23,16 +23,82 @@ async function seed() {
   ])
 
   const products = await Promise.all([
-    Product.create({name: 'Borla Exhaust', price: 600.99, stock: 15}),
-    Product.create({name: 'Cobb Tuning Exhaust', price: 800.99, stock: 20}),
-    Product.create({name: 'Big O Exhaust', price: 9999.99, stock: 50}),
-    Product.create({name: 'Hoosier Race Tire', price: 400.99, stock: 23}),
-    Product.create({name: 'Bridgestone Summer Tire', price: 150.99, stock: 12}),
-    Product.create({name: 'Falken All-Season Tire', price: 115.99, stock: 31}),
-    Product.create({name: 'Big-O Tire', price: 1000.99, stock: 12}),
-    Product.create({name: 'Big-O Turbo Kit', price: 15000.99, stock: 11}),
-    Product.create({name: 'Big-O Flex Fuel Kit', price: 1500.99, stock: 2}),
-    Product.create({name: 'Ohlins Coilovers', price: 2500.99, stock: 2})
+    Product.create({
+      name: 'Borla Exhaust',
+      price: 600.99,
+      stock: 15,
+      description:
+        'Upgrading your factory exhaust system to a Borla stainless steel performance exhaust system with a more efficient and less restrictive design can improve sound (adding more enjoyment driving your vehicle) and increase engine horsepower and torque throughout the RPM range (allowing quicker acceleration to pass a vehicle or get to highway speeds quicker).',
+      imageUrl: '/productImages/borla exhaust.jpg'
+    }),
+    Product.create({
+      name: 'Cobb Tuning Exhaust',
+      price: 800.99,
+      stock: 20,
+      description:
+        'We combine our SS Non-Resonated 3" J-Pipe and Titanium Cat-Back exhaust to create the ultimate exhaust solution for you 2015+ WRX! Simple bolt-on installation of these components offers excellent power gains, outstanding build quality, and an impressive exhaust note. The Turboback includes the COBB SS 3" J-Pipe and the COBB 3" WRX Titanium Cat-Back Exhaust',
+      imageUrl: '/productImages/Cobb Exhaust.jpg'
+    }),
+    Product.create({
+      name: 'Big O Exhaust',
+      price: 9999.99,
+      stock: 50,
+      description: 'Add 1000HP',
+      imageUrl: '/productImages/Big o exhaust.jpg'
+    }),
+    Product.create({
+      name: 'Hoosier Race Tire',
+      price: 400.99,
+      stock: 23,
+      description: 'Add 1000HP',
+      imageUrl: '/productImages/Big o exhaust.jpg'
+    }),
+    Product.create({
+      name: 'Bridgestone Summer Tire',
+      price: 150.99,
+      stock: 12,
+      description:
+        'Bridgestone’s premiere performance tires are engineered to deliver a thrilling ride, no matter where the road takes you. Potenza performance tires provide dynamic handling, exceptional traction, and more responsiveness than standard passenger tires. Every element, from the tires’ tread pattern to their shoulder stiffness, has been engineered to keep you going further, faster, longer.',
+      imageUrl: '/productImages/Bridgestone Summer Tire.png'
+    }),
+    Product.create({
+      name: 'Falken All-Season Tire',
+      price: 115.99,
+      stock: 31,
+      description:
+        "For drivers who want a combination of sophisticated low-profile tires/large rim diameter wheels to enhance their vehicle's appearance with all-season versatility, including traction in light snow",
+      imageUrl: '/productImages/Falken Tire.png'
+    }),
+    Product.create({
+      name: 'Big-O Tire',
+      price: 1000.99,
+      stock: 12,
+      description: 'Stickiest race tire ever',
+      imageUrl: '/productImages/Big O Tire.png'
+    }),
+    Product.create({
+      name: 'Big-O Turbo Kit',
+      price: 15000.99,
+      stock: 11,
+      description: 'Add 1000HP',
+      imageUrl: '/productImages/Big O Turbo Kit.png'
+    }),
+    Product.create({
+      name: 'Big-O Flex Fuel Kit',
+      price: 1500.99,
+      stock: 2,
+      description:
+        'A complete plug and play solution enabling users to convert their vehicle to a Flex Fuel configuration without losing factory compensations. This is the easiest to use and most sophisticated Flex Fuel kit on the market. Utilizing OEM fuel and electronic connectors, the Ethanol Sensor Kit measures the ethanol content of fuel being fed to the motor. That data is then converted into a signal that the ECU can use for adjusting calibrations and to be displayed on a custom Accessport monitor',
+      imageUrl: '/productImages/Big O Flex Fuel Kit.png'
+    }),
+    Product.create({
+      name: 'Ohlins Coilovers',
+      price: 2500.99,
+      stock: 2,
+      description:
+        'Öhlins DEDICATED suspension systems offer race-level performance in a complete, ready-to-install package. Applications are shake rig developed and track validated with specific spring rates (manufactured by Swift to Öhlins specs), clicker settings, and ride height specifications. Öhlins looks at the entire performance picture when developing DEDICATED systems, as each is engineered to perform with proven track setups for each specific chassis.',
+      imageUrl: '/productImages/Ohlins Coilovers.png'
+    })
   ])
 
   await Promise.all([

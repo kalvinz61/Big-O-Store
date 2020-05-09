@@ -8,6 +8,8 @@ const ProductCard = product => {
     <div>
       <div className="listProduct">
         <Link to={`/products/${product.id}`}>{product.name}</Link>
+        <img src={product.imageUrl} />
+        <div>Price: {product.price}</div>
         <Button variant="contained" color="primary">
           Add to cart
         </Button>
