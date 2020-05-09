@@ -5,7 +5,7 @@ import history from '../history'
  * ACTION TYPES
  */
 const GET_USER = 'GET_USER'
-const REMOVE_USER = 'REMOVE_USER'
+// const REMOVE_USER = 'REMOVE_USER'
 
 /**
  * INITIAL STATE
@@ -16,25 +16,36 @@ const defaultUser = {}
  * ACTION CREATORS
  */
 const getUser = user => ({type: GET_USER, user})
-const removeUser = () => ({type: REMOVE_USER})
+// const removeUser = () => ({ type: REMOVE_USER })
 
 /**
  * THUNK CREATORS
  */
 
-export const retrieveGuestSession = () => async dispatch => {
+export const createGuestSession = () => async dispatch => {
   try {
-    //check for the guest in local storage
-    const guestID = window.localStorage.getItem('guestID')
-    if (!guestID) {
-      //if there's NO old guest session, we have to make a new one, and set it in local storage
-      // to the new customer's browser. Local storage has no expiry date, unless we make one for it
-      const newGuest = (await axios.post('/auth/guest')).data
+    // if there's NO old guest session, we have to make a new one, and set it in local storage
+    // to the new customer's browser. Local storage has no expiry date, unless we make one for it
+    const newGuest = (await axios.post('/auth/guest/new')).data
+    console.log('creating new', newGuest)
+    if (newGuest.id) {
       window.localStorage.setItem('guestID', newGuest.id)
       return dispatch(getUser(newGuest))
+    } else if (newGuest.user) {
+      return dispatch(getUser(newGuest))
     }
-    //Else if that user has already been a guest before, we get that guest back
-    const guest = (await axios.post(`/auth/guest`, {guestID: guestID})).data
+  } catch (err) {
+    console.log(err)
+  }
+}
+
+export const retrieveGuestSession = guestID => async dispatch => {
+  try {
+    // guestID parameter comes from localStorage in the frontend component
+    // if that user has already been a guest before, we get that guest back
+    const guest = (await axios.post(`/auth/guest/retrieve`, {guestID: guestID}))
+      .data
+    console.log('retrieving', guest)
     return dispatch(getUser(guest))
   } catch (ex) {
     console.log(ex)
@@ -45,6 +56,7 @@ export const me = () => async dispatch => {
   let res
   try {
     res = await axios.get('/auth/me')
+    console.log('getting me', res.data)
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)
@@ -52,22 +64,21 @@ export const me = () => async dispatch => {
 }
 
 export const auth = (email, password, method) => async dispatch => {
-  let res
+  let user
   try {
     // set the guest ID in localStorage here for retrieval later if the user logs out or session expires
     const guest = (await axios.get('/auth/me')).data
-
     if (!guest.email) {
       //Defensiveness to make sure it's a guest
       window.localStorage.setItem('guestID', guest.id)
     }
-    res = await axios.post(`/auth/${method}`, {email, password})
+
+    user = (await axios.post(`/auth/${method}`, {email, password})).data
   } catch (authError) {
     return dispatch(getUser({error: authError}))
   }
-
   try {
-    dispatch(getUser(res.data))
+    dispatch(getUser(user))
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
@@ -76,9 +87,10 @@ export const auth = (email, password, method) => async dispatch => {
 
 export const logout = () => async dispatch => {
   try {
-    const guest = await axios.post('/auth/logout', {
+    await axios.post('/auth/logout')
+    const guest = (await axios.post('/auth/guest/retrieve', {
       guestID: window.localStorage.getItem('guestID')
-    })
+    })).data
     dispatch(getUser(guest))
     history.push('/')
   } catch (err) {
@@ -92,9 +104,8 @@ export const logout = () => async dispatch => {
 export default function(state = defaultUser, action) {
   switch (action.type) {
     case GET_USER:
-      return action.user
-    case REMOVE_USER:
-      return defaultUser
+      state = action.user
+      return state
     default:
       return state
   }
