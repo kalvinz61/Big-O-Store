@@ -56,3 +56,19 @@ export default function(state = initialState, action) {
       return state
   }
 }
+
+// state = {
+//     createdAt: "2020-05-09T18:59:19.533Z",
+//     id: "2c6445b2-0255-43c5-acac-53427de05499",
+//     products: (8)[{ … }, { … }, { … }, { … }, { … }, { … }, { … }, { … }],
+//     updatedAt: "2020-05-09T18:59:19.533Z",
+//     userId: "45e16acb-5173-42d0-9d4a-027ffbaa76f5",
+// }
+
+// action.product = {
+//     cartId: "2c6445b2-0255-43c5-acac-53427de05499",
+//     createdAt: "2020-05-09T18:59:19.572Z",
+//     productId: "c508d5e3-db08-4d37-8bf7-110e4532b923",
+//     quantity: 1,
+//     updatedAt: "2020-05-09T18:59:19.572Z"
+// }
