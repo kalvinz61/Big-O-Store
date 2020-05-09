@@ -45,9 +45,9 @@ const Navbar = ({handleClick, isLoggedIn, id}) => {
                   <Link to="/cart">Cart</Link>
                 </Button>
                 <Button color="inherit">
-                  <a href="#" onClick={handleClick}>
+                  <Link to="#" onClick={handleClick}>
                     Logout
-                  </a>
+                  </Link>
                 </Button>
               </div>
             ) : (
