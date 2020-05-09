@@ -1,5 +1,7 @@
 body {
   font-family: sans-serif;
+  background-color: Gainsboro;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
 a {
@@ -34,4 +36,13 @@ form div {
 img {
   width: 150px;
   height: 150px;
+}
+a:visited {
+  color: white;
+  background-color: transparent;
+  text-decoration: none;
+}
+h1 {
+  margin: 0;
+  padding: 0;
 }

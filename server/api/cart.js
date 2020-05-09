@@ -23,9 +23,6 @@ router.post('/add', async (req, res, next) => {
     // this means the user wasn't logged in and instead we have to find a cart with guestId
     if (!cart) cart = await Cart.findOne({where: {guestId: req.user.id}})
 
-    const product = await Product.findByPk(req.body.id)
-    await cart.addProduct(product)
-
     res.status(200).json({message: 'Product added successfully'})
   } catch (ex) {
     console.log(ex)
