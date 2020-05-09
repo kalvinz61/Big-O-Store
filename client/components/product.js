@@ -13,6 +13,7 @@ const Product = props => {
       <div>{product.name}</div>
       <div>${product.price}</div>
       <div>Description: {product.description}</div>
+      <img src={product.imageUrl} />
       <br />
       <Button variant="contained" color="primary">
         Add to cart
