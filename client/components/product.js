@@ -39,12 +39,11 @@ const Product = props => {
       <img src={product.imageUrl} />
       <br />
       <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-helper-label">Qty</InputLabel>
         <Select
-          labelId="demo-simple-select-helper-label"
           onChange={ev => {
             setQuantity(ev.target.value)
           }}
+          defaultValue={1}
         >
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
@@ -56,16 +55,16 @@ const Product = props => {
           <MenuItem value={8}>8</MenuItem>
           <MenuItem value={9}>9</MenuItem>
         </Select>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            addProd(product)
+          }}
+        >
+          Add to cart
+        </Button>
       </FormControl>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => {
-          addProd(product)
-        }}
-      >
-        Add to cart
-      </Button>
     </div>
   )
 }
