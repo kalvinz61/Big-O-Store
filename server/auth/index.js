@@ -1,31 +1,41 @@
 const router = require('express').Router()
 const User = require('../db/models/user')
-
 const Cart = require('../db/models/cart')
 const Product = require('../db/models/products')
 const CartsProducts = require('../db/models/carts_products')
 module.exports = router
 
-//create a new guest user and attach a new cart to it
-router.post('/guest', async (req, res, next) => {
+const createGuest = async () => {
+  const user = await User.create() //set the new guest
+  const newCart = await Cart.create({userId: user.id}) //assign a new cart to the new guest
+  user.cartId = newCart.id // join them
+  await user.save() //together
+  return user
+}
+
+//retrieve the guest ID from localStorage and log it in
+router.post('/guest/retrieve', async (req, res, next) => {
   if (req.user) {
-    return next()
+    if (req.user.id !== req.body.guestID) {
+      return res.status(200).json(req.user)
+    }
   }
-  if (req.body.guestID !== undefined) {
+  try {
     const user = await User.findByPk(req.body.guestID)
     req.login(user, err => (err ? next(err) : res.json(user)))
-  } else {
-    try {
-      const user = await User.create() //set the new guest
-      const newCart = await Cart.create({userId: user.id}) //assign a new cart to the new guest
-      user.cartId = newCart.id // join them
-      await user.save() //together
-      console.log(user)
-      req.login(user, err => (err ? next(err) : res.json(user)))
-    } catch (ex) {
-      console.log(ex)
-      next(ex)
-    }
+  } catch (ex) {
+    console.log(ex)
+  }
+})
+
+//create a new guest user and attach a new cart to it
+router.post('/guest/new', async (req, res, next) => {
+  try {
+    const guest = await createGuest()
+    return req.login(guest, err => (err ? next(err) : res.json(guest)))
+  } catch (ex) {
+    console.log(ex)
+    next(ex)
   }
 })
 
@@ -128,13 +138,11 @@ router.post('/signup', async (req, res, next) => {
 })
 
 //this route will be sent the guestID from localStorage in req.body
-router.post('/logout', async (req, res, next) => {
+router.post('/logout', (req, res, next) => {
   try {
-    console.log('USER SES', req.session)
     req.logout()
-    // req.session.destroy()
-    const guest = await User.findByPk(req.body.guestID)
-    req.login(guest, err => (err ? next(err) : res.json(guest)))
+    req.session.destroy()
+    res.redirect('/')
   } catch (ex) {
     console.log(ex)
   }
