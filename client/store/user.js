@@ -27,7 +27,6 @@ export const createGuestSession = () => async dispatch => {
     // if there's NO old guest session, we have to make a new one, and set it in local storage
     // to the new customer's browser. Local storage has no expiry date, unless we make one for it
     const newGuest = (await axios.post('/auth/guest/new')).data
-    console.log('creating new', newGuest)
     if (newGuest.id) {
       window.localStorage.setItem('guestID', newGuest.id)
       return dispatch(getUser(newGuest))
@@ -45,7 +44,6 @@ export const retrieveGuestSession = guestID => async dispatch => {
     // if that user has already been a guest before, we get that guest back
     const guest = (await axios.post(`/auth/guest/retrieve`, {guestID: guestID}))
       .data
-    console.log('retrieving', guest)
     return dispatch(getUser(guest))
   } catch (ex) {
     console.log(ex)
