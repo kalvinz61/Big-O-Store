@@ -15,16 +15,16 @@ router.get('/', async (req, res, next) => {
 })
 
 //add a new product to the cart
-router.post('/add', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
     let cart = await Cart.findOne({
       where: {userId: req.user.id},
       include: [Product]
     })
     const product = await Product.findByPk(req.body.id)
-    await cart.addProduct(product)
-
-    res.status(200).json({message: 'Product added successfully'})
+    await cart.addProduct(product).then(addedProduct => {
+      res.send(addedProduct)
+    })
   } catch (ex) {
     console.log(ex)
   }
