@@ -4,7 +4,7 @@ const Cart = require('../db/models/cart')
 const Product = require('../db/models/products')
 module.exports = router
 
-const {createGuest, mergeCartsOnLogin, mergeCartsOnSignup} = require('./utils')
+const {createGuest, mergeCartsOnLogin, mergeCartsOnSignup} = require('../utils')
 
 //create a new guest user and attach a new cart to it
 router.post('/guest/new', async (req, res, next) => {

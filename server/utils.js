@@ -1,7 +1,7 @@
-const User = require('../db/models/user')
-const Cart = require('../db/models/cart')
-const Product = require('../db/models/products')
-const CartsProducts = require('../db/models/carts_products')
+const User = require('./db/models/user')
+const Cart = require('./db/models/cart')
+const Product = require('./db/models/products')
+const CartsProducts = require('./db/models/carts_products')
 
 const createGuest = async () => {
   const user = await User.create() //set the new guest
