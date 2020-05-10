@@ -21,7 +21,6 @@ const _deleteProduct = product => ({
 export const loadCart = () => {
   return async dispatch => {
     const cart = (await axios.get('/api/cart')).data
-    console.log('dispatch load cart')
     dispatch(_loadCart(cart))
   }
 }
@@ -36,22 +35,20 @@ export const addToCart = product => {
 export const deleteProduct = product => {
   return async dispatch => {
     await axios.delete('/api/cartsproducts', {data: product})
-    console.log('should dispatch delete now', product) //does not get logged
     dispatch(_deleteProduct(product))
   }
 }
 const initialState = {}
-
 export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
       return action.cart
     case DELETE_CART_PRODUCT:
-      const newList = state.products.filter(product => {
-        return product.id !== action.productId
-      })
-      state.products = newList
-      return state
+      const newState = {...state}
+      newState.products = state.products.filter(
+        product => product.id !== action.product.productId
+      )
+      return newState
     default:
       return state
   }

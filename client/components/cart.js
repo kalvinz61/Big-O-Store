@@ -4,7 +4,7 @@ import CartItem from './cartItem'
 import {loadCart} from '../store/cart'
 const Cart = ({cart, fetchCart}) => {
   const {products} = cart
-  console.log(products)
+  console.log('cart', cart)
   useEffect(() => {
     fetchCart()
   }, [])
