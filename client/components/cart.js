@@ -14,7 +14,7 @@ const Cart = ({cart, fetchCart, addProd}) => {
       {products.map(product => {
         return <CartItem key={product.id} {...product} />
       })}
-      <button>Checkout</button>
+      <button type="button">Checkout</button>
     </div>
   ) : (
     <div>Your Cart is empty</div>
