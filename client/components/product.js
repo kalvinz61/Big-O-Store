@@ -24,10 +24,6 @@ const Product = props => {
   const classes = useStyles()
   const {load, product} = props
 
-  // const addProd = async (prod, qty) => {
-  //   await axios.post(`/api/cartsproducts`, prod)
-  // }
-
   useEffect(() => {
     load(props.match.params.id)
   }, [])
