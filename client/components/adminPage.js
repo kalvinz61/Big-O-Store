@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import axios from 'axios'
 
 import {AdminPageUsers} from './adminPageUsers'
 import {AdminPageProducts} from './adminPageProducts'

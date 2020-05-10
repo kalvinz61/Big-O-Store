@@ -4,7 +4,7 @@ import CartItem from './cartItem'
 import {loadCart} from '../store/cart'
 const Cart = ({cart, fetchCart}) => {
   const {products} = cart
-  console.log(products)
+  console.log('cart', cart)
   useEffect(() => {
     fetchCart()
   }, [])
@@ -13,7 +13,7 @@ const Cart = ({cart, fetchCart}) => {
       {products.map(product => {
         return <CartItem key={product.id} {...product} />
       })}
-      <button>Checkout</button>
+      <button type="button">Checkout</button>
     </div>
   ) : (
     <div>Your Cart is empty</div>
