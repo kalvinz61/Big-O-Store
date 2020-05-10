@@ -27,16 +27,10 @@ const ProductCard = product => {
         <img src={product.imageUrl} />
         <div>Price: {product.price}</div>
         <FormControl className={classes.formControl}>
-          <InputLabel id="demo-simple-select-helper-label">Qty</InputLabel>
           <Select
-            labelId="demo-simple-select-helper-label"
-            id="demo-simple-select-helper"
-            //value={qty}
+            defaultValue={1}
             //onChange={handleChange}
           >
-            <MenuItem value="">
-              <em>0</em>
-            </MenuItem>
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>
             <MenuItem value={3}>3</MenuItem>
@@ -47,10 +41,10 @@ const ProductCard = product => {
             <MenuItem value={8}>8</MenuItem>
             <MenuItem value={9}>9</MenuItem>
           </Select>
+          <Button variant="contained" color="primary">
+            Add to cart
+          </Button>
         </FormControl>
-        <Button variant="contained" color="primary">
-          Add to cart
-        </Button>
       </div>
     </div>
   )

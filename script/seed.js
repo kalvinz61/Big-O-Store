@@ -102,14 +102,14 @@ async function seed() {
   ])
 
   await Promise.all([
-    // carts[0].addProduct(products[0]),
-    // carts[0].addProduct(products[1]),
-    // carts[0].addProduct(products[2]),
-    // carts[0].addProduct(products[3]),
-    // carts[0].addProduct(products[4]),
-    // carts[0].addProduct(products[5]),
-    // carts[0].addProduct(products[6]),
-    // carts[0].addProduct(products[7]),
+    carts[0].addProduct(products[0]),
+    carts[0].addProduct(products[1]),
+    carts[0].addProduct(products[2]),
+    carts[0].addProduct(products[3]),
+    carts[0].addProduct(products[4]),
+    carts[0].addProduct(products[5]),
+    carts[0].addProduct(products[6]),
+    carts[0].addProduct(products[7]),
     carts[1].addProduct(products[1]),
     carts[2].addProduct(products[3]),
     carts[2].addProduct(products[4]),

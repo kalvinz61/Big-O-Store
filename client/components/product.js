@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
 import {addProduct} from '../store/cart'
-import Axios from 'axios'
+import axios from 'axios'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -22,11 +22,10 @@ const useStyles = makeStyles(theme => ({
 
 const Product = props => {
   const [quantity, setQuantity] = useState(1)
-  console.log(quantity)
   const classes = useStyles()
   const {load, product} = props
-  const addProd = async prod => {
-    await Axios.post(`/api/cartsproducts`, prod)
+  const addProd = async (prod, qty) => {
+    await axios.post(`/api/cartsproducts`, prod)
   }
   useEffect(() => {
     load(props.match.params.id)
@@ -40,10 +39,10 @@ const Product = props => {
       <br />
       <FormControl className={classes.formControl}>
         <Select
+          defaultValue={1}
           onChange={ev => {
             setQuantity(ev.target.value)
           }}
-          defaultValue={1}
         >
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>

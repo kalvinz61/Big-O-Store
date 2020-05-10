@@ -12,7 +12,7 @@ router.post('/', async (req, res, next) => {
       userId: req.user.id
     }
   })
-  CartsProducts.create({cartId: cart.id, productId: req.body.id})
+  await CartsProducts.create({cartId: cart.id, productId: req.body.id})
 })
 
 router.delete('/', (req, res, next) => {
