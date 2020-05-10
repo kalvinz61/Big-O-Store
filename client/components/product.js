@@ -7,8 +7,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {addProduct} from '../store/cart'
-import axios from 'axios'
+import {addToCart} from '../store/cart'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -79,7 +78,7 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     load: id => dispatch(loadProduct(id)),
-    add: (product, qty) => dispatch(addProduct(product, qty))
+    add: (product, qty) => dispatch(addToCart(product, qty))
   }
 }
 

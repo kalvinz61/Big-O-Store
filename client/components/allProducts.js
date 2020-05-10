@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import ProductCard from './productCard'
 
 const AllProducts = ({products}) => {
+  console.log('products', products)
   return (
     <div className="allProducts">
       {products.map(product => {

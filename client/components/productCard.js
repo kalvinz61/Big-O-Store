@@ -1,6 +1,6 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {addProduct} from '../store/cart'
+import {addToCart} from '../store/cart'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
@@ -21,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 
 const ProductCard = product => {
   const classes = useStyles()
+  const [quantity, setQuantity] = useState(1)
   return (
     <div>
       <div className="listProduct">
@@ -30,7 +31,9 @@ const ProductCard = product => {
         <FormControl className={classes.formControl}>
           <Select
             defaultValue={1}
-            //onChange={handleChange}
+            onChange={ev => {
+              setQuantity(ev.target.value)
+            }}
           >
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>
@@ -62,7 +65,7 @@ const mapState = ({product}) => {
 }
 
 const mapDispatch = dispatch => ({
-  add: (product, qty) => dispatch(addProduct(product, qty))
+  add: (product, qty) => dispatch(addToCart(product, qty))
 })
 
 export default connect(mapState, mapDispatch)(ProductCard)
