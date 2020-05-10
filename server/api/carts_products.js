@@ -1,11 +1,12 @@
 const router = require('express').Router()
-const {CartsProducts, Cart} = require('../db/models')
+const {CartsProducts, Cart, Product} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
   await CartsProducts.findAll().then(products => res.send(products))
 })
 
 router.post('/', async (req, res, next) => {
+  console.log(req.body)
   const cart = await Cart.findOne({
     where: {
       userId: req.user.id
@@ -24,11 +25,20 @@ router.post('/', async (req, res, next) => {
         res.status(200).send(updatedProduct)
       })
   } else {
-    await CartsProducts.create({cartId: cart.id, productId: req.body.id}).then(
-      newProduct => {
-        res.status(201).send(newProduct)
-      }
-    )
+    const product = await Product.findOne({where: {id: req.body.id}})
+    await cart.addProduct(product)
+    await Cart.findOne({
+      where: {
+        userId: req.user.id
+      },
+      include: [
+        {
+          model: Product
+        }
+      ]
+    }).then(updated => {
+      res.send(updated)
+    })
   }
 })
 

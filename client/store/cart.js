@@ -45,8 +45,6 @@ export default function(state = initialState, action) {
     case LOAD_CART:
       return action.cart
     case ADD_TO_CART:
-      console.log(state.products)
-      console.log(action)
       return {...state, products: [...state.products, action.product]}
     case DELETE_CART_PRODUCT:
       return {
