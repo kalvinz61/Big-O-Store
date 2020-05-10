@@ -40,18 +40,18 @@ export const deleteProduct = product => {
 }
 const initialState = {}
 export default function(state = initialState, action) {
-  let newState = {...state}
   switch (action.type) {
     case LOAD_CART:
       return action.cart
     case ADD_PRODUCT:
-      newState.products = [...state.products, action.product]
-      return newState
+      return {...state, products: [...state.products, action.product]}
     case DELETE_CART_PRODUCT:
-      newState.products = state.products.filter(
-        product => product.id !== action.product.productId
-      )
-      return newState
+      return {
+        ...state,
+        products: state.products.filter(
+          product => product.id !== action.product.productId
+        )
+      }
     default:
       return state
   }

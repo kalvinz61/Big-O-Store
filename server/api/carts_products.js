@@ -10,13 +10,6 @@ router.post('/', async (req, res, next) => {
     where: {
       userId: req.user.id
     }
-    // include: [{
-    //     model: CartsProducts,
-    //     where: {
-    //         cartId: cart.id,
-    //         productId: req.body.id
-    //     }
-    // }]
   })
   const foundItem = await CartsProducts.findOne({
     where: {
