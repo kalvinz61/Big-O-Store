@@ -1,15 +1,26 @@
 const router = require('express').Router()
-const {Order, CartsProducts, Cart} = require('../db/models')
+const {Order, Cart} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
-  await Order.findAll().then(order => res.send(order))
+  await Order.findAll({
+    where: {
+      orderId: req.order.id
+    }
+  }).then(order => res.send(order))
 })
 
-router.get('/:id', (req, res, next) => {
-  Order.findOne({
+router.post('/', async (req, res, next) => {
+  const cart = await Cart.findOne({
     where: {
-      orderId: req.body.orderId
+      userId: req.user.id
     }
+  })
+  await Order.create({
+    id: req.body.orderId,
+    cartId: cart.id,
+    productId: req.body.id
+  }).then(newOrder => {
+    res.status(201).send(newOrder)
   })
 })
 

@@ -2,7 +2,8 @@ import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import CartItem from './cartItem'
-import {loadCart} from '../store/cart'
+import {loadCart, deleteProduct} from '../store/cart'
+import {addOrder} from '../store/orders'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
 
@@ -18,12 +19,19 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Checkout = ({cart, fetchCart}) => {
+const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
   const classes = useStyles()
   const {products} = cart
   useEffect(() => {
     fetchCart()
   }, [])
+  const placeOrder = () => {
+    products.map(product => {
+      //generate UUIDV4 and send it
+      removeCartItem(product)
+      addItemToOrder(product)
+    })
+  }
   return products ? (
     <div>
       <span> Checkout ({products.length} items)</span>
@@ -46,7 +54,14 @@ const Checkout = ({cart, fetchCart}) => {
       </div>
       <hr />
       <Button color="inherit">
-        <Link to="/confirmation">Place Order</Link>
+        <Link
+          to="/confirmation"
+          onClick={() => {
+            placeOrder()
+          }}
+        >
+          Place Order
+        </Link>
       </Button>
       <hr />
     </div>
@@ -60,7 +75,9 @@ const mapState = ({cart}) => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(loadCart())
+  fetchCart: () => dispatch(loadCart()),
+  removeCartItem: () => dispatch(deleteProduct()),
+  addItemToOrder: () => dispatch(addOrder())
 })
 
 export default connect(mapState, mapDispatch)(Checkout)
