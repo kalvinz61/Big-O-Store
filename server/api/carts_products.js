@@ -6,17 +6,40 @@ router.get('/', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  console.log(req.body)
   const cart = await Cart.findOne({
     where: {
       userId: req.user.id
     }
+    // include: [{
+    //     model: CartsProducts,
+    //     where: {
+    //         cartId: cart.id,
+    //         productId: req.body.id
+    //     }
+    // }]
   })
-  await CartsProducts.create({cartId: cart.id, productId: req.body.id})
+  const foundItem = await CartsProducts.findOne({
+    where: {
+      cartId: cart.id,
+      productId: req.body.id
+    }
+  })
+  if (foundItem) {
+    foundItem
+      .update({quantity: foundItem.quantity + 1})
+      .then(updatedProduct => {
+        res.status(200).send(updatedProduct)
+      })
+  } else {
+    await CartsProducts.create({cartId: cart.id, productId: req.body.id}).then(
+      newProduct => {
+        res.status(201).send(newProduct)
+      }
+    )
+  }
 })
 
 router.delete('/', (req, res, next) => {
-  console.log(req.body)
   CartsProducts.findOne({
     where: {
       cartId: req.body.cartId,

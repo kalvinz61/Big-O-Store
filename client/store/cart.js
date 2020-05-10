@@ -9,9 +9,9 @@ const _loadCart = cart => ({
   cart
 })
 
-const _addProduct = cart => ({
+const _addProduct = product => ({
   type: ADD_PRODUCT,
-  cart
+  product
 })
 
 const _deleteProduct = product => ({
@@ -27,8 +27,8 @@ export const loadCart = () => {
 
 export const addProduct = (product, qty) => {
   return async dispatch => {
-    await axios.post('/api/cartsproducts', {product})
-    dispatch(_addProduct(product))
+    const newProd = (await axios.post('/api/cartsproducts', product)).data
+    dispatch(_addProduct(newProd))
   }
 }
 
@@ -40,13 +40,14 @@ export const deleteProduct = product => {
 }
 const initialState = {}
 export default function(state = initialState, action) {
+  let newState = {...state}
   switch (action.type) {
     case LOAD_CART:
       return action.cart
-    // case ADD_PRODUCT:
-    //   return action.cart
+    case ADD_PRODUCT:
+      newState.products = [...state.products, action.product]
+      return newState
     case DELETE_CART_PRODUCT:
-      const newState = {...state}
       newState.products = state.products.filter(
         product => product.id !== action.product.productId
       )

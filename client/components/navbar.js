@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Navbar = ({handleClick, isLoggedIn, id}) => {
+const Navbar = ({handleClick, isLoggedIn, id, cart}) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -96,7 +96,8 @@ const Navbar = ({handleClick, isLoggedIn, id}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.email,
-    id: state.user.id
+    id: state.user.id,
+    cart: state.cart
   }
 }
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import {addProduct} from '../store/cart'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
@@ -41,7 +42,11 @@ const ProductCard = product => {
             <MenuItem value={8}>8</MenuItem>
             <MenuItem value={9}>9</MenuItem>
           </Select>
-          <Button variant="contained" color="primary">
+          <Button
+            onClick={() => product.add(product)}
+            variant="contained"
+            color="primary"
+          >
             Add to cart
           </Button>
         </FormControl>
@@ -56,4 +61,8 @@ const mapState = ({product}) => {
   }
 }
 
-export default connect(mapState, null)(ProductCard)
+const mapDispatch = dispatch => ({
+  add: (product, qty) => dispatch(addProduct(product, qty))
+})
+
+export default connect(mapState, mapDispatch)(ProductCard)

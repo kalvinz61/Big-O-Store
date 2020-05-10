@@ -24,9 +24,11 @@ const Product = props => {
   const [quantity, setQuantity] = useState(1)
   const classes = useStyles()
   const {load, product} = props
-  const addProd = async (prod, qty) => {
-    await axios.post(`/api/cartsproducts`, prod)
-  }
+
+  // const addProd = async (prod, qty) => {
+  //   await axios.post(`/api/cartsproducts`, prod)
+  // }
+
   useEffect(() => {
     load(props.match.params.id)
   }, [])
@@ -58,7 +60,7 @@ const Product = props => {
           variant="contained"
           color="primary"
           onClick={() => {
-            addProd(product)
+            props.add(product)
           }}
         >
           Add to cart
@@ -76,9 +78,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    load: id => {
-      dispatch(loadProduct(id))
-    }
+    load: id => dispatch(loadProduct(id)),
+    add: (product, qty) => dispatch(addProduct(product, qty))
   }
 }
 
