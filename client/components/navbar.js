@@ -3,35 +3,92 @@ import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {logout} from '../store'
+import {makeStyles} from '@material-ui/core/styles'
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Typography from '@material-ui/core/Typography'
+import Button from '@material-ui/core/Button'
 
-const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
-  <div>
-    <Link to="/home">
-      <h1>AUTOMANIA</h1>
-    </Link>
-    <nav>
-      {isLoggedIn ? (
-        <div>
-          {/* The navbar will show these links after you log in */}
-          <Link to="/home">Home</Link>
-          <Link to="/cart">Cart</Link>
-          <a href="#" onClick={handleClick}>
-            Logout
-          </a>
-          {isAdmin && <Link to="/admin">Admin page</Link>}
-        </div>
-      ) : (
-        <div>
-          {/* The navbar will show these links before you log in */}
-          <Link to="/login">Login</Link>
-          <Link to="/signup">Sign Up</Link>
-          <Link to="/cart">Cart</Link>
-        </div>
-      )}
-    </nav>
-    <hr />
-  </div>
-)
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  menuButton: {
+    marginRight: theme.spacing(2)
+  },
+  title: {
+    flexGrow: 1
+  }
+}))
+
+const Navbar = ({handleClick, isLoggedIn, id, cart}) => {
+  const classes = useStyles()
+  return (
+    <div className={classes.root}>
+      <nav>
+        <AppBar position="static">
+          <Toolbar>
+            <Typography variant="h6" className={classes.title}>
+              <Button color="inherit">
+                <Link to="/home">
+                  <h1>AUTOMANIA</h1>
+                </Link>
+              </Button>
+            </Typography>
+            {isLoggedIn ? (
+              <div>
+                {/* The navbar will show these links after you log in */}
+                <Button color="inherit">
+                  <Link to="/home">Home</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/cart">Cart</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="#" onClick={handleClick}>
+                    Logout
+                  </Link>
+                </Button>
+              </div>
+            ) : (
+              <div>
+                {/* The navbar will show these links before you log in */}
+                <Button color="inherit">
+                  <Link to="/cart">Cart</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/login">Login</Link>
+                </Button>
+                <Button color="inherit">
+                  <Link to="/signup">Sign Up</Link>
+                </Button>
+              </div>
+            )}
+          </Toolbar>
+          {/* <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+          </Typography>
+            <Button>Alternators and Starters</Button>
+            <Button>{'Apparel & Accessories'}</Button>
+            <Button>Batteries</Button>
+            <Button>{`Belts & Hoses`}</Button>
+            <Button>Brakes</Button>
+            <Button>Drivetrain</Button>
+            <Button>{`Engine Heating & Cooling`}</Button>
+            <Button>{`Engines, Parts & Gaskets`}</Button>
+            <Button>Exhaust</Button>
+            <Button>{`Fasteners & Hardware`}</Button>
+            <Button>Filters</Button>
+            <Button>{`Fuel & Emission Systems`}</Button>
+            <Button>{`Headlights, Vision & Safety`}</Button>
+            <Button>{`Heating, Cooling & Climate Control`}</Button>
+        </Toolbar> */}
+        </AppBar>
+      </nav>
+      <hr />
+    </div>
+  )
+}
 
 /**
  * CONTAINER
@@ -39,7 +96,8 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => (
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.email,
-    isAdmin: !!state.user.isAdmin
+    id: state.user.id,
+    cart: state.cart
   }
 }
 

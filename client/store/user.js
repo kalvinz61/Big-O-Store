@@ -54,7 +54,7 @@ export const me = () => async dispatch => {
   let res
   try {
     res = await axios.get('/auth/me')
-    console.log('getting me', res.data)
+    //console.log('getting me', res.data)
     dispatch(getUser(res.data || defaultUser))
   } catch (err) {
     console.error(err)

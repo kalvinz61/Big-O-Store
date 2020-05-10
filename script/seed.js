@@ -119,14 +119,14 @@ async function seed() {
     carts[4].addProduct(products[4])
   ])
   //updating a cart item quantity
-  await CartsProducts.findOne({
-    where: {
-      cartId: carts[0].id,
-      productId: products[0].id
-    }
-  }).then(foundCartItem => {
-    foundCartItem.update({quantity: foundCartItem.quantity + 5})
-  })
+  // await CartsProducts.findOne({
+  //   where: {
+  //     cartId: carts[0].id,
+  //     productId: products[0].id
+  //   }
+  // }).then(foundCartItem => {
+  //   foundCartItem.update({quantity: foundCartItem.quantity + 5})
+  // })
 
   // const log = await Cart.findOne({
   //   where: {id: carts[0].id},
