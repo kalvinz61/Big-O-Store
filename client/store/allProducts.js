@@ -30,6 +30,7 @@ export const loadProducts = () => async dispatch => {
 
 export const addProduct = data => async dispatch => {
   try {
+    console.log('DATA', data)
     const product = (await axios.post('/api/products', data)).data
     dispatch(_addProduct(product))
   } catch (err) {
