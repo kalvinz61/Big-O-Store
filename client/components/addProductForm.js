@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {addProduct} from '../store/allProducts'
 
-const _AddProductForm = () => {
+const _AddProductForm = ({addProd}) => {
   const [name, setName] = useState('')
   const [price, setPrice] = useState('')
   const [stock, setStock] = useState('')
@@ -11,7 +11,7 @@ const _AddProductForm = () => {
 
   function handleSubmit(e) {
     e.preventDefault()
-    addProduct(name, price, stock, description, imageURL)
+    addProd(name, Number(price), Number(stock), description, imageURL)
   }
 
   return (
@@ -50,7 +50,7 @@ const _AddProductForm = () => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addProduct({name, price, stock, description, imageURL}) {
+    addProd(name, price, stock, description, imageURL) {
       return dispatch(addProduct({name, price, stock, description, imageURL}))
     }
   }
