@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Navbar = ({handleClick, isLoggedIn, id, cart}) => {
+const Navbar = ({handleClick, isLoggedIn, id, cart, isAdmin}) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -49,6 +49,11 @@ const Navbar = ({handleClick, isLoggedIn, id, cart}) => {
                     Logout
                   </Link>
                 </Button>
+                {isAdmin && (
+                  <Button color="inherit">
+                    <Link to="/admin">Admin page</Link>
+                  </Button>
+                )}
               </div>
             ) : (
               <div>
@@ -96,6 +101,7 @@ const Navbar = ({handleClick, isLoggedIn, id, cart}) => {
 const mapState = state => {
   return {
     isLoggedIn: !!state.user.email,
+    isAdmin: !!state.user.isAdmin,
     id: state.user.id,
     cart: state.cart
   }
