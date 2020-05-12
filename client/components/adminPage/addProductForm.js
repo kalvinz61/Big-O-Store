@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {addProduct} from '../store/allProducts'
+import {addProduct} from '../../store/allProducts'
 
 const _AddProductForm = ({addProd}) => {
   const [name, setName] = useState('')

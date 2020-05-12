@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {AddProductForm} from './addProductForm'
-import {loadProducts} from '../store/allProducts'
+import {loadProducts} from '../../store/allProducts'
 
 const _AdminPageProducts = ({products, loadProds}) => {
   const [showAddForm, setShowAddForm] = useState(false)
