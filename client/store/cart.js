@@ -26,9 +26,12 @@ export const loadCart = () => {
   }
 }
 
-export const addToCart = (product, qty) => {
+export const addToCart = (product, quantity) => {
   return async dispatch => {
-    const newProd = (await axios.post('/api/cart', product)).data
+    const newProd = (await axios.post('/api/cartsproducts', {
+      product,
+      quantity
+    })).data
     dispatch(_addToCart(newProd))
   }
 }

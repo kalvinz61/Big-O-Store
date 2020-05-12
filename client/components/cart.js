@@ -4,11 +4,10 @@ import CartItem from './cartItem'
 import {loadCart, addToCart} from '../store/cart'
 const Cart = ({cart, fetchCart, addProd}) => {
   const {products} = cart
-  console.log(products)
   useEffect(() => {
     fetchCart()
   }, [])
-  return products ? (
+  return products && products.length ? (
     <div>
       {products.map(product => {
         return <CartItem key={product.id} {...product} />
