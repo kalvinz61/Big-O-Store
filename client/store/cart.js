@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const LOAD_CART = 'LOAD_CART'
-const ADD_PRODUCT = 'ADD_PRODUCT'
+const ADD_TO_CART = 'ADD_TO_CART'
 const DELETE_CART_PRODUCT = 'DELETE_CART_PRODUCT'
 
 const _loadCart = cart => ({
@@ -9,8 +9,8 @@ const _loadCart = cart => ({
   cart
 })
 
-const _addProduct = product => ({
-  type: ADD_PRODUCT,
+const _addToCart = product => ({
+  type: ADD_TO_CART,
   product
 })
 
@@ -18,6 +18,7 @@ const _deleteProduct = product => ({
   type: DELETE_CART_PRODUCT,
   product
 })
+
 export const loadCart = () => {
   return async dispatch => {
     const cart = (await axios.get('/api/cart')).data
@@ -25,10 +26,13 @@ export const loadCart = () => {
   }
 }
 
-export const addProduct = (product, qty) => {
+export const addToCart = (product, quantity) => {
   return async dispatch => {
-    const newProd = (await axios.post('/api/cartsproducts', product)).data
-    dispatch(_addProduct(newProd))
+    const newProd = (await axios.post('/api/cartsproducts', {
+      product,
+      quantity
+    })).data
+    dispatch(_addToCart(newProd))
   }
 }
 
@@ -43,7 +47,7 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case LOAD_CART:
       return action.cart
-    case ADD_PRODUCT:
+    case ADD_TO_CART:
       return {...state, products: [...state.products, action.product]}
     case DELETE_CART_PRODUCT:
       return {

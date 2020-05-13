@@ -27,11 +27,13 @@ form div {
   justify-content: space-evenly;
 }
 .listProduct {
+  display: flex;
+  flex-direction: column;
   border: solid 2px black;
-  width: 200px;
-  height: 200px;
+  border-radius: 1rem;
   padding: 1rem;
   margin: 1rem;
+  width: 400px;
 }
 img {
   width: 150px;

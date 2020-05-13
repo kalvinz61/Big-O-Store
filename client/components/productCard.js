@@ -1,10 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
-import {addProduct} from '../store/cart'
+import {addToCart} from '../store/cart'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
-import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
@@ -21,16 +20,26 @@ const useStyles = makeStyles(theme => ({
 
 const ProductCard = product => {
   const classes = useStyles()
+  const [quantity, setQuantity] = useState(1)
   return (
-    <div>
-      <div className="listProduct">
-        <Link to={`/products/${product.id}`}>{product.name}</Link>
-        <img src={product.imageUrl} />
-        <div>Price: {product.price}</div>
-        <FormControl className={classes.formControl}>
+    <div className="listProduct">
+      <Link to={`/products/${product.id}`}>{product.name}</Link>
+      <img src={product.imageUrl} />
+      <div>
+        <h3>Description:</h3> {product.description}
+      </div>
+      <div>
+        <h4>Price: </h4>
+        {product.price}
+      </div>
+      <FormControl className={classes.formControl}>
+        <label>
+          Quantity:
           <Select
             defaultValue={1}
-            //onChange={handleChange}
+            onChange={ev => {
+              setQuantity(ev.target.value)
+            }}
           >
             <MenuItem value={1}>1</MenuItem>
             <MenuItem value={2}>2</MenuItem>
@@ -42,27 +51,28 @@ const ProductCard = product => {
             <MenuItem value={8}>8</MenuItem>
             <MenuItem value={9}>9</MenuItem>
           </Select>
-          <Button
-            onClick={() => product.add(product)}
-            variant="contained"
-            color="primary"
-          >
-            Add to cart
-          </Button>
-        </FormControl>
-      </div>
+        </label>
+
+        <Button
+          onClick={() => {
+            product.add(product, quantity)
+          }}
+          variant="contained"
+          color="primary"
+        >
+          Add to cart
+        </Button>
+      </FormControl>
     </div>
   )
 }
 
-const mapState = ({product}) => {
-  return {
-    product
-  }
-}
+// const mapState = ({ cart }) => ({
+//   cart
+// })
 
 const mapDispatch = dispatch => ({
-  add: (product, qty) => dispatch(addProduct(product, qty))
+  add: (product, qty) => dispatch(addToCart(product, qty))
 })
 
-export default connect(mapState, mapDispatch)(ProductCard)
+export default connect(null, mapDispatch)(ProductCard)
