@@ -1,15 +1,13 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import CartItem from './cartItem'
-import {loadCart, addProduct} from '../store/cart'
+import {loadCart, addToCart} from '../store/cart'
 const Cart = ({cart, fetchCart, addProd}) => {
   const {products} = cart
-  console.log('cart', cart)
   useEffect(() => {
     fetchCart()
-    addProd()
   }, [])
-  return products ? (
+  return products && products.length ? (
     <div>
       {products.map(product => {
         return <CartItem key={product.id} {...product} />
@@ -27,7 +25,7 @@ const mapState = ({cart}) => ({
 
 const mapDispatch = dispatch => ({
   fetchCart: () => dispatch(loadCart()),
-  addProd: () => dispatch(addProduct())
+  addProd: () => dispatch(addToCart())
 })
 
 export default connect(mapState, mapDispatch)(Cart)
