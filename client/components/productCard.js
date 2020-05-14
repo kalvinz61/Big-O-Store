@@ -7,14 +7,25 @@ import {makeStyles} from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
+import {Card, CardMedia} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
+    margin: 'auto',
     minWidth: 120
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
+  },
+  image: {
+    height: 300,
+    marginBottom: '.5rem'
+  },
+  cardStyle: {
+    margin: '1.5rem',
+    width: '25vw',
+    height: '55vh',
+    backgroundColor: '#ffb647'
   }
 }))
 
@@ -22,6 +33,7 @@ const ProductCard = product => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   return (
+
     <div>
       <h2>{product.name}</h2>
       <img src={product.imageUrl} />
@@ -54,7 +66,32 @@ const ProductCard = product => {
       </div>
       <div>
         <h4>Price:</h4> ${product.price}
+
+//     <Card className={classes.cardStyle}>
+//       <h3
+//         style={{
+//           textAlign: 'center'
+//         }}
+//       >
+//         {product.name}
+//       </h3>
+//       <Link to={`/products/${product.id}`}>
+//         <CardMedia
+//           className={classes.image}
+//           image={product.imageUrl}
+//           title={product.name}
+//         />{' '}
+//       </Link>
+
+//       <div
+//         style={{
+//           margin: '.5rem'
+//         }}
+//       >
+//         Price: {product.price}
+
       </div>
+
       <FormControl className={classes.formControl}>
         <label>
           Quantity:
@@ -86,7 +123,7 @@ const ProductCard = product => {
           Add to cart
         </Button>
       </FormControl>
-    </div>
+    </Card>
   )
 }
 
