@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
@@ -18,10 +18,6 @@ const useStyles = makeStyles(theme => ({
 
 const Confirmation = props => {
   const classes = useStyles()
-  const {load} = props
-  useEffect(() => {
-    load()
-  }, [])
   return (
     <div>
       <hr />
@@ -34,8 +30,4 @@ const Confirmation = props => {
   )
 }
 
-const mapDispatch = dispatch => ({
-  load: () => dispatch(loadOrder())
-})
-
-export default connect(null, mapDispatch)(Confirmation)
+export default connect(null, null)(Confirmation)

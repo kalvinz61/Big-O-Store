@@ -2,9 +2,13 @@ const router = require('express').Router()
 const {Order, Cart} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
+  await Order.findAll().then(order => res.send(order))
+})
+
+router.get('/:id', async (req, res, next) => {
   await Order.findAll({
     where: {
-      orderId: req.order.id
+      orderNumber: req.order.id
     }
   }).then(order => res.send(order))
 })
@@ -16,7 +20,7 @@ router.post('/', async (req, res, next) => {
     }
   })
   await Order.create({
-    id: req.body.orderId,
+    orderNumber: req.body.orderId,
     cartId: cart.id,
     productId: req.body.id
   }).then(newOrder => {

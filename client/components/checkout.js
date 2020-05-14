@@ -6,6 +6,7 @@ import {loadCart, deleteProduct} from '../store/cart'
 import {addOrder} from '../store/orders'
 import {makeStyles} from '@material-ui/core/styles'
 import Button from '@material-ui/core/Button'
+import {v4 as uuidv4} from 'uuid'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -20,6 +21,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
+  const orderNumber = uuidv4()
   const classes = useStyles()
   const {products} = cart
   useEffect(() => {
@@ -27,12 +29,12 @@ const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
   }, [])
   const placeOrder = () => {
     products.map(product => {
-      //generate UUIDV4 and send it
+      //generate UUIDV4 and send it as an order id for all the products in cart
       removeCartItem(product)
-      addItemToOrder(product)
+      addItemToOrder(orderNumber, product.id, product.carts_products.quantity)
     })
   }
-  return products ? (
+  return (
     <div>
       <span> Checkout ({products.length} items)</span>
       <hr />
@@ -65,8 +67,6 @@ const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
       </Button>
       <hr />
     </div>
-  ) : (
-    <div>Your Cart is empty, go buy some products!</div>
   )
 }
 

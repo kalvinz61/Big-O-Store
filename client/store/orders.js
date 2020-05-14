@@ -1,7 +1,13 @@
 import axios from 'axios'
 
+const LOAD_ALL_ORDERS = 'LOAD_ALL_ORDERS'
 const LOAD_ORDER = 'LOAD_ORDER'
 const ADD_ORDER = 'ADD_ORDER'
+
+const _loadAllOrders = orders => ({
+  type: LOAD_ALL_ORDERS,
+  orders
+})
 
 const _loadOrder = order => ({
   type: LOAD_ORDER,
@@ -13,9 +19,16 @@ const _addOrder = product => ({
   product
 })
 
+export const loadAllOrders = () => {
+  return async dispatch => {
+    const orders = (await axios.get('/api/orders')).data
+    dispatch(_loadAllOrders(orders))
+  }
+}
+
 export const loadOrder = () => {
   return async dispatch => {
-    const order = (await axios.get('/api/orders')).data
+    const order = (await axios.get('/api/orders/:id')).data
     dispatch(_loadOrder(order))
   }
 }
@@ -31,6 +44,8 @@ const initialState = {}
 
 export default function(state = initialState, action) {
   switch (action.type) {
+    case LOAD_ALL_ORDERS:
+      return action.order
     case LOAD_ORDER:
       return action.order
     case ADD_ORDER:

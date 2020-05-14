@@ -33,10 +33,64 @@ const Product = db.define('product', {
     type: TEXT,
     defaultValue: '',
     validate: {
-      len: [0, 1000]
+      len: [0, 100000]
     }
   },
   imageUrl: {
+    type: STRING,
+    defaultValue: ''
+  },
+  height: {
+    type: INTEGER,
+    defaultValue: 0,
+    allowNull: true
+  },
+  width: {
+    type: INTEGER,
+    defaultValue: 0,
+    allowNull: true
+  },
+  length: {
+    type: DECIMAL(4, 2),
+    validate: {
+      isNumeric: true,
+      isDecimal: true,
+      min: 0.01,
+      max: 9999.99
+    }
+  },
+  partNumber: {
+    type: STRING,
+    defaultValue: '',
+    allowNull: true
+  },
+  weight: {
+    type: DECIMAL(4, 2),
+    validate: {
+      isNumeric: true,
+      isDecimal: true,
+      min: 0.01,
+      max: 9999.99
+    }
+  },
+  rating: {
+    type: DECIMAL(5, 2),
+    validate: {
+      isNumeric: true,
+      isDecimal: true,
+      min: 0.01,
+      max: 5.0
+    }
+  },
+  brand: {
+    type: STRING,
+    defaultValue: ''
+  },
+  category: {
+    type: STRING,
+    defaultValue: ''
+  },
+  color: {
     type: STRING,
     defaultValue: ''
   }

@@ -1,11 +1,10 @@
-import React, {useEffect, useState, Form} from 'react'
+import React, {useEffect} from 'react'
 import ProductCard from './productCard'
 import {connect} from 'react-redux'
 import {loadProducts} from '../store/allProducts'
 import {addToCart} from '../store/cart'
 
 const Product = props => {
-  const [quantity, setQuantity] = useState(1)
   const {load, products} = props
   const product = products.find(prod => prod.id === props.match.params.id)
   useEffect(() => {
