@@ -29,8 +29,10 @@ const AllProducts = props => {
       {products.map(product => {
         return (
           <div key={product.id} className="listProduct">
-            <Link to={`/products/${product.id}`}>{product.name}</Link>
-            <img src={product.imageUrl} />
+            <Link to={`/products/${product.id}`}>
+              <h3>{product.name}</h3>
+              <img src={product.imageUrl} />
+            </Link>
             <FormControl className={classes.formControl}>
               <label>
                 Quantity:

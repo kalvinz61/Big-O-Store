@@ -78,7 +78,7 @@ const Product = db.define('product', {
     validate: {
       isNumeric: true,
       isDecimal: true,
-      min: 0.01,
+      min: 0.0,
       max: 5.0
     }
   },

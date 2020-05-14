@@ -278,6 +278,90 @@ async function seed() {
       brand: 'Motorcraft'
     }),
     Product.create({
+      name: 'Autolite XP Iridium Spark Plug XP3923',
+      price: 7.99,
+      stock: 24,
+      description:
+        'Our best spark plug! Autolite has over 100 years of engineering experience and has sold over 11 billion plugs. Designed and engineered in the USA, the Autolite Iridium XP spark plugs feature an iridium-enhanced 0.6 mm finewire design and patented platinum sidewire technology to provide better overall durability and a more focused ignition for enhanced ignitability and performance. Features double iridium-enhanced alloy technology center electrode for improved durability and wear resistance. 0.6 mm finewire design improves ignitability, Patented V-trimmed platinum sidewire technology resists we, OE equivalent design is engineered for every engine, Designed for better overall durability with virtually no gap erosion',
+      partNumber: 'XP3923',
+      weight: 0.45,
+      rating: 4.2,
+      length: 0.75,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/aut/XP3923/image/3/',
+      category: 'Spark plug',
+      brand: 'Autolite'
+    }),
+    Product.create({
+      name: 'Autolite XP Iridium Spark Plug XP5702',
+      price: 7.99,
+      stock: 8,
+      description:
+        'Our best spark plug! Autolite has over 100 years of engineering experience and has sold over 11 billion plugs. Designed and engineered in the USA, the Autolite Iridium XP spark plugs feature an iridium-enhanced 0.6 mm finewire design and patented platinum sidewire technology to provide better overall durability and a more focused ignition for enhanced ignitability and performance. Features double iridium-enhanced alloy technology center electrode for improved durability and wear resistance. 0.6 mm finewire design improves ignitability, Patented V-trimmed platinum sidewire technology resists we, OE equivalent design is engineered for every engine, Designed for better overall durability with virtually no gap erosion',
+      partNumber: 'XP3923',
+      weight: 0.09,
+      rating: 5.0,
+      length: 0.66,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/aut/XP5702/image/3/',
+      category: 'Spark plug',
+      brand: 'Autolite'
+    }),
+    Product.create({
+      name: 'Duralast Ceramic Brake Pads D866',
+      price: 31.99,
+      stock: 38,
+      description:
+        'Duralast brake pads are designed to provide reliable performance for the everyday driver. Duralast brake pads use platform specific friction materials with both Ceramic and Semi-Metallic formulations. If you are experiencing longer stopping distances or if your brakes are squealing, Duralast Pads are a good replacement choice for you. Comprehensive vehicle coverage. Duralast Official Brakes of NASCAR, Reliable stopping performance, Single layer steel shim for noise dampening, Powder coated backing plate to resist corrosion, Ceramic friction formula',
+      partNumber: 'D866',
+      weight: 3.7,
+      rating: 4.7,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/D866/image/3/',
+      category: 'Brake Pad',
+      brand: 'Duralast'
+    }),
+    Product.create({
+      name: 'Duralast Semi-Metallic Brake Pads MKD699',
+      price: 26.99,
+      stock: 30,
+      description:
+        'Duralast brake pads are designed to provide reliable performance for the everyday driver. Duralast brake pads use platform specific friction materials with both Organic and Semi-Metallic formulations. If you are experiencing longer stopping distances or if your brakes are squealing, Duralast Pads are a good replacement choice for you. Comprehensive vehicle coverage, Duralast Official Brakes of NASCAR, Reliable stopping performance, Single layer steel shim for noise dampening, Powder coated backing plate to resist corrosion, Semi-Metallic friction formula',
+      partNumber: 'MKD699',
+      weight: 3.95,
+      rating: 4.7,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/MKD699/image/3/',
+      category: 'Brake Pad',
+      brand: 'Duralast'
+    }),
+    Product.create({
+      name: 'Valucraft Semi-Metallic Brake Pads MKD864V',
+      price: 99.99,
+      stock: 0,
+      description: 'No description',
+      partNumber: 'MKD864V',
+      weight: 3.95,
+      rating: 0.0,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/epv/MKD864V/image/3/',
+      category: 'Brake Pad',
+      brand: 'Valucraft'
+    }),
+    Product.create({
+      name: 'Valucraft Semi-Metallic Brake Pads MKD52SV',
+      price: 17.99,
+      stock: 0,
+      description: 'This brake pad offers standard performance.',
+      partNumber: 'MKD52SV',
+      weight: 3.95,
+      rating: 0.0,
+      imageUrl:
+        'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/MKD52SV/image/3/',
+      category: 'Brake Pad',
+      brand: 'Valucraft'
+    }),
+    Product.create({
       name: 'Borla Exhaust',
       price: 600.99,
       stock: 15,
