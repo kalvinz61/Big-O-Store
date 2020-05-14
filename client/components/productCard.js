@@ -33,28 +33,63 @@ const ProductCard = product => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   return (
-    <Card className={classes.cardStyle}>
-      <h3
-        style={{
-          textAlign: 'center'
-        }}
-      >
-        {product.name}
-      </h3>
-      <Link to={`/products/${product.id}`}>
-        <CardMedia
-          className={classes.image}
-          image={product.imageUrl}
-          title={product.name}
-        />{' '}
-      </Link>
 
-      <div
-        style={{
-          margin: '.5rem'
-        }}
-      >
-        Price: {product.price}
+    <div>
+      <h2>{product.name}</h2>
+      <img src={product.imageUrl} />
+      <div>
+        <h3>Description:</h3> {product.description}
+      </div>
+      <div>
+        <h4>Price:</h4> ${product.price}
+      </div>
+      <div>
+        <h4>Part Number:</h4> {product.partNumber}
+      </div>
+      <div>
+        <h4>Weight:</h4> {product.weight} lbs
+      </div>
+      <div>
+        <h4>Rating:</h4> {product.rating}
+      </div>
+      <div>
+        <h4>Brand:</h4> {product.brand}
+      </div>
+      <div>
+        <h4>Length:</h4> {product.length} in
+      </div>
+      <div>
+        <h4>Color:</h4> {product.color}
+      </div>
+      <div>
+        <h4>Category:</h4> {product.category}
+      </div>
+      <div>
+        <h4>Price:</h4> ${product.price}
+
+//     <Card className={classes.cardStyle}>
+//       <h3
+//         style={{
+//           textAlign: 'center'
+//         }}
+//       >
+//         {product.name}
+//       </h3>
+//       <Link to={`/products/${product.id}`}>
+//         <CardMedia
+//           className={classes.image}
+//           image={product.imageUrl}
+//           title={product.name}
+//         />{' '}
+//       </Link>
+
+//       <div
+//         style={{
+//           margin: '.5rem'
+//         }}
+//       >
+//         Price: {product.price}
+
       </div>
 
       <FormControl className={classes.formControl}>

@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import CartItem from './cartItem'
+import {Link} from 'react-router-dom'
 import {loadCart, addToCart} from '../store/cart'
 const Cart = ({cart, fetchCart, addProd}) => {
   const {products} = cart
@@ -12,10 +13,17 @@ const Cart = ({cart, fetchCart, addProd}) => {
       {products.map(product => {
         return <CartItem key={product.id} {...product} />
       })}
-      <button type="button">Checkout</button>
+      <button type="button">
+        <Link to="/checkout">Checkout</Link>
+      </button>
     </div>
   ) : (
-    <div>Your Cart is empty</div>
+    <div>
+      <div>Your Cart is empty, go buy some stuff!</div>
+      <button type="button">
+        <Link to="/home">Home</Link>
+      </button>
+    </div>
   )
 }
 
