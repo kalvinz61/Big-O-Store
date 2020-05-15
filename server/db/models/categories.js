@@ -1,0 +1,24 @@
+const Sequelize = require('sequelize')
+const db = require('../db')
+const {STRING, UUID, UUIDV4} = Sequelize
+
+const Category = db.define('category', {
+  id: {
+    type: UUID,
+    defaultValue: UUIDV4,
+    primaryKey: true
+  },
+  name: {
+    type: STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true
+    }
+  },
+  imageURL: {
+    type: STRING,
+    allowNull: true
+  }
+})
+
+module.exports = Category
