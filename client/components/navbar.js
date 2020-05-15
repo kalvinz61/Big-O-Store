@@ -36,6 +36,7 @@ const Navbar = ({handleClick, isLoggedIn, id, cart, email, isAdmin}) => {
                 </Link>
               </Button>
             </Typography>
+            {/* <SearchBar /> */}
             {isLoggedIn ? (
               <div>
                 {/* The navbar will show these links after you log in */}

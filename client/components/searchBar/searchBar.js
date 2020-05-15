@@ -35,7 +35,6 @@ const _SearchBar = props => {
     setBackArrow(false)
     props.loadAll()
   }
-
   return (
     <div>
       <form onSubmit={handleSearch}>

@@ -11,6 +11,7 @@ router.post('/', async (req, res, next) => {
       userId: req.user.id
     }
   })
+  console.log('UNFOUND PRODUCT', req.product)
   const foundItem = await CartsProducts.findOne({
     where: {
       cartId: cart.id,
