@@ -8,7 +8,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import {SearchBar} from '.'
+// import {SearchBar} from '.'
 
 const useStyles = makeStyles(theme => ({
   root: {

@@ -2,7 +2,7 @@ const router = require('express').Router()
 const {Product, Department, Category} = require('../db/models')
 const {isAdmin} = require('../middleware')
 
-const Fuse = require('fuse.js')
+const Fuse = require('fuse.js') //library for fuzzy searches
 
 const {Op} = require('sequelize')
 
@@ -20,16 +20,11 @@ router.get('/', async (req, res, next) => {
 // filter products through keywords by name and brand
 router.get('/:search', async (req, res, next) => {
   try {
-    console.log('SEARCH', req.params.search)
     const products = await Product.findAll({
       include: [Department, Category]
-      // where: {
-      //   [Op.or]: [
-      //     { name: { [Op.iLike]: '%' + req.params.search + '%' } },
-      //     { category: { [Op.iLike]: '%' + req.params.search + '%' } }
-      //   ]
-      // }
     })
+
+    //fuzzy searching functions and options
     const filterOptions = {
       threshold: 0.5,
       distance: 15,
@@ -42,6 +37,29 @@ router.get('/:search', async (req, res, next) => {
   } catch (err) {
     console.log(err)
     next(err)
+  }
+})
+
+router.get('/:type/:name', async (req, res, next) => {
+  try {
+    const type =
+      req.params.type.toLowerCase() === 'department' ? Department : Category
+    const typeName =
+      req.params.type.toLowerCase() === 'department' ? 'department' : 'category'
+    const typeId = (await type.findOne({
+      where: {name: {[Op.iLike]: req.params.name}}
+    })).id
+    const products = await Product.findAll({
+      where: {
+        [`${typeName}Id`]: typeId
+      }
+    })
+
+    console.log('FILTERED PRODUCTS HOPEFULLY', products)
+    res.status(200).json(products)
+  } catch (ex) {
+    console.log(ex)
+    next(ex)
   }
 })
 

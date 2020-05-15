@@ -2,21 +2,29 @@ import React, {useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import AllProducts from './allProducts'
-import {loadProducts} from '../store/allProducts'
+import {loadProducts, loadFilteredProducts} from '../store/allProducts'
 import {loadCart} from '../store/cart'
+import SearchBar from './searchBar/searchBar'
+import FilterBar from './filterBar/filterBar'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, loadProds, loadCrt} = props
-
+  const {email, loadProds, loadCrt, loadFiltered} = props
+  console.log('MATCH', props.match)
   useEffect(() => {
-    loadProds()
+    if (props.match.path === '/products/:type/:name') {
+      loadFiltered(props.match.params.type, props.match.params.name)
+    } else {
+      loadProds()
+    }
     loadCrt()
   }, [])
   return (
     <div>
+      <SearchBar />
+      <FilterBar />
       <AllProducts />
     </div>
   )
@@ -33,12 +41,15 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadProds: (filter = '') => {
-      dispatch(loadProducts(filter))
+    loadProds: () => {
+      dispatch(loadProducts())
     },
     loadCrt: () => {
       console.log('loading cart')
       dispatch(loadCart())
+    },
+    loadFiltered: (type, name) => {
+      dispatch(loadFilteredProducts(type, name))
     }
   }
 }

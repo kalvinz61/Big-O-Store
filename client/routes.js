@@ -10,7 +10,9 @@ import {
   Product,
   AdminPage,
   Checkout,
-  Confirmation
+  Confirmation,
+  SearchBar,
+  FilterBar
 } from './components'
 import {me} from './store'
 import {retrieveGuestSession, createGuestSession} from './store/user'
@@ -42,6 +44,7 @@ class Routes extends Component {
         <Route path="/login" component={Login} />
         <Route path="/signup" component={Signup} />
         <Route path="/home" component={UserHome} />
+        <Route path="/products/:type/:name" component={UserHome} />
         <Route path="/products/:id" component={Product} />
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
