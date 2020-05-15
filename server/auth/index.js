@@ -56,6 +56,9 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
+    if (user.isAdmin === true) {
+      user.isAdmin = false
+    }
     const userCart = await Cart.create({userId: user.id}) // create the new cart for the user
 
     //get the current guest's cart
