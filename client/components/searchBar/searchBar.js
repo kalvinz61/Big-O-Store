@@ -12,14 +12,15 @@ const _SearchBar = props => {
   const [productLis, setProductLis] = useState([])
   const [backArrow, setBackArrow] = useState(false)
 
-  async function handleChange(e) {
+  function handleChange(e) {
     e.preventDefault()
     setInputText(e.target.value)
     if (!inputText.length) {
       setProductLis([])
     } else {
-      const matches = await props.loadFiltered(inputText, false) //call api without dispatching to store
-      setProductLis(matches.slice(0, 7))
+      props
+        .loadFiltered(inputText, false)
+        .then(matches => setProductLis(matches.slice(0, 7))) //call api without dispatching to store
     }
   }
   async function handleSearch(e) {
@@ -53,10 +54,12 @@ const _SearchBar = props => {
             type="text"
             placeholder="Enter product name"
             onChange={ev => {
-              handleChange(ev)
+              return handleChange(ev)
             }}
           />
-          <button type="submit">Search</button>
+          <button type="submit" disabled={!(productLis.length > 0)}>
+            Search
+          </button>
         </div>
         {inputText.length > 0 &&
         Array.isArray(productLis) &&
