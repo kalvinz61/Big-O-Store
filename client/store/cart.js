@@ -55,7 +55,6 @@ export const updateCart = (product, quantity) => {
       product,
       quantity
     })).data
-    console.log('updated product', updatedProd)
     dispatch(_updateCart(updatedProd))
   }
 }
@@ -79,6 +78,8 @@ export default function(state = initialState, action) {
         products: state.products.map(product => {
           if (product.id === action.product.id) {
             return action.product
+          } else {
+            return product
           }
         })
       }

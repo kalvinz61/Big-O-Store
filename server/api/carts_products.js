@@ -57,21 +57,18 @@ router.put('/', async (req, res, next) => {
       productId: product.id
     }
   })
-  if (foundItem) {
-    foundItem.update({quantity: foundItem.quantity + quantity})
-    const addedProd = await Cart.findOne({
+  await foundItem.update({quantity: foundItem.quantity + quantity})
+  const addedProd = await Cart.findOne({
+    where: {
+      userId: req.user.id
+    },
+    include: {
+      model: Product,
       where: {
-        userId: req.user.id
-      },
-      include: {
-        model: Product,
-        where: {
-          id: req.body.product.id
-        }
+        id: req.body.product.id
       }
-    })
-    console.log(addedProd.products[0])
-    res.send(addedProd.products[0])
-  }
+    }
+  })
+  res.send(addedProd.products[0])
 })
 module.exports = router

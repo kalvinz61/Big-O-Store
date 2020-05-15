@@ -108,7 +108,6 @@ const Product = props => {
           onClick={() => {
             const item = cart.products.find(prod => prod.id === product.id)
             if (item) {
-              console.log(item)
               updateItem(product, quantity)
             } else {
               addItem(product, quantity)

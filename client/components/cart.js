@@ -3,10 +3,12 @@ import {connect} from 'react-redux'
 import CartItem from './cartItem'
 import {Link} from 'react-router-dom'
 import {loadCart, addToCart} from '../store/cart'
-const Cart = ({cart, fetchCart, addProd}) => {
+const Cart = ({cart, fetchCart}) => {
   const {products} = cart
   useEffect(() => {
-    //fetchCart()
+    //redux store works,
+    //but we call fetchCart here just so it doesnt break when we refresh on page
+    fetchCart()
   }, [])
   return products && products.length ? (
     <div>
