@@ -1,4 +1,5 @@
 import React, {useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import AllProducts from './allProducts'
@@ -11,16 +12,20 @@ import FilterBar from './filterBar/filterBar'
  * COMPONENT
  */
 export const UserHome = props => {
+  const location = useLocation()
   const {email, loadProds, loadCrt, loadFiltered} = props
-  console.log('MATCH', props.match)
-  useEffect(() => {
-    if (props.match.path === '/products/:type/:name') {
-      loadFiltered(props.match.params.type, props.match.params.name)
-    } else {
-      loadProds()
-    }
-    loadCrt()
-  }, [])
+  console.log('MATCH', props)
+  useEffect(
+    () => {
+      if (props.match.path.includes('/products')) {
+        loadFiltered(props.match.params.type, props.match.params.name)
+      } else {
+        loadProds()
+      }
+      loadCrt()
+    },
+    [location]
+  )
   return (
     <div>
       <SearchBar />
