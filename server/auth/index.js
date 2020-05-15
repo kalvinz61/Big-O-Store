@@ -26,6 +26,10 @@ router.post('/guest/retrieve', async (req, res, next) => {
   }
   try {
     const user = await User.findByPk(req.body.guestID)
+    if (!user) {
+      const guest = await createGuest()
+      return req.login(guest, err => (err ? next(err) : res.json(guest)))
+    }
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (ex) {
     console.log(ex)
