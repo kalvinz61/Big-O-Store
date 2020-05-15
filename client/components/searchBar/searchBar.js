@@ -66,10 +66,15 @@ const _SearchBar = props => {
               <SearchBarLi
                 key={product.id}
                 product={product}
-                onClick={() => setInputText('')}
+                setText={setInputText}
               />
             ))}
           </ul>
+        ) : (
+          ''
+        )}
+        {inputText.length > 0 && !productLis.length ? (
+          <li>No results for this search</li>
         ) : (
           ''
         )}

@@ -20,7 +20,6 @@ router.get('/:filter', async (req, res, next) => {
     const products = await Product.findAll({
       where: {name: {[Op.iLike]: '%' + req.params.filter + '%'}}
     })
-    console.log('PRODS HERE', products)
     res.status(200).json(products)
   } catch (err) {
     console.log(err)
