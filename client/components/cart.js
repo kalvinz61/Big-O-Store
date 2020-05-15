@@ -6,7 +6,7 @@ import {loadCart, addToCart} from '../store/cart'
 const Cart = ({cart, fetchCart, addProd}) => {
   const {products} = cart
   useEffect(() => {
-    fetchCart()
+    //fetchCart()
   }, [])
   return products && products.length ? (
     <div>
