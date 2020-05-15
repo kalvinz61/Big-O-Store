@@ -14,7 +14,7 @@ const SearchBarResultCard = ({product, setText}) => {
               .join(' ')}
           </div>
         </div>
-        <div className="product-search-category">{product.category}</div>
+        <div className="product-search-category">{product.category.name}</div>
         <div className="product-search-rating">{product.rating}</div>
       </Link>
     </div>

@@ -1,7 +1,13 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Product, Cart} = require('../server/db/models')
+const {
+  User,
+  Product,
+  Cart,
+  Department,
+  Category
+} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
@@ -22,6 +28,31 @@ async function seed() {
     Cart.create({userId: users[2].id})
   ])
 
+  const [maintenance, upgrades] = await Promise.all([
+    Department.create({name: 'Maintenance'}),
+    Department.create({name: 'Upgrades'})
+  ])
+
+  const [
+    batteriesCat,
+    wipersCat,
+    sparkPlugsCat,
+    exhaustCat,
+    tiresCat,
+    brakesCat,
+    powertrainCat,
+    chassisCat
+  ] = await Promise.all([
+    Category.create({name: 'Batteries'}),
+    Category.create({name: 'Wipers'}),
+    Category.create({name: 'Spark plugs'}),
+    Category.create({name: 'Exhausts'}),
+    Category.create({name: 'Tires'}),
+    Category.create({name: 'Brakes'}),
+    Category.create({name: 'Powertrain'}),
+    Category.create({name: 'Chassis'})
+  ])
+
   const products = await Promise.all([
     Product.create({
       name: 'Duralast Platinum Battery H7-AGM Group Size 94R 850 CCA',
@@ -34,7 +65,8 @@ async function seed() {
       rating: 4.9,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/H7-AGM/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Platinum'
     }),
     Product.create({
@@ -48,7 +80,8 @@ async function seed() {
       rating: 4.4,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/46B24R-AGM/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Platinum'
     }),
     Product.create({
@@ -62,7 +95,8 @@ async function seed() {
       rating: 4.6,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/H6-DLG/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Gold'
     }),
     Product.create({
@@ -76,7 +110,8 @@ async function seed() {
       rating: 4.5,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/65-DLG/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Gold'
     }),
     Product.create({
@@ -90,7 +125,8 @@ async function seed() {
       rating: 4.6,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/26R-DL/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast'
     }),
     Product.create({
@@ -104,7 +140,8 @@ async function seed() {
       rating: 4.8,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/H5-AGM/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Platinum'
     }),
     Product.create({
@@ -118,7 +155,8 @@ async function seed() {
       rating: 4.7,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/jci/24F-AGM/image/3/',
-      category: 'Battery',
+      categoryId: batteriesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast Platinum'
     }),
     Product.create({
@@ -134,7 +172,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/bos/EN26/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Bosch'
     }),
     Product.create({
@@ -150,7 +189,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/bos/EN26/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Bosch'
     }),
     Product.create({
@@ -166,7 +206,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/owi/DL-18/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast'
     }),
     Product.create({
@@ -182,7 +223,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/owi/DL-18/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast'
     }),
     Product.create({
@@ -198,7 +240,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/itw/870032/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Rain X'
     }),
     Product.create({
@@ -214,7 +257,8 @@ async function seed() {
       color: 'Black',
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/itw/870039/image/3/',
-      category: 'Wiper blade',
+      categoryId: wipersCat.id,
+      departmentId: maintenance.id,
       brand: 'Rain X'
     }),
     Product.create({
@@ -229,7 +273,8 @@ async function seed() {
       length: 0.75,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/bos/9600/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: upgrades.id,
       brand: 'Bosch'
     }),
     Product.create({
@@ -244,7 +289,8 @@ async function seed() {
       length: 0.75,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/bos/9652/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: upgrades.id,
       brand: 'Bosch'
     }),
     Product.create({
@@ -259,7 +305,8 @@ async function seed() {
       length: 0.75,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/mtc/SP-535/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: upgrades.id,
       brand: 'Motorcraft'
     }),
     Product.create({
@@ -274,7 +321,8 @@ async function seed() {
       length: 0.75,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/mtc/SP-530/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: upgrades.id,
       brand: 'Motorcraft'
     }),
     Product.create({
@@ -289,7 +337,8 @@ async function seed() {
       length: 0.75,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/aut/XP3923/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: maintenance.id,
       brand: 'Autolite'
     }),
     Product.create({
@@ -304,7 +353,8 @@ async function seed() {
       length: 0.66,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/aut/XP5702/image/3/',
-      category: 'Spark plug',
+      categoryId: sparkPlugsCat.id,
+      departmentId: maintenance.id,
       brand: 'Autolite'
     }),
     Product.create({
@@ -318,7 +368,8 @@ async function seed() {
       rating: 4.7,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/D866/image/3/',
-      category: 'Brake Pad',
+      categoryId: brakesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast'
     }),
     Product.create({
@@ -332,7 +383,8 @@ async function seed() {
       rating: 4.7,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/MKD699/image/3/',
-      category: 'Brake Pad',
+      categoryId: brakesCat.id,
+      departmentId: maintenance.id,
       brand: 'Duralast'
     }),
     Product.create({
@@ -345,7 +397,8 @@ async function seed() {
       rating: 0.0,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/epv/MKD864V/image/3/',
-      category: 'Brake Pad',
+      categoryId: brakesCat.id,
+      departmentId: maintenance.id,
       brand: 'Valucraft'
     }),
     Product.create({
@@ -358,7 +411,8 @@ async function seed() {
       rating: 0.0,
       imageUrl:
         'https://contentinfo.autozone.com/znetcs/product-info/en/US/epa/MKD52SV/image/3/',
-      category: 'Brake Pad',
+      categoryId: brakesCat.id,
+      departmentId: maintenance.id,
       brand: 'Valucraft'
     }),
     Product.create({
@@ -367,7 +421,9 @@ async function seed() {
       stock: 15,
       description:
         'Upgrading your factory exhaust system to a Borla stainless steel performance exhaust system with a more efficient and less restrictive design can improve sound (adding more enjoyment driving your vehicle) and increase engine horsepower and torque throughout the RPM range (allowing quicker acceleration to pass a vehicle or get to highway speeds quicker).',
-      imageUrl: '/productImages/borla exhaust.jpg'
+      imageUrl: '/productImages/borla exhaust.jpg',
+      departmentId: upgrades.id,
+      categoryId: exhaustCat.id
     }),
     Product.create({
       name: 'Cobb Tuning Exhaust',
@@ -375,21 +431,27 @@ async function seed() {
       stock: 20,
       description:
         'We combine our SS Non-Resonated 3" J-Pipe and Titanium Cat-Back exhaust to create the ultimate exhaust solution for you 2015+ WRX! Simple bolt-on installation of these components offers excellent power gains, outstanding build quality, and an impressive exhaust note. The Turboback includes the COBB SS 3" J-Pipe and the COBB 3" WRX Titanium Cat-Back Exhaust',
-      imageUrl: '/productImages/Cobb Exhaust.jpg'
+      imageUrl: '/productImages/Cobb Exhaust.jpg',
+      departmentId: upgrades.id,
+      categoryId: exhaustCat.id
     }),
     Product.create({
       name: 'Big O Exhaust',
       price: 9999.99,
       stock: 50,
       description: 'Add 1000HP',
-      imageUrl: '/productImages/Big o exhaust.jpg'
+      imageUrl: '/productImages/Big o exhaust.jpg',
+      departmentId: upgrades.id,
+      categoryId: exhaustCat.id
     }),
     Product.create({
       name: 'Hoosier Race Tire',
       price: 400.99,
       stock: 23,
       description: 'Add 1000HP',
-      imageUrl: '/productImages/Big o exhaust.jpg'
+      imageUrl: '/productImages/Big o exhaust.jpg',
+      departmentId: upgrades.id,
+      categoryId: tiresCat.id
     }),
     Product.create({
       name: 'Bridgestone Summer Tire',
@@ -397,7 +459,9 @@ async function seed() {
       stock: 12,
       description:
         'Bridgestone’s premiere performance tires are engineered to deliver a thrilling ride, no matter where the road takes you. Potenza performance tires provide dynamic handling, exceptional traction, and more responsiveness than standard passenger tires. Every element, from the tires’ tread pattern to their shoulder stiffness, has been engineered to keep you going further, faster, longer.',
-      imageUrl: '/productImages/Bridgestone Summer Tire.png'
+      imageUrl: '/productImages/Bridgestone Summer Tire.png',
+      departmentId: maintenance.id,
+      categoryId: tiresCat.id
     }),
     Product.create({
       name: 'Falken All-Season Tire',
@@ -405,21 +469,27 @@ async function seed() {
       stock: 31,
       description:
         "For drivers who want a combination of sophisticated low-profile tires/large rim diameter wheels to enhance their vehicle's appearance with all-season versatility, including traction in light snow",
-      imageUrl: '/productImages/Falken Tire.png'
+      imageUrl: '/productImages/Falken Tire.png',
+      departmentId: maintenance.id,
+      categoryId: tiresCat.id
     }),
     Product.create({
       name: 'Big-O Tire',
       price: 1000.99,
       stock: 12,
       description: 'Stickiest race tire ever',
-      imageUrl: '/productImages/Big O Tire.png'
+      imageUrl: '/productImages/Big O Tire.png',
+      departmentId: upgrades.id,
+      categoryId: tiresCat.id
     }),
     Product.create({
       name: 'Big-O Turbo Kit',
       price: 15000.99,
       stock: 11,
       description: 'Add 1000HP',
-      imageUrl: '/productImages/Big O Turbo Kit.png'
+      imageUrl: '/productImages/Big O Turbo Kit.png',
+      departmentId: upgrades.id,
+      categoryId: powertrainCat.id
     }),
     Product.create({
       name: 'Big-O Flex Fuel Kit',
@@ -427,7 +497,9 @@ async function seed() {
       stock: 2,
       description:
         'A complete plug and play solution enabling users to convert their vehicle to a Flex Fuel configuration without losing factory compensations. This is the easiest to use and most sophisticated Flex Fuel kit on the market. Utilizing OEM fuel and electronic connectors, the Ethanol Sensor Kit measures the ethanol content of fuel being fed to the motor. That data is then converted into a signal that the ECU can use for adjusting calibrations and to be displayed on a custom Accessport monitor',
-      imageUrl: '/productImages/Big O Flex Fuel Kit.png'
+      imageUrl: '/productImages/Big O Flex Fuel Kit.png',
+      departmentId: upgrades.id,
+      categoryId: powertrainCat.id
     }),
     Product.create({
       name: 'Ohlins Coilovers',
@@ -435,7 +507,9 @@ async function seed() {
       stock: 2,
       description:
         'Öhlins DEDICATED suspension systems offer race-level performance in a complete, ready-to-install package. Applications are shake rig developed and track validated with specific spring rates (manufactured by Swift to Öhlins specs), clicker settings, and ride height specifications. Öhlins looks at the entire performance picture when developing DEDICATED systems, as each is engineered to perform with proven track setups for each specific chassis.',
-      imageUrl: '/productImages/Ohlins Coilovers.png'
+      imageUrl: '/productImages/Ohlins Coilovers.png',
+      departmentId: upgrades.id,
+      categoryId: chassisCat.id
     })
   ])
 

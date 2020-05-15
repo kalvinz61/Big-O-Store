@@ -49,6 +49,7 @@
     "express": "^4.16.4",
     "express-session": "^1.17.1",
     "file-loader": "^6.0.0",
+    "fuse.js": "^6.0.0",
     "history": "^4.10.1",
     "morgan": "^1.10.0",
     "passport": "^0.4.1",

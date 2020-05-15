@@ -22,6 +22,7 @@ const _addProduct = data => ({type: ADD_PRODUCT, product: data})
 export const loadProducts = () => async dispatch => {
   try {
     const products = (await axios.get(`/api/products/`)).data
+    // console.log('PRODUCTS', products)
     dispatch(_loadProducts(products))
   } catch (err) {
     console.error(err)

@@ -24,6 +24,7 @@ const AllProducts = props => {
   useEffect(() => {
     add()
   }, [])
+
   return (
     <div className="allProducts">
       {products.map(product => {
@@ -33,6 +34,7 @@ const AllProducts = props => {
               <h3>{product.name}</h3>
               <img src={product.imageUrl} />
             </Link>
+            {product.category && <div>{product.category.name}</div>}
             <FormControl className={classes.formControl}>
               <label>
                 Quantity:

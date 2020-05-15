@@ -86,10 +86,6 @@ const Product = db.define('product', {
     type: STRING,
     defaultValue: ''
   },
-  category: {
-    type: STRING,
-    defaultValue: ''
-  },
   color: {
     type: STRING,
     defaultValue: ''
