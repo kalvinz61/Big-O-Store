@@ -26,6 +26,10 @@ router.post('/guest/retrieve', async (req, res, next) => {
   }
   try {
     const user = await User.findByPk(req.body.guestID)
+    if (!user) {
+      const guest = await createGuest()
+      return req.login(guest, err => (err ? next(err) : res.json(guest)))
+    }
     req.login(user, err => (err ? next(err) : res.json(user)))
   } catch (ex) {
     console.log(ex)
@@ -56,6 +60,9 @@ router.post('/login', async (req, res, next) => {
 router.post('/signup', async (req, res, next) => {
   try {
     const user = await User.create(req.body)
+    if (user.isAdmin === true) {
+      user.isAdmin = false
+    }
     const userCart = await Cart.create({userId: user.id}) // create the new cart for the user
 
     //get the current guest's cart
