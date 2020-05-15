@@ -28,7 +28,7 @@ export const loadProducts = () => async dispatch => {
   }
 }
 
-export const loadFilteredProducts = (
+export const loadSearchedProducts = (
   filter,
   search = false
 ) => async dispatch => {

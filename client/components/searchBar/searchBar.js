@@ -1,11 +1,9 @@
 import React, {useState} from 'react'
 import {connect} from 'react-redux'
 
-import {SearchBarLi} from './searchBarLi'
+import {SearchBarResultCard} from './searchBarLi'
 
-// import { loadFilteredLis } from './functions'
-
-import {loadFilteredProducts, loadProducts} from '../../store/allProducts'
+import {loadSearchedProducts, loadProducts} from '../../store/allProducts'
 
 const _SearchBar = props => {
   const [inputText, setInputText] = useState('')
@@ -14,15 +12,17 @@ const _SearchBar = props => {
 
   function handleChange(e) {
     e.preventDefault()
+    console.log('EVENT', e.target.value)
     setInputText(e.target.value)
     if (!inputText.length) {
       setProductLis([])
     } else {
       props
-        .loadFiltered(inputText, false)
-        .then(matches => setProductLis(matches.slice(0, 7))) //call api without dispatching to store
+        .loadFiltered(inputText, false) //call api without dispatching to store by setting to false
+        .then(matches => setProductLis(matches.slice(0, 7)))
     }
   }
+
   async function handleSearch(e) {
     e.preventDefault()
     if (!inputText.length) return null
@@ -35,17 +35,14 @@ const _SearchBar = props => {
     setBackArrow(false)
     props.loadAll()
   }
+
   return (
     <div>
       <form onSubmit={handleSearch}>
         <label>Search our Products</label>
         <div className="searchbar-input-button-container">
           {backArrow && (
-            <button
-              type="button"
-              className="search-go-back"
-              onClick={handleBack}
-            >
+            <button type="button" className="back-button" onClick={handleBack}>
               Clear search
             </button>
           )}
@@ -53,9 +50,7 @@ const _SearchBar = props => {
             value={inputText}
             type="text"
             placeholder="Enter product name"
-            onChange={ev => {
-              return handleChange(ev)
-            }}
+            onChange={ev => handleChange(ev)}
           />
           <button type="submit" disabled={!(productLis.length > 0)}>
             Search
@@ -64,20 +59,20 @@ const _SearchBar = props => {
         {inputText.length > 0 &&
         Array.isArray(productLis) &&
         productLis.length > 0 ? (
-          <ul className="searchbar-results-ul">
+          <div className="searchbar-results-container">
             {productLis.map(product => (
-              <SearchBarLi
+              <SearchBarResultCard
                 key={product.id}
                 product={product}
                 setText={setInputText}
               />
             ))}
-          </ul>
-        ) : (
-          ''
-        )}
-        {inputText.length > 0 && !productLis.length ? (
-          <li>No results for this search</li>
+            {inputText.length > 0 && !productLis.length ? (
+              <div className="no-results">No results for this search</div>
+            ) : (
+              ''
+            )}
+          </div>
         ) : (
           ''
         )}
@@ -89,7 +84,7 @@ const _SearchBar = props => {
 const mapDispatchToProps = dispatch => {
   return {
     loadFiltered(filter, search) {
-      return dispatch(loadFilteredProducts(filter, search))
+      return dispatch(loadSearchedProducts(filter, search))
     },
     loadAll() {
       return dispatch(loadProducts())

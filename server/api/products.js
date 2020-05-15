@@ -15,10 +15,17 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:filter', async (req, res, next) => {
+// filter products through keywords by name and brand
+router.get('/:search', async (req, res, next) => {
   try {
+    console.log('SEARCH', req.params.search)
     const products = await Product.findAll({
-      where: {name: {[Op.iLike]: '%' + req.params.filter + '%'}}
+      where: {
+        [Op.or]: [
+          {name: {[Op.iLike]: '%' + req.params.search + '%'}},
+          {category: {[Op.iLike]: '%' + req.params.search + '%'}}
+        ]
+      }
     })
     res.status(200).json(products)
   } catch (err) {
