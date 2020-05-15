@@ -33,8 +33,8 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    loadProds: () => {
-      dispatch(loadProducts())
+    loadProds: (filter = '') => {
+      dispatch(loadProducts(filter))
     },
     loadCrt: () => {
       console.log('loading cart')

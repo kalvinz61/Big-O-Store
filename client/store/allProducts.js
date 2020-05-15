@@ -21,8 +21,24 @@ const _addProduct = data => ({type: ADD_PRODUCT, product: data})
 
 export const loadProducts = () => async dispatch => {
   try {
-    const products = (await axios.get('/api/products')).data
+    const products = (await axios.get(`/api/products/`)).data
     dispatch(_loadProducts(products))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const loadFilteredProducts = (
+  filter,
+  search = false
+) => async dispatch => {
+  try {
+    const products = (await axios.get(`/api/products/${filter}`)).data
+    console.log('PRODS THUNK', products)
+    if (search) {
+      return dispatch(_loadProducts(products))
+    }
+    return products
   } catch (err) {
     console.error(err)
   }

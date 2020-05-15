@@ -53,3 +53,54 @@ h1 {
   margin: 0;
   padding: 0;
 }
+
+.searchbar-input-button-container {
+  display: flex;
+  flex-direction: row;
+}
+
+.searchbar-input-button-container > input {
+  height: 1.5rem;
+}
+.searchbar-input-button-container > button {
+  width: 70px;
+}
+
+.searchbar-results-ul {
+}
+
+.product-searchbar-li-container {
+  height: 3rem;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  cursor: pointer;
+  border: solid 1px lightgray;
+  position: relative;
+  z-index: 1000;
+  max-width: 600px;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.product-searchbar-li-image {
+  height: 3.5rem;
+  width: 3.5rem;
+  border-radius: 5px;
+}
+
+.product-searchbar-li-name {
+  align-items: center;
+  justify-content: center;
+}
+
+.product-searchbar-li-category {
+  border-radius: 5px;
+  color: white;
+  background-color: gray;
+}
+
+.product-searchbar-li-rating {
+  color: yellow;
+  background-color: lightgray;
+}
