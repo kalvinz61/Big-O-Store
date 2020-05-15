@@ -33,7 +33,6 @@ const ProductCard = product => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   return (
-
     <div>
       <h2>{product.name}</h2>
       <img src={product.imageUrl} />
@@ -66,9 +65,9 @@ const ProductCard = product => {
       </div>
       <div>
         <h4>Price:</h4> ${product.price}
-
-//     <Card className={classes.cardStyle}>
-//       <h3
+      </div>
+      <Card className={classes.cardStyle}>
+        {/* //       <h3
 //         style={{
 //           textAlign: 'center'
 //         }}
@@ -88,42 +87,41 @@ const ProductCard = product => {
 //           margin: '.5rem'
 //         }}
 //       >
-//         Price: {product.price}
+//         Price: {product.price} */}
 
-      </div>
+        <FormControl className={classes.formControl}>
+          <label>
+            Quantity:
+            <Select
+              defaultValue={1}
+              onChange={ev => {
+                setQuantity(ev.target.value)
+              }}
+            >
+              <MenuItem value={1}>1</MenuItem>
+              <MenuItem value={2}>2</MenuItem>
+              <MenuItem value={3}>3</MenuItem>
+              <MenuItem value={4}>4</MenuItem>
+              <MenuItem value={5}>5</MenuItem>
+              <MenuItem value={6}>6</MenuItem>
+              <MenuItem value={7}>7</MenuItem>
+              <MenuItem value={8}>8</MenuItem>
+              <MenuItem value={9}>9</MenuItem>
+            </Select>
+          </label>
 
-      <FormControl className={classes.formControl}>
-        <label>
-          Quantity:
-          <Select
-            defaultValue={1}
-            onChange={ev => {
-              setQuantity(ev.target.value)
+          <Button
+            onClick={() => {
+              product.add(product, quantity)
             }}
+            variant="contained"
+            color="primary"
           >
-            <MenuItem value={1}>1</MenuItem>
-            <MenuItem value={2}>2</MenuItem>
-            <MenuItem value={3}>3</MenuItem>
-            <MenuItem value={4}>4</MenuItem>
-            <MenuItem value={5}>5</MenuItem>
-            <MenuItem value={6}>6</MenuItem>
-            <MenuItem value={7}>7</MenuItem>
-            <MenuItem value={8}>8</MenuItem>
-            <MenuItem value={9}>9</MenuItem>
-          </Select>
-        </label>
-
-        <Button
-          onClick={() => {
-            product.add(product, quantity)
-          }}
-          variant="contained"
-          color="primary"
-        >
-          Add to cart
-        </Button>
-      </FormControl>
-    </Card>
+            Add to cart
+          </Button>
+        </FormControl>
+      </Card>
+    </div>
   )
 }
 
