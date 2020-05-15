@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
@@ -6,7 +6,7 @@ import {makeStyles} from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {addToCart} from '../store/cart'
+import {addToCart, updateCart} from '../store/cart'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -21,11 +21,10 @@ const useStyles = makeStyles(theme => ({
 const AllProducts = props => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
-  const {products, add} = props
-  useEffect(() => {
-    add()
-  }, [])
-
+  const {products, add, cart, updateItem} = props
+  // useEffect(() => {
+  //   add()
+  // }, [])
   return (
     <div className="allProducts">
       {products.map(product => {
@@ -59,7 +58,14 @@ const AllProducts = props => {
               <button
                 type="button"
                 onClick={() => {
-                  add(product, quantity)
+                  const item = cart.products.find(
+                    prod => prod.id === product.id
+                  )
+                  if (item) {
+                    updateItem(product, quantity)
+                  } else {
+                    add(product, quantity)
+                  }
                 }}
               >
                 Add to cart
@@ -72,13 +78,15 @@ const AllProducts = props => {
   )
 }
 
-const mapState = ({products}) => ({
-  products
+const mapState = ({products, cart}) => ({
+  products,
+  cart
 })
 
 const mapDispatch = dispatch => {
   return {
-    add: (product, qty) => dispatch(addToCart(product, qty))
+    add: (product, qty) => dispatch(addToCart(product, qty)),
+    updateItem: (product, quantity) => dispatch(updateCart(product, quantity))
   }
 }
 

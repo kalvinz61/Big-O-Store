@@ -50,7 +50,6 @@ const mapDispatch = dispatch => {
       dispatch(loadProducts())
     },
     loadCrt: () => {
-      console.log('loading cart')
       dispatch(loadCart())
     },
     loadFiltered: (type, name) => {
