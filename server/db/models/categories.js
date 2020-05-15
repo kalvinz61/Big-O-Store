@@ -14,6 +14,10 @@ const Category = db.define('category', {
     validate: {
       notEmpty: true
     }
+  },
+  imageURL: {
+    type: STRING,
+    allowNull: true
   }
 })
 

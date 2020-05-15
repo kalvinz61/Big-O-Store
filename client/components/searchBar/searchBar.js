@@ -38,7 +38,7 @@ const _SearchBar = props => {
   return (
     <div>
       <form onSubmit={handleSearch}>
-        <label>Search our Products</label>
+        {/* <label>Search our Products</label> */}
         <div className="searchbar-input-button-container">
           {backArrow && (
             <button type="button" className="back-button" onClick={handleBack}>
@@ -48,7 +48,7 @@ const _SearchBar = props => {
           <input
             value={inputText}
             type="text"
-            placeholder="Enter product name"
+            placeholder="Search product"
             onChange={ev => handleChange(ev)}
           />
           <button type="submit" disabled={!(productLis.length > 0)}>

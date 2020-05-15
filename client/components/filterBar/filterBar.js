@@ -66,6 +66,7 @@ const _FilterBar = props => {
             {categories.map(category => {
               return (
                 <GridListTile key={category.id}>
+                  <img src={category.imageURL} alt={category.name} />
                   <GridListTileBar
                     title={category.name}
                     classes={{

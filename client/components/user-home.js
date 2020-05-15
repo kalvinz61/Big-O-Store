@@ -28,7 +28,7 @@ export const UserHome = props => {
   )
   return (
     <div>
-      <SearchBar />
+      {/* <SearchBar /> */}
       <FilterBar />
       <AllProducts />
     </div>
