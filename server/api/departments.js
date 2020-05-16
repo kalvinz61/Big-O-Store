@@ -11,4 +11,15 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+router.post('/', async (req, res, next) => {
+  try {
+    const {name, imageUrl} = req.body
+    const department = await Department.create({name, imageUrl})
+    res.status(201).json(department)
+  } catch (ex) {
+    console.log(ex)
+    next(ex)
+  }
+})
+
 module.exports = router

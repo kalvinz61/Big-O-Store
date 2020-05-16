@@ -9,9 +9,9 @@ const s3 = new AWS.S3({
 
 module.exports = router
 
-router.post('/product_image', isAdmin, async (req, res, next) => {
+router.post('/image', isAdmin, async (req, res, next) => {
   try {
-    const file = req.files.product_image
+    const file = req.files.image
     const params = {
       Bucket: 'big-o-store-bucket',
       Key: file.name,

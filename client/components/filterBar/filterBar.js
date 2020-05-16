@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
   }
-}))
+})) //TODO
 
 const _FilterBar = props => {
   const [showCategories, setShowCategories] = useState(false)
@@ -66,7 +66,7 @@ const _FilterBar = props => {
             {categories.map(category => {
               return (
                 <GridListTile key={category.id}>
-                  <img src={category.imageURL} alt={category.name} />
+                  <img src={category.imageUrl} alt={category.name} />
                   <GridListTileBar
                     title={category.name}
                     classes={{
