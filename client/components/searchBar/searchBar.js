@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 
 import {SearchBarResultCard} from './searchBarLi'
@@ -9,6 +9,13 @@ const _SearchBar = props => {
   const [inputText, setInputText] = useState('')
   const [productLis, setProductLis] = useState([])
   const [backArrow, setBackArrow] = useState(false)
+
+  useEffect(
+    () => {
+      console.log(inputText)
+    },
+    [inputText]
+  )
 
   function handleChange(e) {
     e.preventDefault()

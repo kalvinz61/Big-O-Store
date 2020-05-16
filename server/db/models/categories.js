@@ -15,7 +15,7 @@ const Category = db.define('category', {
       notEmpty: true
     }
   },
-  imageURL: {
+  imageUrl: {
     type: STRING,
     allowNull: true
   }

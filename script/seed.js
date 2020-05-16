@@ -45,40 +45,40 @@ async function seed() {
   ] = await Promise.all([
     Category.create({
       name: 'Batteries',
-      imageURL:
+      imageUrl:
         'https://sc02.alicdn.com/kf/UTB8gf33DpfFXKJk43Ot760IPFXaB.png_350x350.png'
     }),
     Category.create({
       name: 'Wipers',
-      imageURL:
+      imageUrl:
         'https://images-na.ssl-images-amazon.com/images/I/61rsZ0hVufL._AC_SX679_.jpg'
     }),
     Category.create({
       name: 'Spark plugs',
-      imageURL: 'https://cdn.fiix.io/1/articles/sparkplugs.jpg'
+      imageUrl: 'https://cdn.fiix.io/1/articles/sparkplugs.jpg'
     }),
     Category.create({
       name: 'Exhausts',
-      imageURL:
+      imageUrl:
         'https://europeanautosource.com/media/catalog/product/cache/33799cb380d7f212fd4b31c85d61d9b3/a/k/akrapovic_-_evolution_titanium_exhaust_system_-_f85_x5m_f86_x6m_00.jpg'
     }),
     Category.create({
       name: 'Tires',
-      imageURL: '/productImages/Bridgestone Summer Tire.png'
+      imageUrl: '/productImages/Bridgestone Summer Tire.png'
     }),
     Category.create({
       name: 'Brakes',
-      imageURL:
+      imageUrl:
         'https://www.futurefordclovis.com/assets/shared/images/service/brakes_05.jpg'
     }),
     Category.create({
       name: 'Powertrain',
-      imageURL:
+      imageUrl:
         'https://www.mynrma.com.au/-/media/car-servicing/car-engine-drivetrain-blueprint.jpg?h=500&la=en&w=1140&hash=1A752477F6887551776A8F8519231DAB'
     }),
     Category.create({
       name: 'Chassis',
-      imageURL:
+      imageUrl:
         'https://cuymar.com/noticias/wp-content/uploads/2018/12/como-funciona-suspension-neumatica.jpg'
     })
   ])
