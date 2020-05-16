@@ -39,7 +39,9 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
-                <Link to="/home">AUTOMANIA</Link>
+                <Link to="/home">
+                  <h1>AUTOMANIA</h1>
+                </Link>
               </Button>
             </Typography>
             {isLoggedIn ? (

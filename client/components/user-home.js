@@ -9,7 +9,7 @@ import {loadCart} from '../store/cart'
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, loadProds, loadCrt} = props
+  const {email, loadProds, loadCrt, isLoggedIn} = props
 
   useEffect(() => {
     loadProds()
@@ -17,7 +17,9 @@ export const UserHome = props => {
   }, [])
   return (
     <div>
-      <div className="curUserEmail">Signed in as: {email}</div>
+      <div className="curUserEmail">
+        Signed in as: {isLoggedIn ? email : 'Guest'}
+      </div>
       <AllProducts />
     </div>
   )
@@ -28,6 +30,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    isLoggedIn: !!state.user.email,
     email: state.user.email
   }
 }
