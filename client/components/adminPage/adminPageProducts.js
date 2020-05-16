@@ -14,6 +14,12 @@ const _AdminPageProducts = ({products, loadProds}) => {
     loadProds()
   }
 
+  function hideAll() {
+    setShowAddForm(false)
+    setShowDepartmentForm(false)
+    return setShowCategoryForm(false)
+  }
+
   function handleShow(e, form) {
     e.preventDefault()
     if (form === 'product') {
@@ -42,9 +48,9 @@ const _AdminPageProducts = ({products, loadProds}) => {
       <button type="button" onClick={e => handleShow(e, 'category')}>
         Add new category
       </button>
-      {showAddForm && <AddProductForm />}
-      {showCategoryForm && <AddCategoryForm />}
-      {showDepartmentForm && <AddDepartmentForm />}
+      {showAddForm && <AddProductForm setShow={hideAll} />}
+      {showCategoryForm && <AddCategoryForm setShow={hideAll} />}
+      {showDepartmentForm && <AddDepartmentForm setShow={hideAll} />}
       <ul>
         {products.map(product => (
           <li key={product.id}>

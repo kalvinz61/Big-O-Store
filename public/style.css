@@ -171,3 +171,7 @@ h1 {
   padding: 1rem;
   max-width: 50vh;
 }
+
+.submit-error {
+  color: tomato;
+}

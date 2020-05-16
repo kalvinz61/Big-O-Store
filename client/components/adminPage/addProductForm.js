@@ -1,12 +1,19 @@
 import React, {useState, useRef, useEffect} from 'react'
 import {connect} from 'react-redux'
-import {addProduct} from '../../store/allProducts'
+import {addProduct, loadProducts} from '../../store/allProducts'
 import axios from 'axios'
 
 import {loadCategories} from '../../store/categories'
 import {loadDepartments} from '../../store/departments'
 
-const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
+const _AddProductForm = ({
+  loadAll,
+  products,
+  addProd,
+  departments,
+  categories,
+  setShow
+}) => {
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
   const [price, setPrice] = useState('')
@@ -21,6 +28,8 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
 
   const [showProgress, setShowProgress] = useState(false)
   const [progress, setProgress] = useState('Uploading...')
+
+  const [error, setError] = useState('')
 
   const el = useRef()
 
@@ -59,8 +68,24 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
     setImageUrl(location)
   }
 
+  // eslint-disable-next-line complexity
   function handleSubmit(e) {
     e.preventDefault()
+    if (
+      !name ||
+      !brand ||
+      !price ||
+      !stock ||
+      !description ||
+      !rating ||
+      !category ||
+      !department ||
+      !imageUrl
+    ) {
+      setError('Missing fields')
+      setTimeout(() => setError(''), 3000)
+      return null
+    }
     setShowProgress(false)
     setShowImage(false)
     addProd(
@@ -75,6 +100,7 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
       imageUrl
     )
     setProgress('Uploading...')
+    setShow(false)
   }
 
   return (
@@ -129,8 +155,15 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
       <input type="file" ref={el} onChange={e => handleChange(e)} />
       {showProgress && <div>{progress}</div>}
       {showImage && <img src={imageUrl} />}
+      {error && <div className="submit-error">{error}</div>}
       <button
-        disabled={!!(showProgress && progress === 'Uploading...')}
+        disabled={
+          !!(
+            showProgress &&
+            progress === 'Uploading...' &&
+            !products.find(p => p.name === name)
+          )
+        }
         type="submit"
       >
         Submit
@@ -141,6 +174,7 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
 
 const mapStateToProps = state => {
   return {
+    products: state.products,
     departments: state.departments,
     categories: state.categories
   }
@@ -174,6 +208,7 @@ const mapDispatchToProps = dispatch => {
       )
     },
     loadAll() {
+      dispatch(loadProducts())
       dispatch(loadCategories())
       dispatch(loadDepartments())
     }

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {addCategory} from '../../store/categories'
 
-const _AddCategoryForm = ({categories, addCat}) => {
+const _AddCategoryForm = ({categories, addCat, setShow}) => {
   const [name, setName] = useState('')
 
   const [showImage, setShowImage] = useState(false)
@@ -11,6 +11,8 @@ const _AddCategoryForm = ({categories, addCat}) => {
 
   const [showProgress, setShowProgress] = useState(false)
   const [progress, setProgress] = useState('Uploading...')
+
+  const [error, setError] = useState('')
 
   const el = useRef()
 
@@ -29,9 +31,15 @@ const _AddCategoryForm = ({categories, addCat}) => {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (!name || !imageUrl) {
+      setError('Missing fields')
+      setTimeout(() => setError(''), 3000)
+      return null
+    }
     setShowProgress(false)
     setShowImage(false)
     addCat({name, imageUrl})
+    setShow(false)
   }
 
   return (
@@ -45,8 +53,15 @@ const _AddCategoryForm = ({categories, addCat}) => {
       <input type="file" ref={el} onChange={e => handleChange(e)} />
       {showProgress && <div>{progress}</div>}
       {showImage && <img src={imageUrl} />}
+      {error && <div className="submit-error">{error}</div>}
       <button
-        disabled={!!(showProgress && progress === 'Uploading...')}
+        disabled={
+          !!(
+            showProgress &&
+            progress === 'Uploading...' &&
+            !categories.find(c => c.name === name)
+          )
+        }
         type="submit"
       >
         Submit

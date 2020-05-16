@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios'
 import {addDepartment} from '../../store/departments'
 
-const _AddDepartmentForm = ({departments, addDept}) => {
+const _AddDepartmentForm = ({departments, addDept, setShow}) => {
   const [name, setName] = useState('')
 
   const [showImage, setShowImage] = useState(false)
@@ -11,6 +11,8 @@ const _AddDepartmentForm = ({departments, addDept}) => {
 
   const [showProgress, setShowProgress] = useState(false)
   const [progress, setProgress] = useState('Uploading...')
+
+  const [error, setError] = useState('')
 
   const el = useRef()
 
@@ -29,9 +31,15 @@ const _AddDepartmentForm = ({departments, addDept}) => {
 
   function handleSubmit(e) {
     e.preventDefault()
+    if (!name || !imageUrl) {
+      setError('Missing fields')
+      setTimeout(() => setError(''), 3000)
+      return null
+    }
     setShowProgress(false)
     setShowImage(false)
     addDept({name, imageUrl})
+    setShow(false)
   }
 
   return (
@@ -45,8 +53,15 @@ const _AddDepartmentForm = ({departments, addDept}) => {
       <input type="file" ref={el} onChange={e => handleChange(e)} />
       {showProgress && <div>{progress}</div>}
       {showImage && <img src={imageUrl} />}
+      {error && <div className="submit-error">{error}</div>}
       <button
-        disabled={!!(showProgress && progress === 'Uploading...')}
+        disabled={
+          !!(
+            showProgress &&
+            progress === 'Uploading...' &&
+            !departments.find(d => d.name === name)
+          )
+        }
         type="submit"
       >
         Submit
