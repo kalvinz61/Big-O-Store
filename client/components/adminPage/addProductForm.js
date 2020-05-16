@@ -21,6 +21,7 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
 
   const [showProgress, setShowProgress] = useState(false)
   const [progress, setProgress] = useState('Uploading...')
+
   const el = useRef()
 
   useEffect(
@@ -49,15 +50,15 @@ const _AddProductForm = ({loadAll, addProd, departments, categories}) => {
     setShowProgress(true)
     const file = e.target.files[0] // accessing file
     const formData = new FormData()
-    formData.append('product_image', file)
-    const location = (await axios.post('/api/s3/product_image', formData, {
+    formData.append('image', file)
+    const location = (await axios.post('/api/s3/image', formData, {
       headers: {'Content-Type': 'multipart/form-data'}
     })).data.location
     setProgress('Completed upload')
     setShowImage(true)
     setImageUrl(location)
   }
-  console.log('CAT AND DEPT', category, department)
+
   function handleSubmit(e) {
     e.preventDefault()
     setShowProgress(false)

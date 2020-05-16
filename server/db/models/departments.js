@@ -14,6 +14,10 @@ const Department = db.define('department', {
     validate: {
       notEmpty: true
     }
+  },
+  imageUrl: {
+    type: STRING,
+    allowNull: true
   }
 })
 
