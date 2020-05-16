@@ -17,6 +17,7 @@ export const UserHome = props => {
   }, [])
   return (
     <div>
+      <div className="curUserEmail">Signed in as: {email}</div>
       <AllProducts />
     </div>
   )
