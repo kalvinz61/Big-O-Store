@@ -30,6 +30,7 @@ export const UserHome = props => {
     <div>
       {/* <SearchBar /> */}
       <FilterBar />
+      <div className="curUserEmail">Signed in as: {email}</div>
       <AllProducts />
     </div>
   )

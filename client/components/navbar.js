@@ -9,10 +9,19 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import {SearchBar} from '.'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import HomeIcon from '@material-ui/icons/Home'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
+import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
+import AddToQueueIcon from '@material-ui/icons/AddToQueue'
+import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    '& > *': {
+      margin: theme.spacing(1)
+    }
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -22,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const Navbar = ({handleClick, isLoggedIn, id, cart, email, isAdmin}) => {
+const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
@@ -31,44 +40,67 @@ const Navbar = ({handleClick, isLoggedIn, id, cart, email, isAdmin}) => {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
-                <Link to="/home">
-                  <h1>AUTOMANIA</h1>
-                </Link>
+                <Link to="/home">AUTOMANIA</Link>
               </Button>
             </Typography>
             <SearchBar />
             {isLoggedIn ? (
               <div>
                 {/* The navbar will show these links after you log in */}
-                <Button color="inherit">
-                  <Link to="/home">Home</Link>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/home">
+                    <HomeIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>HOME</span>
+                  </Link>
                 </Button>
-                <Button color="inherit">
-                  <Link to="/cart">Cart</Link>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/cart">
+                    <ShoppingCartIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>CART</span>
+                  </Link>
                 </Button>
-                Signed in as {email}
-                <Button color="inherit">
+                <Button aria-label="add to shopping cart" color="inherit">
                   <Link to="#" onClick={handleClick}>
-                    Logout
+                    <ExitToAppIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>LOGOUT</span>
                   </Link>
                 </Button>
                 {isAdmin && (
-                  <Button color="inherit">
-                    <Link to="/admin">Admin page</Link>
+                  <Button aria-label="add to shopping cart" color="inherit">
+                    <Link to="/admin">
+                      <SupervisorAccountIcon style={{fontSize: 40}} />
+                      <br />
+                      <span style={{fontSize: 17}}>ADMIN</span>
+                    </Link>
                   </Button>
                 )}
               </div>
             ) : (
               <div>
                 {/* The navbar will show these links before you log in */}
-                <Button color="inherit">
-                  <Link to="/cart">Cart</Link>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/login" onClick={handleClick}>
+                    <AccountCircleIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>LOGIN</span>
+                  </Link>
                 </Button>
-                <Button color="inherit">
-                  <Link to="/login">Login</Link>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/signup">
+                    <AddToQueueIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>SIGNUP</span>
+                  </Link>
                 </Button>
-                <Button color="inherit">
-                  <Link to="/signup">Sign Up</Link>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/cart">
+                    <ShoppingCartIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>CART</span>
+                  </Link>
                 </Button>
               </div>
             )}
@@ -106,7 +138,6 @@ const mapState = state => {
     isLoggedIn: !!state.user.email,
     isAdmin: !!state.user.isAdmin,
     id: state.user.id,
-    email: state.user.email,
     cart: state.cart
   }
 }

@@ -29,8 +29,8 @@ const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
   }, [])
   const placeOrder = () => {
     products.map(product => {
-      //generate UUIDV4 and send it as an order id for all the products in cart
       removeCartItem(product)
+      console.log(orderNumber, product.id, product.carts_products.quantity)
       addItemToOrder(orderNumber, product.id, product.carts_products.quantity)
     })
   }

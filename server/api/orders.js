@@ -14,15 +14,16 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  const cart = await Cart.findOne({
-    where: {
-      userId: req.user.id
-    }
-  })
+  console.log('reqqqqqqq', req.body)
+  // const cart = await Cart.findOne({
+  //   where: {
+  //     userId: req.user.id
+  //   }
+  // })
   await Order.create({
-    orderNumber: req.body.orderId,
-    cartId: cart.id,
-    productId: req.body.id
+    // orderNumber: req.body.orderId,
+    // cartId: cart.id,
+    // productId: req.body.id
   }).then(newOrder => {
     res.status(201).send(newOrder)
   })
