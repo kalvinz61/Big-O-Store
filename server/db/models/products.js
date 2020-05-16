@@ -38,7 +38,8 @@ const Product = db.define('product', {
   },
   imageUrl: {
     type: STRING,
-    defaultValue: ''
+    defaultValue: '',
+    allowNull: true
   },
   height: {
     type: INTEGER,
@@ -71,7 +72,8 @@ const Product = db.define('product', {
       isDecimal: true,
       min: 0.01,
       max: 9999.99
-    }
+    },
+    defaultValue: 1.0
   },
   rating: {
     type: DECIMAL(5, 2),
@@ -80,7 +82,8 @@ const Product = db.define('product', {
       isDecimal: true,
       min: 0.0,
       max: 5.0
-    }
+    },
+    defaultValue: 3
   },
   brand: {
     type: STRING,

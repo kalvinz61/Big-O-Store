@@ -78,7 +78,34 @@ router.get('/:id', async (req, res, next) => {
 //add a new product through the site, with middleware to check if admin did it
 router.post('/', isAdmin, async (req, res, next) => {
   try {
-    const product = await Product.create(req.body)
+    const {
+      name,
+      brand,
+      price,
+      stock,
+      description,
+      rating,
+      category,
+      department,
+      imageUrl
+    } = req.body
+
+    let departmentId = (await Department.findOne({where: {name: department}}))
+      .id
+    let categoryId = (await Department.findOne({where: {name: category}})).id
+
+    const product = await Product.create({
+      name,
+      brand,
+      price,
+      stock,
+      description,
+      rating,
+      categoryId,
+      departmentId,
+      imageUrl
+    })
+    console.log(product)
     res.status(201).json(product)
   } catch (ex) {
     console.log(ex)
