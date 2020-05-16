@@ -21,10 +21,35 @@ const _addProduct = data => ({type: ADD_PRODUCT, product: data})
 
 export const loadProducts = () => async dispatch => {
   try {
-    const products = (await axios.get('/api/products')).data
+    const products = (await axios.get(`/api/products/`)).data
     dispatch(_loadProducts(products))
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const loadSearchedProducts = (
+  searchTerm,
+  search = false
+) => async dispatch => {
+  try {
+    const products = (await axios.get(`/api/products/${searchTerm}`)).data
+    if (search) {
+      return dispatch(_loadProducts(products))
+    }
+    return products
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const loadFilteredProducts = (type, name) => async dispatch => {
+  try {
+    const products = (await axios.get(`/api/products/${type}/${name}`)).data
+    console.log('LOAD FILTERED THUNK', products)
+    return dispatch(_loadProducts(products))
+  } catch (ex) {
+    console.log(ex)
   }
 }
 

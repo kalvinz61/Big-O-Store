@@ -8,12 +8,7 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
-import HomeIcon from '@material-ui/icons/Home'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp'
-import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
-import AddToQueueIcon from '@material-ui/icons/AddToQueue'
-import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import {SearchBar} from '.'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -44,6 +39,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
                 </Link>
               </Button>
             </Typography>
+            <SearchBar />
             {isLoggedIn ? (
               <div>
                 {/* The navbar will show these links after you log in */}

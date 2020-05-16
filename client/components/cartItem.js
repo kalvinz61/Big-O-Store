@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 import React from 'react'
 import {Link} from 'react-router-dom'
 import {deleteProduct} from '../store/cart'

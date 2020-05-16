@@ -10,13 +10,16 @@ const sessionStore = new SequelizeStore({db})
 const PORT = process.env.PORT || 8080
 const app = express()
 const socketio = require('socket.io')
+const fileUpload = require('express-fileupload')
 module.exports = app
+
+require('dotenv').config()
 
 // This is a global Mocha hook, used for resource cleanup.
 // Otherwise, Mocha v4+ never quits after tests.
-if (process.env.NODE_ENV === 'test') {
-  after('close the session store', () => sessionStore.stopExpiringSessions())
-}
+// if (process.env.NODE_ENV === 'test') {
+//   after('close the session store', () => sessionStore.stopExpiringSessions())
+// }
 
 /**
  * In your development environment, you can keep all of your
@@ -25,8 +28,8 @@ if (process.env.NODE_ENV === 'test') {
  * or show up on Github. On your production server, you can add these
  * keys as environment variables, so that they can still be read by the
  * Node process on process.env
- */
-if (process.env.NODE_ENV !== 'production') require('../secrets')
+ //  */
+// if (process.env.NODE_ENV !== 'production') require('../secrets')
 
 // passport registration
 passport.serializeUser((user, done) => done(null, user.id))
@@ -47,7 +50,7 @@ const createApp = () => {
   // body parsing middleware
   app.use(express.json())
   app.use(express.urlencoded({extended: true}))
-
+  app.use(fileUpload())
   // compression middleware
   app.use(compression())
 

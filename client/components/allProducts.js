@@ -1,18 +1,17 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {addToCart} from '../store/cart'
-import IconButton from '@material-ui/core/IconButton'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import {addToCart, updateCart} from '../store/cart'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
-    minWidth: 120
+    minWidth: 120,
+    zIndex: 1
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
@@ -26,10 +25,10 @@ const useStyles = makeStyles(theme => ({
 const AllProducts = props => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
-  const {products, add} = props
-  useEffect(() => {
-    add()
-  }, [])
+  const {products, add, cart, updateItem} = props
+  // useEffect(() => {
+  //   add()
+  // }, [])
   return (
     <div className="allProducts">
       {products.map(product => {
@@ -39,39 +38,43 @@ const AllProducts = props => {
               <h3>{product.name}</h3>
               <img src={product.imageUrl} />
             </Link>
-            <FormControl className={classes.formControl}>
+            {product.category && <div>{product.category.name}</div>}
+            <form className="add-to-cart-form">
               <label>
                 Quantity:
-                <Select
-                  style={{textAlign: 'right'}}
+                <select
                   defaultValue={1}
                   onChange={ev => {
                     setQuantity(ev.target.value)
                   }}
                 >
-                  <MenuItem value={1}>1</MenuItem>
-                  <MenuItem value={2}>2</MenuItem>
-                  <MenuItem value={3}>3</MenuItem>
-                  <MenuItem value={4}>4</MenuItem>
-                  <MenuItem value={5}>5</MenuItem>
-                  <MenuItem value={6}>6</MenuItem>
-                  <MenuItem value={7}>7</MenuItem>
-                  <MenuItem value={8}>8</MenuItem>
-                  <MenuItem value={9}>9</MenuItem>
-                </Select>
-                <IconButton
-                  className="addToCart"
-                  color="primary"
-                  aria-label="add to shopping cart"
-                  onClick={() => {
-                    add(product, quantity)
-                  }}
-                  variant="contained"
-                >
-                  <AddShoppingCartIcon />
-                </IconButton>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                  <option value={4}>4</option>
+                  <option value={5}>5</option>
+                  <option value={6}>6</option>
+                  <option value={7}>7</option>
+                  <option value={8}>8</option>
+                  <option value={9}>9</option>
+                </select>
               </label>
-            </FormControl>
+              <button
+                type="button"
+                onClick={() => {
+                  const item = cart.products.find(
+                    prod => prod.id === product.id
+                  )
+                  if (item) {
+                    updateItem(product, quantity)
+                  } else {
+                    add(product, quantity)
+                  }
+                }}
+              >
+                Add to cart
+              </button>
+            </form>
           </div>
         )
       })}
@@ -79,13 +82,15 @@ const AllProducts = props => {
   )
 }
 
-const mapState = ({products}) => ({
-  products
+const mapState = ({products, cart}) => ({
+  products,
+  cart
 })
 
 const mapDispatch = dispatch => {
   return {
-    add: (product, qty) => dispatch(addToCart(product, qty))
+    add: (product, qty) => dispatch(addToCart(product, qty)),
+    updateItem: (product, quantity) => dispatch(updateCart(product, quantity))
   }
 }
 

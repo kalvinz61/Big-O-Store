@@ -1,25 +1,35 @@
 import React, {useEffect} from 'react'
+import {useLocation} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import AllProducts from './allProducts'
-import {loadProducts} from '../store/allProducts'
+import {loadProducts, loadFilteredProducts} from '../store/allProducts'
 import {loadCart} from '../store/cart'
+import SearchBar from './searchBar/searchBar'
+import FilterBar from './filterBar/filterBar'
 
 /**
  * COMPONENT
  */
 export const UserHome = props => {
-  const {email, loadProds, loadCrt, isLoggedIn} = props
-
-  useEffect(() => {
-    loadProds()
-    loadCrt()
-  }, [])
+  const location = useLocation()
+  const {email, loadProds, loadCrt, loadFiltered} = props
+  console.log('MATCH', props)
+  useEffect(
+    () => {
+      if (props.match.path.includes('/products')) {
+        loadFiltered(props.match.params.type, props.match.params.name)
+      } else {
+        loadProds()
+      }
+      loadCrt()
+    },
+    [location]
+  )
   return (
     <div>
-      <div className="curUserEmail">
-        Signed in as: {isLoggedIn ? email : 'Guest'}
-      </div>
+      {/* <SearchBar /> */}
+      <FilterBar />
       <AllProducts />
     </div>
   )
@@ -41,8 +51,10 @@ const mapDispatch = dispatch => {
       dispatch(loadProducts())
     },
     loadCrt: () => {
-      console.log('loading cart')
       dispatch(loadCart())
+    },
+    loadFiltered: (type, name) => {
+      dispatch(loadFilteredProducts(type, name))
     }
   }
 }

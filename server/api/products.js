@@ -1,15 +1,65 @@
 const router = require('express').Router()
-const {Product} = require('../db/models')
+const {Product, Department, Category} = require('../db/models')
 const {isAdmin} = require('../middleware')
+
+const Fuse = require('fuse.js') //library for fuzzy searches
+
+const {Op} = require('sequelize')
 
 //get ALL products
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll()
+    const products = await Product.findAll({include: [Department, Category]})
     res.status(200).json(products)
   } catch (err) {
     console.log(err)
     next(err)
+  }
+})
+
+// filter products through keywords by name and brand
+router.get('/:search', async (req, res, next) => {
+  try {
+    const products = await Product.findAll({
+      include: [Department, Category]
+    })
+
+    //fuzzy searching functions and options
+    const filterOptions = {
+      threshold: 0.5,
+      distance: 15,
+      keys: ['name', 'category.name']
+    }
+    const fuse = new Fuse(products, filterOptions)
+    const result = fuse.search(req.params.search).map(r => r.item)
+
+    res.status(200).json(result)
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+})
+
+router.get('/:type/:name', async (req, res, next) => {
+  try {
+    const type =
+      req.params.type.toLowerCase() === 'department' ? Department : Category
+    const typeName =
+      req.params.type.toLowerCase() === 'department' ? 'department' : 'category'
+    const typeId = (await type.findOne({
+      where: {name: {[Op.iLike]: req.params.name}}
+    })).id
+    const products = await Product.findAll({
+      where: {
+        [`${typeName}Id`]: typeId
+      }
+    })
+
+    console.log('FILTERED PRODUCTS HOPEFULLY', products)
+    res.status(200).json(products)
+  } catch (ex) {
+    console.log(ex)
+    next(ex)
   }
 })
 
@@ -28,7 +78,34 @@ router.get('/:id', async (req, res, next) => {
 //add a new product through the site, with middleware to check if admin did it
 router.post('/', isAdmin, async (req, res, next) => {
   try {
-    const product = await Product.create(req.body)
+    const {
+      name,
+      brand,
+      price,
+      stock,
+      description,
+      rating,
+      category,
+      department,
+      imageUrl
+    } = req.body
+
+    let departmentId = (await Department.findOne({where: {name: department}}))
+      .id
+    let categoryId = (await Department.findOne({where: {name: category}})).id
+
+    const product = await Product.create({
+      name,
+      brand,
+      price,
+      stock,
+      description,
+      rating,
+      categoryId,
+      departmentId,
+      imageUrl
+    })
+    console.log(product)
     res.status(201).json(product)
   } catch (ex) {
     console.log(ex)
