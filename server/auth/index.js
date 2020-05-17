@@ -47,8 +47,9 @@ router.post('/login', async (req, res, next) => {
       res.status(401).send('Wrong username and/or password')
     } else {
       //merge the carts, using the guest session we currently have
-      await mergeCartsOnLogin(req, user)
-
+      if (req.user) {
+        await mergeCartsOnLogin(req, user)
+      }
       req.logout() //logs out the current guest user
       req.login(user, err => (err ? next(err) : res.json(user)))
     }
@@ -65,14 +66,15 @@ router.post('/signup', async (req, res, next) => {
     }
     const userCart = await Cart.create({userId: user.id}) // create the new cart for the user
 
-    //get the current guest's cart
-    const currentGuestCart = await Cart.findOne({
-      where: {userId: req.user ? req.user.id : null},
-      include: [Product]
-    })
-
-    //merge the carts
-    await mergeCartsOnSignup(userCart, currentGuestCart)
+    if (req.user) {
+      //get the current guest's cart
+      const currentGuestCart = await Cart.findOne({
+        where: {userId: req.user ? req.user.id : null},
+        include: [Product]
+      })
+      //merge the carts
+      await mergeCartsOnSignup(userCart, currentGuestCart)
+    }
 
     req.logout() //log out the current guest user
     req.login(user, err => (err ? next(err) : res.json(user)))
