@@ -78,6 +78,7 @@ const Product = props => {
       </div>
       <div>
         <h4>Category:</h4> {product.category}
+        <h4>Category:</h4> {product.category.name}
       </div>
       <div>
         <h4>Price:</h4> ${product.price}

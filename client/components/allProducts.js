@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import {addToCart, updateCart} from '../store/cart'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const useStyles = makeStyles(theme => ({
   formControl: {

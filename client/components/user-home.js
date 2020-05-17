@@ -13,8 +13,7 @@ import FilterBar from './filterBar/filterBar'
  */
 export const UserHome = props => {
   const location = useLocation()
-  const {email, loadProds, loadCrt, loadFiltered} = props
-  console.log('MATCH', props)
+  const {email, loadProds, loadCrt, loadFiltered, isLoggedIn} = props
   useEffect(
     () => {
       if (props.match.path.includes('/products')) {
@@ -29,8 +28,12 @@ export const UserHome = props => {
   return (
     <div>
       {/* <SearchBar /> */}
-      <FilterBar />
-      <div className="curUserEmail">Signed in as: {email}</div>
+      <div className="filterBar">
+        <FilterBar />
+        <div className="disUser">
+          Signed in as: {isLoggedIn ? email : `Guest`}
+        </div>
+      </div>
       <AllProducts />
     </div>
   )
@@ -41,6 +44,7 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    isLoggedIn: !!state.user.email,
     email: state.user.email
   }
 }

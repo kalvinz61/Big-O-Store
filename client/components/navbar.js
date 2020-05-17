@@ -11,10 +11,11 @@ import Button from '@material-ui/core/Button'
 import {SearchBar} from '.'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import HomeIcon from '@material-ui/icons/Home'
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
-import AddToQueueIcon from '@material-ui/icons/AddToQueue'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
+import AddToQueueIcon from '@material-ui/icons/AddToQueue'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +41,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
-                <Link to="/home">AUTOMANIA</Link>
+                <Link to="/home">
+                  <img
+                    src="/logos/Automania_Logo.ea97b6e3.png"
+                    style={{width: 400}}
+                  />
+                </Link>
               </Button>
             </Typography>
             <SearchBar />
@@ -82,7 +88,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               <div>
                 {/* The navbar will show these links before you log in */}
                 <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/login" onClick={handleClick}>
+                  <Link to="/login">
                     <AccountCircleIcon style={{fontSize: 40}} />
                     <br />
                     <span style={{fontSize: 17}}>LOGIN</span>
