@@ -175,3 +175,10 @@ h1 {
 .submit-error {
   color: tomato;
 }
+.filterBar {
+  display: flex;
+}
+.disUser {
+  justify-items: flex-end;
+  text-align: right;
+}

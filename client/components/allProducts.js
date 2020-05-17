@@ -2,10 +2,8 @@ import React, {useState} from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
 import {addToCart, updateCart} from '../store/cart'
+import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
 
 const useStyles = makeStyles(theme => ({
   formControl: {
