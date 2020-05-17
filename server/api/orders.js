@@ -1,32 +1,39 @@
 const router = require('express').Router()
-const {Order, Cart} = require('../db/models')
+const {Order, OrdersProducts} = require('../db/models')
+
+router.get('/all', async (req, res, next) => {
+  await Order.findAll({include: [{model: OrdersProducts}]})
+    .then(order => res.send(order))
+    .catch(next)
+})
 
 router.get('/', async (req, res, next) => {
-  await Order.findAll().then(order => res.send(order))
+  await Order.findAll({
+    where: {userId: req.user.id},
+    include: [{model: OrdersProducts}]
+  })
+    .then(order => res.send(order))
+    .catch(next)
 })
 
 router.get('/:id', async (req, res, next) => {
-  await Order.findAll({
+  await Order.findOne({
     where: {
-      orderNumber: req.order.id
-    }
-  }).then(order => res.send(order))
+      userId: req.body.userId,
+      id: req.params.id
+    },
+    include: [{model: OrdersProducts}]
+  })
+    .then(order => res.send(order))
+    .catch(next)
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('reqqqqqqq', req.body)
-  // const cart = await Cart.findOne({
-  //   where: {
-  //     userId: req.user.id
-  //   }
-  // })
   await Order.create({
-    // orderNumber: req.body.orderId,
-    // cartId: cart.id,
-    // productId: req.body.id
-  }).then(newOrder => {
-    res.status(201).send(newOrder)
+    userId: req.user.id
   })
+    .then(order => res.send(order))
+    .catch(next)
 })
 
 module.exports = router

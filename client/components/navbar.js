@@ -36,15 +36,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   return (
     <div className={classes.root}>
       <nav>
-        <AppBar position="static">
+        <AppBar position="static" color="primary">
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
                 <Link to="/home">
-                  <img
-                    src="/logos/Automania_Logo.ea97b6e3.png"
-                    style={{width: 400}}
-                  />
+                  <img src="/logos/Automania.png" style={{height: 60}} />
                 </Link>
               </Button>
             </Typography>

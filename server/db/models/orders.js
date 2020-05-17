@@ -1,14 +1,11 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {INTEGER, FLOAT, STRING, UUID} = Sequelize
+const {FLOAT, STRING, UUID, UUIDV4} = Sequelize
 const Order = db.define('order', {
-  orderNumber: {
+  id: {
     type: UUID,
-    defaultValue: null
-  },
-  quantity: {
-    type: INTEGER,
-    defaultValue: 1
+    primaryKey: true,
+    defaultValue: UUIDV4
   },
   total: {
     type: FLOAT
@@ -18,7 +15,14 @@ const Order = db.define('order', {
   },
   payment: {
     type: STRING
+  },
+  status: {
+    type: STRING
   }
+  // userId: {
+  //   type: STRING,
+  //   allowNull: false
+  // }
 })
 
 module.exports = Order

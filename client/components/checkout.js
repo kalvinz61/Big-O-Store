@@ -29,9 +29,9 @@ const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
   }, [])
   const placeOrder = () => {
     products.map(product => {
-      removeCartItem(product)
-      console.log(orderNumber, product.id, product.carts_products.quantity)
-      addItemToOrder(orderNumber, product.id, product.carts_products.quantity)
+      //removeCartItem(product)
+      //console.log(orderNumber, product.id, product.carts_products.quantity)
+      //addItemToOrder(orderNumber, product.id, product.carts_products.quantity)
     })
   }
   return (
@@ -75,9 +75,9 @@ const mapState = ({cart}) => ({
 })
 
 const mapDispatch = dispatch => ({
-  fetchCart: () => dispatch(loadCart()),
-  removeCartItem: () => dispatch(deleteProduct()),
-  addItemToOrder: () => dispatch(addOrder())
+  // fetchCart: () => dispatch(loadCart()),
+  // removeCartItem: () => dispatch(deleteProduct()),
+  // addItemToOrder: () => dispatch(addOrder())
 })
 
 export default connect(mapState, mapDispatch)(Checkout)
