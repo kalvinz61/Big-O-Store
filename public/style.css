@@ -127,3 +127,58 @@ h1 {
   justify-items: flex-end;
   text-align: right;
 }
+
+.add-prod-form {
+  border: solid 1px black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  max-width: 50vh;
+}
+
+.add-prod-form > * {
+  text-align: center;
+  margin: 2px;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-prod-description-input {
+  height: 5rem;
+  width: 20rem;
+}
+
+.add-prod-img-preview {
+  height: 7rem;
+  width: 7rem;
+  border-radius: 10px;
+}
+
+.add-department-form {
+  border: solid 1px black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  max-width: 50vh;
+}
+
+.add-category-form {
+  border: solid 1px black;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+  max-width: 50vh;
+}
+
+.submit-error {
+  color: tomato;
+}

@@ -77,7 +77,6 @@ const Product = props => {
         <h4>Color:</h4> {product.color}
       </div>
       <div>
-        <h4>Category:</h4> {product.category}
         <h4>Category:</h4> {product.category.name}
       </div>
       <div>
