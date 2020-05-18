@@ -7,5 +7,11 @@ const CartsProducts = db.define('carts_products', {
     defaultValue: 1
   }
 })
-
+CartsProducts.getTotal = cartId => {
+  CartsProducts.findAll({
+    where: {
+      cartId
+    }
+  })
+}
 module.exports = CartsProducts

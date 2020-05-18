@@ -182,3 +182,19 @@ h1 {
 .submit-error {
   color: tomato;
 }
+
+.checkout {
+  align-self: center;
+  border: solid 1px black;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  min-width: 250px;
+}
+input {
+  margin: 0.5rem;
+  align-self: flex-end;
+}
+label {
+  align-self: flex-end;
+}
