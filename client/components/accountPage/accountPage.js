@@ -60,7 +60,7 @@ const _AccountPage = ({user, getMe, updateAddress}) => {
         <div>
           <h2>Addresses</h2>
           <div>
-            Main Address: {user.address.split('__').join(', ')}
+            Main Address: {user.address && user.address.split('__').join(', ')}
             <button type="button" onClick={() => setShowAddressForm(true)}>
               Update
             </button>
