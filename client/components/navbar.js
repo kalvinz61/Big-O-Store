@@ -114,24 +114,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
               </div>
             )}
           </Toolbar>
-          {/* <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-          </Typography>
-            <Button>Alternators and Starters</Button>
-            <Button>{'Apparel & Accessories'}</Button>
-            <Button>Batteries</Button>
-            <Button>{`Belts & Hoses`}</Button>
-            <Button>Brakes</Button>
-            <Button>Drivetrain</Button>
-            <Button>{`Engine Heating & Cooling`}</Button>
-            <Button>{`Engines, Parts & Gaskets`}</Button>
-            <Button>Exhaust</Button>
-            <Button>{`Fasteners & Hardware`}</Button>
-            <Button>Filters</Button>
-            <Button>{`Fuel & Emission Systems`}</Button>
-            <Button>{`Headlights, Vision & Safety`}</Button>
-            <Button>{`Heating, Cooling & Climate Control`}</Button>
-        </Toolbar> */}
         </AppBar>
       </nav>
       <hr />
