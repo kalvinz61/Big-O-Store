@@ -41,10 +41,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
                 <Link to="/home">
-                  <img
-                    src="/logos/Automania_Logo.ea97b6e3.png"
-                    style={{width: 400}}
-                  />
+                  <img src="/logos/Automania.png" style={{height: 60}} />
                 </Link>
               </Button>
             </Typography>
