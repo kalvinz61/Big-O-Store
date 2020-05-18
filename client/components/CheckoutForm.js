@@ -192,7 +192,7 @@ export const CheckoutForm = ({user, total}) => {
         type="submit"
         value="Checkout"
         style={{alignSelf: 'center'}}
-        disabled={processing}
+        //disabled={processing}
       />
     </form>
   )
