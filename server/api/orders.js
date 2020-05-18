@@ -1,32 +1,60 @@
 const router = require('express').Router()
-const {Order, Cart} = require('../db/models')
+const {
+  Order,
+  OrdersProducts,
+  Cart,
+  CartsProducts,
+  Product
+} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
-  await Order.findAll().then(order => res.send(order))
+  if (req.user.isAdmin === true) {
+    await Order.findAll({include: [{model: OrdersProducts}]})
+      .then(order => res.send(order))
+      .catch(next)
+  } else {
+    await Order.findAll({
+      where: {userId: req.user.id},
+      include: [{model: OrdersProducts}]
+    })
+      .then(order => res.send(order))
+      .catch(next)
+  }
 })
 
 router.get('/:id', async (req, res, next) => {
-  await Order.findAll({
+  await Order.findOne({
     where: {
-      orderNumber: req.order.id
-    }
-  }).then(order => res.send(order))
+      userId: req.user.id,
+      id: req.params.id
+    },
+    include: [{model: OrdersProducts}]
+  })
+    .then(order => res.send(order))
+    .catch(next)
 })
 
 router.post('/', async (req, res, next) => {
-  console.log('reqqqqqqq', req.body)
-  // const cart = await Cart.findOne({
-  //   where: {
-  //     userId: req.user.id
-  //   }
-  // })
-  await Order.create({
-    // orderNumber: req.body.orderId,
-    // cartId: cart.id,
-    // productId: req.body.id
-  }).then(newOrder => {
-    res.status(201).send(newOrder)
+  const order = await Order.create({
+    userId: req.user.id
   })
+  const cart = await Cart.findOne({where: {userId: req.user.id}})
+  const cartProducts = await CartsProducts.findAll({where: {cartId: cart.id}})
+  cartProducts.forEach(async product => {
+    const prod = await Product.findOne({where: {id: product.productId}})
+    await OrdersProducts.create({
+      orderId: order.id,
+      productId: product.productId,
+      quantity: product.quantity,
+      price: prod.price
+    })
+    await product.destroy()
+  })
+  const responseOrder = await Order.findOne({
+    where: {id: order.id},
+    include: [OrdersProducts]
+  })
+  res.send(responseOrder)
 })
 
 module.exports = router
