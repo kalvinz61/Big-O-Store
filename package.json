@@ -43,6 +43,8 @@
   "dependencies": {
     "@material-ui/core": "^4.9.13",
     "@material-ui/icons": "^4.9.1",
+    "@stripe/react-stripe-js": "^1.1.2",
+    "@stripe/stripe-js": "^1.5.0",
     "aws-sdk": "^2.678.0",
     "axios": "^0.19.2",
     "compression": "^1.7.3",
@@ -66,11 +68,13 @@
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
+    "react-toastify": "^6.0.4",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "sequelize": "^5.21.7",
     "socket.io": "^2.3.0",
+    "stripe": "^8.52.0",
     "style-loader": "^1.2.1",
     "url-loader": "^4.1.0"
   },
