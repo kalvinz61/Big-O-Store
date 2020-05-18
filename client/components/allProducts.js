@@ -19,9 +19,7 @@ const AllProducts = props => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   const {products, add, cart, updateItem} = props
-  // useEffect(() => {
-  //   add()
-  // }, [])
+
   return (
     <div className="allProducts">
       {products.map(product => {
