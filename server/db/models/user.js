@@ -32,6 +32,14 @@ const User = db.define('user', {
     },
     allowNull: true
   },
+  name: {
+    type: STRING,
+    allowNull: true
+  },
+  address: {
+    type: STRING,
+    allowNull: true
+  },
   googleId: {
     type: STRING
   },

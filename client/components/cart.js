@@ -9,7 +9,7 @@ import {Elements} from '@stripe/react-stripe-js'
 
 const stripePromise = loadStripe('pk_test_qviMXIYeSYKSLyLvzB2yHbIC00QTT2iEZr')
 
-const Cart = ({cart, fetchCart}) => {
+const Cart = ({user, cart, fetchCart}) => {
   const [success, setSuccess] = useState('incomplete')
   const {products} = cart
   let total = 0
@@ -34,7 +34,11 @@ const Cart = ({cart, fetchCart}) => {
       })}
       Total: ${total}
       <Elements stripe={stripePromise}>
-        <CheckoutForm total={total} success={() => setSuccess('succeeded')} />
+        <CheckoutForm
+          total={total}
+          user={user}
+          success={() => setSuccess('succeeded')}
+        />
       </Elements>
     </div>
   ) : (
@@ -47,8 +51,9 @@ const Cart = ({cart, fetchCart}) => {
   )
 }
 
-const mapState = ({cart}) => ({
-  cart
+const mapState = ({cart, user}) => ({
+  cart,
+  user
 })
 
 const mapDispatch = dispatch => ({

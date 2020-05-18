@@ -70,8 +70,9 @@ const Checkout = ({cart, fetchCart, removeCartItem, addItemToOrder}) => {
   )
 }
 
-const mapState = ({cart}) => ({
-  cart
+const mapState = ({cart, user}) => ({
+  cart,
+  user
 })
 
 const mapDispatch = dispatch => ({
