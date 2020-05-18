@@ -2,15 +2,26 @@ import React, {useState} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import axios from 'axios'
 import {Confirmation} from './confirmation'
-export const CheckoutForm = ({total}) => {
+// eslint-disable-next-line complexity
+export const CheckoutForm = ({user, total}) => {
+  const userName = user.name || null
+  const userEmail = user.email || null
+  console.log('USER', user)
+  const splitAddress =
+    user.address || user.email ? user.address.split('__') : null
+  const userAddress = splitAddress ? splitAddress[0] : null
+  const userCity = splitAddress ? splitAddress[1] : null
+  const userState = splitAddress ? splitAddress[2] : null
+  const userZipCode = splitAddress ? splitAddress[3] : null
+
   const [processing, setProcessing] = useState(false)
   const [status, setStatus] = useState('')
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [line1, setLine1] = useState('')
-  const [city, setCity] = useState('')
-  const [state, setState] = useState('')
-  const [zip, setZip] = useState('')
+  const [name, setName] = useState(userName || '')
+  const [email, setEmail] = useState(userEmail || '')
+  const [line1, setLine1] = useState(userAddress || '')
+  const [city, setCity] = useState(userCity || '')
+  const [state, setState] = useState(userState || '')
+  const [zip, setZip] = useState(userZipCode || '')
 
   const stripe = useStripe()
   const elements = useElements()
@@ -74,52 +85,108 @@ export const CheckoutForm = ({total}) => {
     <form className="checkout" onSubmit={handleSubmit}>
       <label>
         Name:
-        <input
-          type="text"
-          name="name"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
+        {name === userName ? (
+          <div>
+            {userName}
+            <button type="button" onClick={() => setName('')}>
+              Change
+            </button>
+          </div>
+        ) : (
+          <input
+            type="text"
+            name="name"
+            onChange={ev => handleChange(ev.target.name, ev.target.value)}
+          />
+        )}
       </label>
       <label>
         Email:
-        <input
-          type="text"
-          name="email"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
+        {email === userEmail ? (
+          <div>
+            {userEmail}
+            <button type="button" onClick={() => setEmail('')}>
+              Change
+            </button>
+          </div>
+        ) : (
+          <input
+            type="text"
+            name="email"
+            onChange={ev => handleChange(ev.target.name, ev.target.value)}
+          />
+        )}
       </label>
-      <label>
-        Address:
-        <input
-          type="text"
-          name="line1"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
-      </label>
-      <label>
-        City:
-        <input
-          type="text"
-          name="city"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
-      </label>
-      <label>
-        State:
-        <input
-          type="text"
-          name="state"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
-      </label>
-      <label>
-        Zip:
-        <input
-          type="text"
-          name="zip"
-          onChange={ev => handleChange(ev.target.name, ev.target.value)}
-        />
-      </label>
+      <div>
+        <label>
+          Address:
+          {line1 === userAddress ? (
+            <div>
+              {userAddress}
+              <button type="button" onClick={() => setLine1('')}>
+                Change
+              </button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="line1"
+              onChange={ev => handleChange(ev.target.name, ev.target.value)}
+            />
+          )}
+        </label>
+        <label>
+          City:
+          {city === userCity ? (
+            <div>
+              {userCity}
+              <button type="button" onClick={() => setCity('')}>
+                Change
+              </button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="city"
+              onChange={ev => handleChange(ev.target.name, ev.target.value)}
+            />
+          )}
+        </label>
+        <label>
+          State:
+          {state === userState ? (
+            <div>
+              {userState}
+              <button type="button" onClick={() => setState('')}>
+                Change
+              </button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="state"
+              onChange={ev => handleChange(ev.target.name, ev.target.value)}
+            />
+          )}
+        </label>
+        <label>
+          Zip:
+          {zip === userZipCode ? (
+            <div>
+              {userZipCode}
+              <button type="button" onClick={() => setZip('')}>
+                Change
+              </button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="zip"
+              onChange={ev => handleChange(ev.target.name, ev.target.value)}
+            />
+          )}
+        </label>
+      </div>
       <CardElement />
       <input
         type="submit"
