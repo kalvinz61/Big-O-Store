@@ -6,7 +6,6 @@ import history from '../history'
  */
 const GET_USER = 'GET_USER'
 // const REMOVE_USER = 'REMOVE_USER'
-
 /**
  * INITIAL STATE
  */
@@ -17,7 +16,6 @@ const defaultUser = {}
  */
 const getUser = user => ({type: GET_USER, user})
 // const removeUser = () => ({ type: REMOVE_USER })
-
 /**
  * THUNK CREATORS
  */
@@ -47,17 +45,6 @@ export const retrieveGuestSession = guestID => async dispatch => {
     return dispatch(getUser(guest))
   } catch (ex) {
     console.log(ex)
-  }
-}
-
-export const me = () => async dispatch => {
-  let res
-  try {
-    res = await axios.get('/auth/me')
-    //console.log('getting me', res.data)
-    dispatch(getUser(res.data || defaultUser))
-  } catch (err) {
-    console.error(err)
   }
 }
 
@@ -93,6 +80,28 @@ export const logout = () => async dispatch => {
     history.push('/')
   } catch (err) {
     console.error(err)
+  }
+}
+
+export const me = () => async dispatch => {
+  let res
+  try {
+    res = await axios.get('/auth/me')
+    //console.log('getting me', res.data)
+    dispatch(getUser(res.data || defaultUser))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const updateUserAddress = data => async dispatch => {
+  try {
+    console.log('UPDATING')
+    const updatedUser = (await axios.post('/api/users/update/address', data))
+      .data
+    return dispatch(getUser(updatedUser))
+  } catch (err) {
+    console.log(err)
   }
 }
 
