@@ -11,8 +11,7 @@ import {
   AdminPage,
   Checkout,
   Confirmation,
-  SearchBar,
-  FilterBar
+  AccountPage
 } from './components'
 import {me} from './store'
 import {retrieveGuestSession, createGuestSession} from './store/user'
@@ -49,10 +48,12 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/confirmation" component={Confirmation} />
-        <Route path="/admin" component={AdminPage} />
+
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
+            <Route path="/admin" component={AdminPage} />
+            <Route path="/account" component={AccountPage} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}

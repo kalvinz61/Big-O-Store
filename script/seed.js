@@ -18,13 +18,13 @@ async function seed() {
       email: 'admin@gmail.com',
       password: 'admin',
       name: 'admin',
-      address: '123 fake rd__New York__NY__11206',
+      address: '123 fake rd__New York__NY__11206__USA',
       isAdmin: true
     }),
     User.create({
       email: 'murphy@gmail.com',
       name: 'murphy',
-      address: '123 fake rd__New York__NY__11206',
+      address: '123 fake rd__New York__NY__11206__USA',
       password: '123'
     }),
     User.create(),

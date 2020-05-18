@@ -16,3 +16,35 @@ router.get('/', isAdmin, async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/update/name', async (req, res, next) => {
+  const user = await User.findByPk(req.user.id)
+  user.name = req.body.name
+  await user.save()
+  res.status(200).json(user)
+})
+
+// eslint-disable-next-line no-warning-comments
+//TODO
+// router.post('/update/email', async (req, res, next) => {
+//   const user = await User.findByPk(req.user.id)
+//   user.email = req.body.email;
+//   await user.save()
+//   res.status(200).json(user)
+// })
+
+router.post('/update/address', async (req, res, next) => {
+  try {
+    console.log('hitting route')
+    const user = await User.findByPk(req.user.id)
+    const newAddress = `${req.body.address}__${req.body.city}__${
+      req.body.state
+    }__${req.body.zip}__${req.body.country}`
+    user.address = newAddress
+    await user.save()
+    res.status(200).json(user)
+  } catch (err) {
+    console.log(err)
+    next(err)
+  }
+})
