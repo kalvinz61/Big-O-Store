@@ -99,6 +99,7 @@ router.post('/logout', (req, res, next) => {
 })
 
 router.get('/me', (req, res) => {
+  console.log('ME', req.user)
   res.json(req.user)
 })
 
