@@ -55,10 +55,10 @@ const _FilterBar = props => {
   return (
     <div className="filter-bar-main">
       <button type="button" onClick={handleShowCategoryClick}>
-        Filter By Category
+        Categories
       </button>
       <button type="button" onClick={handleShowDepartmentClick}>
-        Filter By Department
+        Departments
       </button>
       {showCategories && (
         <div className="categories-filter-container">

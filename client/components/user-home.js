@@ -14,7 +14,6 @@ import FilterBar from './filterBar/filterBar'
 export const UserHome = props => {
   const location = useLocation()
   const {email, loadProds, loadCrt, loadFiltered, isLoggedIn} = props
-  console.log('MATCH', props)
   useEffect(
     () => {
       if (props.match.path.includes('/products')) {

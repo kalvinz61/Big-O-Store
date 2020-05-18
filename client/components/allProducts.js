@@ -13,20 +13,13 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
-  },
-  root: {
-    '& > *': {
-      margin: theme.spacing(1)
-    }
   }
 }))
 const AllProducts = props => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   const {products, add, cart, updateItem} = props
-  // useEffect(() => {
-  //   add()
-  // }, [])
+
   return (
     <div className="allProducts">
       {products.map(product => {

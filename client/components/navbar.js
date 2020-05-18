@@ -9,8 +9,8 @@ import Toolbar from '@material-ui/core/Toolbar'
 import Typography from '@material-ui/core/Typography'
 import Button from '@material-ui/core/Button'
 import {SearchBar} from '.'
-import HomeIcon from '@material-ui/icons/Home'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
+import HomeIcon from '@material-ui/icons/Home'
 import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
@@ -36,7 +36,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   return (
     <div className={classes.root}>
       <nav>
-        <AppBar position="static" color="primary">
+        <AppBar position="fixed" top="0" height={140}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">

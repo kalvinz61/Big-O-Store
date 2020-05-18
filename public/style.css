@@ -12,9 +12,17 @@ label {
   display: block;
 }
 
+#app > div > :nth-child(2) {
+  padding-top: 150px;
+}
+
 nav a {
   display: inline-block;
   margin: 1em;
+}
+
+.MuiPaper-root {
+  max-height: 130px;
 }
 
 form div {
@@ -120,6 +128,14 @@ h1 {
   color: yellow;
   background-color: lightgray;
 }
+.filterBar {
+  display: flex;
+}
+
+.disUser {
+  justify-items: flex-end;
+  text-align: right;
+}
 
 .add-prod-form {
   border: solid 1px black;
@@ -175,10 +191,19 @@ h1 {
 .submit-error {
   color: tomato;
 }
-.filterBar {
+
+.checkout {
+  align-self: center;
+  border: solid 1px black;
+  padding: 0.5rem;
   display: flex;
+  flex-direction: column;
+  min-width: 250px;
 }
-.disUser {
-  justify-items: flex-end;
-  text-align: right;
+input {
+  margin: 0.5rem;
+  align-self: flex-end;
+}
+label {
+  align-self: flex-end;
 }

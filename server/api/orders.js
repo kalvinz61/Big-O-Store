@@ -50,8 +50,6 @@ router.post('/', async (req, res, next) => {
     })
     await product.destroy()
   })
-  // const ordProds = await OrdersProducts.findAll({where: {orderId: order.id}})
-  // console.log(ordProds)
   const responseOrder = await Order.findOne({
     where: {id: order.id},
     include: [OrdersProducts]

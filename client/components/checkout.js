@@ -62,8 +62,9 @@ const Checkout = ({cart, fetchCart, newOrder}) => {
   )
 }
 
-const mapState = ({cart}) => ({
-  cart
+const mapState = ({cart, user}) => ({
+  cart,
+  user
 })
 
 const mapDispatch = dispatch => ({
