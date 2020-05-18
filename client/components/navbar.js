@@ -73,6 +73,13 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
                     <span style={{fontSize: 17}}>LOGOUT</span>
                   </Link>
                 </Button>
+                <Button aria-label="add to shopping cart" color="inherit">
+                  <Link to="/account">
+                    <SupervisorAccountIcon style={{fontSize: 40}} />
+                    <br />
+                    <span style={{fontSize: 17}}>ACCOUNT</span>
+                  </Link>
+                </Button>
                 {isAdmin && (
                   <Button aria-label="add to shopping cart" color="inherit">
                     <Link to="/admin">

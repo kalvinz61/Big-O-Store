@@ -13,6 +13,7 @@ export const CheckoutForm = ({user, total}) => {
   const userCity = splitAddress ? splitAddress[1] : null
   const userState = splitAddress ? splitAddress[2] : null
   const userZipCode = splitAddress ? splitAddress[3] : null
+  const userCountry = splitAddress ? splitAddress[4] : null
 
   const [processing, setProcessing] = useState(false)
   const [status, setStatus] = useState('')
@@ -22,6 +23,7 @@ export const CheckoutForm = ({user, total}) => {
   const [city, setCity] = useState(userCity || '')
   const [state, setState] = useState(userState || '')
   const [zip, setZip] = useState(userZipCode || '')
+  const [country, setCountry] = useState(userCountry || '')
 
   const stripe = useStripe()
   const elements = useElements()
@@ -45,6 +47,9 @@ export const CheckoutForm = ({user, total}) => {
         break
       case 'zip':
         setZip(value)
+        break
+      case 'country':
+        setCountry(value)
         break
       default:
         return null
@@ -175,6 +180,23 @@ export const CheckoutForm = ({user, total}) => {
             <div>
               {userZipCode}
               <button type="button" onClick={() => setZip('')}>
+                Change
+              </button>
+            </div>
+          ) : (
+            <input
+              type="text"
+              name="zip"
+              onChange={ev => handleChange(ev.target.name, ev.target.value)}
+            />
+          )}
+        </label>
+        <label>
+          Country:
+          {country === userCountry ? (
+            <div>
+              {userCountry}
+              <button type="button" onClick={() => setCountry('')}>
                 Change
               </button>
             </div>
