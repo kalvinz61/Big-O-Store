@@ -7,33 +7,34 @@ import {loadSearchedProducts, loadProducts} from '../../store/allProducts'
 
 const _SearchBar = props => {
   const [inputText, setInputText] = useState('')
+  // let inputText = ''
   const [productLis, setProductLis] = useState([])
   const [backArrow, setBackArrow] = useState(false)
 
   useEffect(
     () => {
-      console.log(inputText)
+      if (!inputText.length) {
+        setProductLis([])
+      } else {
+        props
+          .loadFiltered(inputText, false) //call api without dispatching to store by setting to false
+          .then(matches => setProductLis(matches.slice(0, 7)))
+      }
     },
     [inputText]
   )
 
-  function handleChange(e) {
+  async function handleChange(e) {
     e.preventDefault()
     console.log('EVENT', e.target.value)
-    setInputText(e.target.value)
-    if (!inputText.length) {
-      setProductLis([])
-    } else {
-      props
-        .loadFiltered(inputText, false) //call api without dispatching to store by setting to false
-        .then(matches => setProductLis(matches.slice(0, 7)))
-    }
+    await setInputText(e.target.value)
   }
 
   async function handleSearch(e) {
     e.preventDefault()
     if (!inputText.length) return null
     await props.loadFiltered(inputText, true) //call api dispatching to store
+    // inputText = ''
     setInputText('')
     setBackArrow(true)
   }

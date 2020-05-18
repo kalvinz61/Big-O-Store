@@ -36,7 +36,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   return (
     <div className={classes.root}>
       <nav>
-        <AppBar position="static">
+        <AppBar position="fixed" top="0" height={140}>
           <Toolbar>
             <Typography variant="h6" className={classes.title}>
               <Button color="inherit">
