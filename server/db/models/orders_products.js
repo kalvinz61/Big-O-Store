@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
-const {INTEGER, DECIMAL} = Sequelize
+const {INTEGER, DECIMAL, UUID, UUIDV4} = Sequelize
 const OrdersProducts = db.define('orders_products', {
   quantity: {
     type: INTEGER,

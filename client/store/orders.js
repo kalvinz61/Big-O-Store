@@ -1,17 +1,11 @@
 import axios from 'axios'
 
-const LOAD_ALL_ORDERS = 'LOAD_ALL_ORDERS'
-const LOAD_ALL_USERS_ORDERS = 'LOAD_ALL_USERS_ORDERS'
+const LOAD_ORDERS = 'LOAD_USERS_ORDERS'
 const LOAD_ORDER = 'LOAD_ORDER'
 const CREATE_ORDER = 'CREATE_ORDER'
 
-const _loadAllOrders = orders => ({
-  type: LOAD_ALL_ORDERS,
-  orders
-})
-
-const _loadAllUsersOrders = orders => ({
-  type: LOAD_ALL_USERS_ORDERS,
+const _loadOrders = orders => ({
+  type: LOAD_ORDERS,
   orders
 })
 
@@ -25,30 +19,23 @@ const _createOrder = product => ({
   product
 })
 
-export const loadAllOrders = () => {
-  return async dispatch => {
-    const orders = (await axios.get('/api/orders/all')).data
-    dispatch(_loadAllOrders(orders))
-  }
-}
-export const loadAllUsersOrders = () => {
+export const loadOrders = () => {
   return async dispatch => {
     const orders = (await axios.get('/api/orders')).data
-    dispatch(_loadAllUsersOrders(orders))
+    dispatch(_loadOrders(orders))
   }
 }
 
-export const loadOrder = () => {
+export const loadOrder = id => {
   return async dispatch => {
-    const order = (await axios.get('/api/orders/:id')).data
+    const order = (await axios.get(`/api/orders/${id}`)).data
     dispatch(_loadOrder(order))
   }
 }
 
-export const createOrder = (orderId, product, qty) => {
+export const createOrder = () => {
   return async dispatch => {
-    const newOrd = (await axios.post('/api/orders', {orderId, product, qty}))
-      .data
+    const newOrd = (await axios.post('/api/orders')).data
     dispatch(_createOrder(newOrd))
   }
 }
@@ -57,8 +44,8 @@ const initialState = {}
 
 export default function(state = initialState, action) {
   switch (action.type) {
-    case LOAD_ALL_ORDERS:
-      return action.order
+    case LOAD_ORDERS:
+      return action.orders
     case LOAD_ORDER:
       return action.order
     case CREATE_ORDER:

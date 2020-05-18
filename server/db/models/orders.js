@@ -19,10 +19,6 @@ const Order = db.define('order', {
   status: {
     type: STRING
   }
-  // userId: {
-  //   type: STRING,
-  //   allowNull: false
-  // }
 })
 
 module.exports = Order

@@ -1,25 +1,31 @@
 const router = require('express').Router()
-const {Order, OrdersProducts} = require('../db/models')
-
-router.get('/all', async (req, res, next) => {
-  await Order.findAll({include: [{model: OrdersProducts}]})
-    .then(order => res.send(order))
-    .catch(next)
-})
+const {
+  Order,
+  OrdersProducts,
+  Cart,
+  CartsProducts,
+  Product
+} = require('../db/models')
 
 router.get('/', async (req, res, next) => {
-  await Order.findAll({
-    where: {userId: req.user.id},
-    include: [{model: OrdersProducts}]
-  })
-    .then(order => res.send(order))
-    .catch(next)
+  if (req.user.isAdmin === true) {
+    await Order.findAll({include: [{model: OrdersProducts}]})
+      .then(order => res.send(order))
+      .catch(next)
+  } else {
+    await Order.findAll({
+      where: {userId: req.user.id},
+      include: [{model: OrdersProducts}]
+    })
+      .then(order => res.send(order))
+      .catch(next)
+  }
 })
 
 router.get('/:id', async (req, res, next) => {
   await Order.findOne({
     where: {
-      userId: req.body.userId,
+      userId: req.user.id,
       id: req.params.id
     },
     include: [{model: OrdersProducts}]
@@ -29,11 +35,28 @@ router.get('/:id', async (req, res, next) => {
 })
 
 router.post('/', async (req, res, next) => {
-  await Order.create({
+  const order = await Order.create({
     userId: req.user.id
   })
-    .then(order => res.send(order))
-    .catch(next)
+  const cart = await Cart.findOne({where: {userId: req.user.id}})
+  const cartProducts = await CartsProducts.findAll({where: {cartId: cart.id}})
+  cartProducts.forEach(async product => {
+    const prod = await Product.findOne({where: {id: product.productId}})
+    await OrdersProducts.create({
+      orderId: order.id,
+      productId: product.productId,
+      quantity: product.quantity,
+      price: prod.price
+    })
+    await product.destroy()
+  })
+  // const ordProds = await OrdersProducts.findAll({where: {orderId: order.id}})
+  // console.log(ordProds)
+  const responseOrder = await Order.findOne({
+    where: {id: order.id},
+    include: [OrdersProducts]
+  })
+  res.send(responseOrder)
 })
 
 module.exports = router
