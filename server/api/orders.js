@@ -10,7 +10,7 @@ const {
 
 router.get('/all', isAdmin, async (req, res, next) => {
   await Order.findAll({
-    include: [Product, OrdersProducts]
+    include: [Product]
   })
     .then(orders => res.json(orders))
     .catch(next)
@@ -30,7 +30,7 @@ router.get('/:id', async (req, res, next) => {
       userId: req.user.id,
       id: req.params.id
     },
-    include: [Product, OrdersProducts]
+    include: [Product]
   })
     .then(order => res.send(order))
     .catch(next)
@@ -54,7 +54,7 @@ router.post('/', async (req, res, next) => {
   })
   const responseOrder = await Order.findOne({
     where: {id: order.id},
-    include: [Product, OrdersProducts]
+    include: [Product]
   })
   res.send(responseOrder)
 })
