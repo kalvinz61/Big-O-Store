@@ -3,9 +3,18 @@ import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 import {makeStyles} from '@material-ui/core/styles'
 import {addToCart, updateCart} from '../store/cart'
-import AddShoppingCartIcon from '@material-ui/icons/AddShoppingCart'
+import {Card, CardMedia, Button, Select} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
+  allProducts: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    justifyContent: 'space-evenly'
+  },
+  img: {
+    height: '200px',
+    marginBottom: '.5rem'
+  },
   formControl: {
     margin: theme.spacing(1),
     minWidth: 120,
@@ -13,32 +22,39 @@ const useStyles = makeStyles(theme => ({
   },
   selectEmpty: {
     marginTop: theme.spacing(2)
+  },
+  listProduct: {
+    display: 'flex',
+    flexDirection: 'column',
+    border: 'solid 2px black',
+    borderRadius: '1rem',
+    padding: '1rem',
+    margin: '1rem',
+    width: '400px',
+    backgroundColor: '#ffce0766'
   }
 }))
 const AllProducts = props => {
   const classes = useStyles()
   const [quantity, setQuantity] = useState(1)
   const {products, add, cart, updateItem} = props
-
+  const handleChange = event => {
+    setQuantity(event.target.value)
+  }
   return (
-    <div className="allProducts">
+    <div className={classes.allProducts}>
       {products.map(product => {
         return (
-          <div key={product.id} className="listProduct">
+          <Card key={product.id} className={classes.listProduct}>
             <Link to={`/products/${product.id}`}>
               <h3>{product.name}</h3>
-              <img src={product.imageUrl} />
+              <CardMedia className={classes.img} image={product.imageUrl} />
             </Link>
             {product.category && <div>{product.category.name}</div>}
             <form className="add-to-cart-form">
               <label>
                 Quantity:
-                <select
-                  defaultValue={1}
-                  onChange={ev => {
-                    setQuantity(ev.target.value)
-                  }}
-                >
+                <Select defaultValue={1} onChange={handleChange}>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
@@ -48,10 +64,11 @@ const AllProducts = props => {
                   <option value={7}>7</option>
                   <option value={8}>8</option>
                   <option value={9}>9</option>
-                </select>
+                </Select>
               </label>
-              <button
-                type="button"
+              <Button
+                variant="contained"
+                color="primary"
                 onClick={() => {
                   const item = cart.products.find(
                     prod => prod.id === product.id
@@ -64,9 +81,9 @@ const AllProducts = props => {
                 }}
               >
                 Add to cart
-              </button>
+              </Button>
             </form>
-          </div>
+          </Card>
         )
       })}
     </div>

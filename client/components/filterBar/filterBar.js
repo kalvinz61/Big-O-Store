@@ -10,6 +10,7 @@ import GridListTile from '@material-ui/core/GridListTile'
 import GridListTileBar from '@material-ui/core/GridListTileBar'
 import IconButton from '@material-ui/core/IconButton'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
+import {Button} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -54,12 +55,20 @@ const _FilterBar = props => {
 
   return (
     <div className="filter-bar-main">
-      <button type="button" onClick={handleShowCategoryClick}>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleShowCategoryClick}
+      >
         Categories
-      </button>
-      <button type="button" onClick={handleShowDepartmentClick}>
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={handleShowDepartmentClick}
+      >
         Departments
-      </button>
+      </Button>
       {showCategories && (
         <div className="categories-filter-container">
           <GridList className={classes.gridList} cols={categories.length}>
