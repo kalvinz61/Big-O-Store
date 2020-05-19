@@ -18,8 +18,10 @@ import AddToQueueIcon from '@material-ui/icons/AddToQueue'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    maxHeight: '50px'
+    flexGrow: 1
+    // '& > *': {
+    //   margin: theme.spacing(1)
+    // }
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -33,15 +35,12 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <AppBar position="fixed" top="0" height={140}>
+      <AppBar position="fixed" top="0">
         <Toolbar>
           <Typography variant="h6" className={classes.title}>
             <Button color="inherit">
               <Link to="/home">
-                <img
-                  src="/logos/Automania_Logo.ea97b6e3.png"
-                  style={{width: 300}}
-                />
+                <img src="/logos/Automania.png" style={{height: 60}} />
               </Link>
             </Button>
           </Typography>
@@ -53,21 +52,28 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
                 <Link to="/home">
                   <HomeIcon style={{fontSize: 30}} />
                   <br />
-                  <span style={{fontSize: 15}}>HOME</span>
+                  <span style={{fontSize: 13}}>HOME</span>
                 </Link>
               </Button>
               <Button aria-label="add to shopping cart" color="inherit">
                 <Link to="/cart">
                   <ShoppingCartIcon style={{fontSize: 30}} />
                   <br />
-                  <span style={{fontSize: 15}}>CART</span>
+                  <span style={{fontSize: 13}}>CART</span>
                 </Link>
               </Button>
               <Button aria-label="add to shopping cart" color="inherit">
                 <Link to="#" onClick={handleClick}>
                   <ExitToAppIcon style={{fontSize: 30}} />
                   <br />
-                  <span style={{fontSize: 15}}>LOGOUT</span>
+                  <span style={{fontSize: 13}}>LOGOUT</span>
+                </Link>
+              </Button>
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/account">
+                  <SupervisorAccountIcon style={{fontSize: 30}} />
+                  <br />
+                  <span style={{fontSize: 13}}>ACCOUNT</span>
                 </Link>
               </Button>
               {isAdmin && (
@@ -75,7 +81,7 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
                   <Link to="/admin">
                     <SupervisorAccountIcon style={{fontSize: 30}} />
                     <br />
-                    <span style={{fontSize: 15}}>ADMIN</span>
+                    <span style={{fontSize: 13}}>ADMIN</span>
                   </Link>
                 </Button>
               )}
@@ -107,24 +113,6 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
             </div>
           )}
         </Toolbar>
-        {/* <Toolbar>
-          <Typography variant="h6" className={classes.title}>
-          </Typography>
-            <Button>Alternators and Starters</Button>
-            <Button>{'Apparel & Accessories'}</Button>
-            <Button>Batteries</Button>
-            <Button>{`Belts & Hoses`}</Button>
-            <Button>Brakes</Button>
-            <Button>Drivetrain</Button>
-            <Button>{`Engine Heating & Cooling`}</Button>
-            <Button>{`Engines, Parts & Gaskets`}</Button>
-            <Button>Exhaust</Button>
-            <Button>{`Fasteners & Hardware`}</Button>
-            <Button>Filters</Button>
-            <Button>{`Fuel & Emission Systems`}</Button>
-            <Button>{`Headlights, Vision & Safety`}</Button>
-            <Button>{`Heating, Cooling & Climate Control`}</Button>
-        </Toolbar> */}
       </AppBar>
       <hr />
     </div>

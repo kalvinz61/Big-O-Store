@@ -11,10 +11,10 @@ import Select from '@material-ui/core/Select'
 import {Card, CardMedia} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: 'auto'
-    // minWidth: 120
-  },
+  // formControl: {
+  //   margin: 'auto'
+  //   minWidth: 120
+  // },
   selectEmpty: {
     marginTop: theme.spacing(2)
   },
@@ -42,6 +42,11 @@ const useStyles = makeStyles(theme => ({
   infoContainer: {
     marginLeft: '10rem',
     marginRight: '10rem'
+  },
+  formHolder: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingRight: '5rem'
   }
 }))
 
@@ -73,6 +78,43 @@ const Product = props => {
             />
           </Link>
         </div>
+        <div className={classes.formHolder}>
+          <FormControl className={classes.formControl}>
+            <label>
+              Quantity:
+              <Select
+                defaultValue={1}
+                onChange={ev => {
+                  setQuantity(ev.target.value)
+                }}
+              >
+                <MenuItem value={1}>1</MenuItem>
+                <MenuItem value={2}>2</MenuItem>
+                <MenuItem value={3}>3</MenuItem>
+                <MenuItem value={4}>4</MenuItem>
+                <MenuItem value={5}>5</MenuItem>
+                <MenuItem value={6}>6</MenuItem>
+                <MenuItem value={7}>7</MenuItem>
+                <MenuItem value={8}>8</MenuItem>
+                <MenuItem value={9}>9</MenuItem>
+              </Select>
+            </label>
+            <Button
+              onClick={() => {
+                const item = cart.products.find(prod => prod.id === product.id)
+                if (item) {
+                  updateItem(product, quantity)
+                } else {
+                  addItem(product, quantity)
+                }
+              }}
+              variant="contained"
+              color="primary"
+            >
+              Add to cart
+            </Button>
+          </FormControl>
+        </div>
 
         <div className={classes.infoContainer}>
           <h3>Description:</h3> {product.description}
@@ -82,42 +124,6 @@ const Product = props => {
           <h4>Length:</h4> {product.length} in
           <h4>Price:</h4> ${product.price}
         </div>
-        <FormControl className={classes.formControl}>
-          <label>
-            Quantity:
-            <Select
-              defaultValue={1}
-              onChange={ev => {
-                setQuantity(ev.target.value)
-              }}
-            >
-              <MenuItem value={1}>1</MenuItem>
-              <MenuItem value={2}>2</MenuItem>
-              <MenuItem value={3}>3</MenuItem>
-              <MenuItem value={4}>4</MenuItem>
-              <MenuItem value={5}>5</MenuItem>
-              <MenuItem value={6}>6</MenuItem>
-              <MenuItem value={7}>7</MenuItem>
-              <MenuItem value={8}>8</MenuItem>
-              <MenuItem value={9}>9</MenuItem>
-            </Select>
-          </label>
-
-          <Button
-            onClick={() => {
-              const item = cart.products.find(prod => prod.id === product.id)
-              if (item) {
-                updateItem(product, quantity)
-              } else {
-                addItem(product, quantity)
-              }
-            }}
-            variant="contained"
-            color="primary"
-          >
-            Add to cart
-          </Button>
-        </FormControl>
       </Card>
     </div>
   ) : null

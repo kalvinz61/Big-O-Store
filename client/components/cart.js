@@ -6,6 +6,7 @@ import {loadCart, addToCart} from '../store/cart'
 import {CheckoutForm} from './CheckoutForm'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
+import checkout from './checkout'
 
 const stripePromise = loadStripe('pk_test_qviMXIYeSYKSLyLvzB2yHbIC00QTT2iEZr')
 
@@ -33,13 +34,7 @@ const Cart = ({user, cart, fetchCart}) => {
         return <CartItem key={product.id} {...product} />
       })}
       Total: ${total}
-      <Elements stripe={stripePromise}>
-        <CheckoutForm
-          total={total}
-          user={user}
-          success={() => setSuccess('succeeded')}
-        />
-      </Elements>
+      <Link to="/checkout">Checkout</Link>
     </div>
   ) : (
     <div>

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-
+import {Button} from '@material-ui/core'
 import {SearchBarResultCard} from './searchBarLi'
 
 import {loadSearchedProducts, loadProducts} from '../../store/allProducts'
@@ -49,9 +49,9 @@ const _SearchBar = props => {
         {/* <label>Search our Products</label> */}
         <div className="searchbar-input-button-container">
           {backArrow && (
-            <button type="button" className="back-button" onClick={handleBack}>
+            <Button type="button" className="back-button" onClick={handleBack}>
               Clear search
-            </button>
+            </Button>
           )}
           <input
             value={inputText}
@@ -59,9 +59,9 @@ const _SearchBar = props => {
             placeholder="Search product"
             onChange={ev => handleChange(ev)}
           />
-          <button type="submit" disabled={!(productLis.length > 0)}>
+          <Button type="submit" disabled={!(productLis.length > 0)}>
             Search
-          </button>
+          </Button>
         </div>
         {inputText.length > 0 &&
         Array.isArray(productLis) &&

@@ -1,6 +1,6 @@
 body {
   font-family: sans-serif;
-  background-color: Gainsboro;
+  background-color: rgb(255, 255, 255);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
 
@@ -189,5 +189,5 @@ label {
 #app {
   display: flex;
   flex-direction: column;
-  padding-top: 8rem;
+  padding-top: 5rem;
 }
