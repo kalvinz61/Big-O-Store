@@ -6,7 +6,8 @@ const {
   Product,
   Cart,
   Department,
-  Category
+  Category,
+  Order
 } = require('../server/db/models')
 
 async function seed() {
@@ -38,6 +39,8 @@ async function seed() {
     Cart.create({userId: users[2].id}),
     Cart.create({userId: users[2].id})
   ])
+
+  const orders = await Promise.all([Order.create({userId: users[0].id})])
 
   const [maintenance, upgrades] = await Promise.all([
     Department.create({name: 'Maintenance'}),
@@ -552,6 +555,13 @@ async function seed() {
       departmentId: upgrades.id,
       categoryId: chassisCat.id
     })
+  ])
+
+  await Promise.all([
+    orders[0].addProduct(products[0]),
+    orders[0].addProduct(products[2]),
+    orders[0].addProduct(products[3]),
+    orders[0].addProduct(products[1])
   ])
 
   await Promise.all([

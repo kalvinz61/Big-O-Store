@@ -19,9 +19,17 @@ const _createOrder = product => ({
   product
 })
 
+export const loadAllOrders = () => {
+  return async dispatch => {
+    const orders = (await axios.get('/api/orders/all')).data
+    dispatch(_loadOrders(orders))
+  }
+}
+
 export const loadOrders = () => {
   return async dispatch => {
-    const orders = (await axios.get('/api/orders')).data
+    const orders = (await axios.get('/api/orders/mine')).data
+    console.log('ORDERS', orders)
     dispatch(_loadOrders(orders))
   }
 }
@@ -40,7 +48,7 @@ export const createOrder = () => {
   }
 }
 
-const initialState = {}
+const initialState = []
 
 export default function(state = initialState, action) {
   switch (action.type) {

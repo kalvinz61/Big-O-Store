@@ -21,13 +21,13 @@ Product.belongsToMany(Cart, {through: CartsProducts})
 User.hasMany(Order)
 Order.belongsTo(User)
 
-Order.hasMany(OrdersProducts)
-Product.hasMany(OrdersProducts)
-OrdersProducts.belongsTo(Order)
-OrdersProducts.belongsTo(Product)
+// Order.hasMany(OrdersProducts)
+// Product.hasMany(OrdersProducts)
+// OrdersProducts.belongsTo(Order)
+// OrdersProducts.belongsTo(Product)
 
-// Order.belongsToMany(Product, {through: OrdersProducts})
-// Product.belongsToMany(Order, {through: OrdersProducts})
+Order.belongsToMany(Product, {through: OrdersProducts})
+Product.belongsToMany(Order, {through: OrdersProducts})
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
