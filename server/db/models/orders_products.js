@@ -8,7 +8,7 @@ const OrdersProducts = db.define('orders_products', {
   },
   price: {
     type: DECIMAL(8, 2),
-    allowNull: false,
+    allowNull: true,
     validate: {
       isNumeric: true,
       isDecimal: true,

@@ -19,10 +19,10 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1,
-    '& > *': {
-      margin: theme.spacing(1)
-    }
+    flexGrow: 1
+    // '& > *': {
+    //   margin: theme.spacing(1)
+    // }
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -36,99 +36,85 @@ const Navbar = ({handleClick, isLoggedIn, isAdmin}) => {
   const classes = useStyles()
   return (
     <div className={classes.root}>
-      <nav>
-        <AppBar
-          position="fixed"
-          top="0"
-          titleStyle={{lineHeight: 50}}
-          style={{background: '#3a558b'}}
-        >
-          <Toolbar>
-            <Typography variant="h6" className={classes.title}>
-              <Button color="inherit">
+      <AppBar position="fixed" top="0">
+        <Toolbar>
+          <Typography variant="h6" className={classes.title}>
+            <Button color="inherit">
+              <Link to="/home">
+                <img src="/logos/Automania.png" style={{height: 60}} />
+              </Link>
+            </Button>
+          </Typography>
+          <SearchBar />
+          {isLoggedIn ? (
+            <div>
+              {/* The navbar will show these links after you log in */}
+              <Button aria-label="add to shopping cart" color="inherit">
                 <Link to="/home">
-                  <img
-                    src="/logos/Logo.png"
-                    style={{height: 120, width: 120}}
-                  />
+                  <HomeIcon style={{fontSize: 30}} />
+                  <br />
+                  <span style={{fontSize: 13}}>HOME</span>
                 </Link>
               </Button>
-            </Typography>
-            {/* <SearchBar /> */}
-            {isLoggedIn ? (
-              <div>
-                {/* The navbar will show these links after you log in */}
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/cart">
+                  <ShoppingCartIcon style={{fontSize: 30}} />
+                  <br />
+                  <span style={{fontSize: 13}}>CART</span>
+                </Link>
+              </Button>
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="#" onClick={handleClick}>
+                  <ExitToAppIcon style={{fontSize: 30}} />
+                  <br />
+                  <span style={{fontSize: 13}}>LOGOUT</span>
+                </Link>
+              </Button>
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/account">
+                  <SupervisorAccountIcon style={{fontSize: 30}} />
+                  <br />
+                  <span style={{fontSize: 13}}>ACCOUNT</span>
+                </Link>
+              </Button>
+              {isAdmin && (
                 <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/home">
-                    <HomeIcon style={{fontSize: 30, color: 'a0a0a0'}} />
+                  <Link to="/admin">
+                    <SupervisorAccountIcon style={{fontSize: 30}} />
                     <br />
-                    <span style={{fontSize: 13}}>HOME</span>
+                    <span style={{fontSize: 13}}>ADMIN</span>
                   </Link>
                 </Button>
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/cart">
-                    <ShoppingCartIcon style={{fontSize: 30, color: 'a0a0a0'}} />
-                    <br />
-                    <span style={{fontSize: 13}}>CART</span>
-                  </Link>
-                </Button>
-                {isAdmin && (
-                  <Button aria-label="add to shopping cart" color="inherit">
-                    <Link to="/admin">
-                      <AccountBoxIcon style={{fontSize: 30, color: 'a0a0a0'}} />
-                      <br />
-                      <span style={{fontSize: 13}}>ADMIN</span>
-                    </Link>
-                  </Button>
-                )}
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/account">
-                    <SupervisorAccountIcon
-                      style={{fontSize: 30, color: 'a0a0a0'}}
-                    />
-                    <br />
-                    <span style={{fontSize: 13}}>MY ACCOUNT</span>
-                  </Link>
-                </Button>
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="#" onClick={handleClick}>
-                    <ExitToAppIcon style={{fontSize: 30, color: 'a0a0a0'}} />
-                    <br />
-                    <span style={{fontSize: 13}}>LOGOUT</span>
-                  </Link>
-                </Button>
-              </div>
-            ) : (
-              <div>
-                {/* The navbar will show these links before you log in */}
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/login">
-                    <AccountCircleIcon
-                      style={{fontSize: 30, color: 'a0a0a0'}}
-                    />
-                    <br />
-                    <span style={{fontSize: 13}}>LOGIN</span>
-                  </Link>
-                </Button>
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/signup">
-                    <AddToQueueIcon style={{fontSize: 30, color: 'a0a0a0'}} />
-                    <br />
-                    <span style={{fontSize: 13}}>SIGNUP</span>
-                  </Link>
-                </Button>
-                <Button aria-label="add to shopping cart" color="inherit">
-                  <Link to="/cart">
-                    <ShoppingCartIcon style={{fontSize: 30, color: 'a0a0a0'}} />
-                    <br />
-                    <span style={{fontSize: 13}}>CART</span>
-                  </Link>
-                </Button>
-              </div>
-            )}
-          </Toolbar>
-        </AppBar>
-      </nav>
+              )}
+            </div>
+          ) : (
+            <div>
+              {/* The navbar will show these links before you log in */}
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/login">
+                  <AccountCircleIcon style={{fontSize: 40}} />
+                  <br />
+                  <span style={{fontSize: 17}}>LOGIN</span>
+                </Link>
+              </Button>
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/signup">
+                  <AddToQueueIcon style={{fontSize: 40}} />
+                  <br />
+                  <span style={{fontSize: 17}}>SIGNUP</span>
+                </Link>
+              </Button>
+              <Button aria-label="add to shopping cart" color="inherit">
+                <Link to="/cart">
+                  <ShoppingCartIcon style={{fontSize: 40}} />
+                  <br />
+                  <span style={{fontSize: 17}}>CART</span>
+                </Link>
+              </Button>
+            </div>
+          )}
+        </Toolbar>
+      </AppBar>
       <hr />
     </div>
   )

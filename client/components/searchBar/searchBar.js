@@ -1,11 +1,10 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-import SearchIcon from '@material-ui/icons/Search'
+import {Button} from '@material-ui/core'
 import {SearchBarResultCard} from './searchBarLi'
 
 import {loadSearchedProducts, loadProducts} from '../../store/allProducts'
 
-import Button from '@material-ui/core/Button'
 import {makeStyles} from '@material-ui/core/styles'
 const useStyles = makeStyles(theme => ({
   button: {
@@ -57,9 +56,9 @@ const _SearchBar = props => {
         {/* <label>Search our Products</label> */}
         <div className="searchbar-input-button-container">
           {backArrow && (
-            <button type="button" className="back-button" onClick={handleBack}>
+            <Button type="button" className="back-button" onClick={handleBack}>
               Clear search
-            </button>
+            </Button>
           )}
           <Button
             style={{
@@ -83,6 +82,9 @@ const _SearchBar = props => {
             placeholder="Search product"
             onChange={ev => handleChange(ev)}
           />
+          <Button type="submit" disabled={!(productLis.length > 0)}>
+            Search
+          </Button>
         </div>
         {inputText.length > 0 &&
         Array.isArray(productLis) &&

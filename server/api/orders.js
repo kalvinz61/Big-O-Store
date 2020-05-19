@@ -1,4 +1,5 @@
 const router = require('express').Router()
+const {isAdmin} = require('../middleware')
 const {
   Order,
   OrdersProducts,
@@ -7,19 +8,20 @@ const {
   Product
 } = require('../db/models')
 
-router.get('/', async (req, res, next) => {
-  if (req.user.isAdmin === true) {
-    await Order.findAll({include: [{model: OrdersProducts}]})
-      .then(order => res.send(order))
-      .catch(next)
-  } else {
-    await Order.findAll({
-      where: {userId: req.user.id},
-      include: [{model: OrdersProducts}]
-    })
-      .then(order => res.send(order))
-      .catch(next)
-  }
+router.get('/all', isAdmin, async (req, res, next) => {
+  await Order.findAll({
+    include: [Product]
+  })
+    .then(orders => res.json(orders))
+    .catch(next)
+})
+
+router.get('/mine', async (req, res, next) => {
+  const orders = await Order.findAll({
+    where: {userId: req.user.id},
+    include: [Product]
+  })
+  res.status(200).json(orders)
 })
 
 router.get('/:id', async (req, res, next) => {
@@ -28,7 +30,7 @@ router.get('/:id', async (req, res, next) => {
       userId: req.user.id,
       id: req.params.id
     },
-    include: [{model: OrdersProducts}]
+    include: [Product]
   })
     .then(order => res.send(order))
     .catch(next)
@@ -52,7 +54,7 @@ router.post('/', async (req, res, next) => {
   })
   const responseOrder = await Order.findOne({
     where: {id: order.id},
-    include: [OrdersProducts]
+    include: [Product]
   })
   res.send(responseOrder)
 })
