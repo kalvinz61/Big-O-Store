@@ -8,13 +8,9 @@ import {makeStyles} from '@material-ui/core/styles'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {Card, CardMedia} from '@material-ui/core'
+import {Card} from '@material-ui/core'
 
 const useStyles = makeStyles(theme => ({
-  // formControl: {
-  //   margin: 'auto'
-  //   minWidth: 120
-  // },
   selectEmpty: {
     marginTop: theme.spacing(2)
   },
