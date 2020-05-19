@@ -26,8 +26,8 @@ export const UserHome = props => {
     [location]
   )
   return (
-    <div>
-      {/* <SearchBar /> */}
+    <div className="homePage">
+      <SearchBar />
       <div className="filterBar">
         <FilterBar />
         <div className="disUser">

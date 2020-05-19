@@ -1,16 +1,24 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
-
+import SearchIcon from '@material-ui/icons/Search'
 import {SearchBarResultCard} from './searchBarLi'
 
 import {loadSearchedProducts, loadProducts} from '../../store/allProducts'
 
+import Button from '@material-ui/core/Button'
+import {makeStyles} from '@material-ui/core/styles'
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: theme.spacing(1),
+    width: 10099
+  }
+}))
 const _SearchBar = props => {
   const [inputText, setInputText] = useState('')
   // let inputText = ''
   const [productLis, setProductLis] = useState([])
   const [backArrow, setBackArrow] = useState(false)
-
+  const classes = useStyles()
   useEffect(
     () => {
       if (!inputText.length) {
@@ -44,7 +52,7 @@ const _SearchBar = props => {
     props.loadAll()
   }
   return (
-    <div>
+    <div className="searchBar">
       <form onSubmit={handleSearch}>
         {/* <label>Search our Products</label> */}
         <div className="searchbar-input-button-container">
@@ -53,15 +61,28 @@ const _SearchBar = props => {
               Clear search
             </button>
           )}
+          <Button
+            style={{
+              fontSize: 15,
+              width: 100,
+              backgroundColor: '#000000',
+              margin: 0,
+              border: 0,
+              padding: 0
+            }}
+            className={classes.button}
+            startIcon={<SearchIcon />}
+            type="submit"
+            disabled={!(productLis.length > 0)}
+          >
+            SEARCH
+          </Button>
           <input
             value={inputText}
             type="text"
             placeholder="Search product"
             onChange={ev => handleChange(ev)}
           />
-          <button type="submit" disabled={!(productLis.length > 0)}>
-            Search
-          </button>
         </div>
         {inputText.length > 0 &&
         Array.isArray(productLis) &&

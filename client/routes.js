@@ -11,6 +11,7 @@ import {
   AdminPage,
   Checkout,
   Confirmation,
+  Orders,
   AccountPage
 } from './components'
 import {me} from './store'
@@ -48,6 +49,7 @@ class Routes extends Component {
         <Route path="/cart" component={Cart} />
         <Route path="/checkout" component={Checkout} />
         <Route path="/confirmation" component={Confirmation} />
+        <Route path="/orders" component={Orders} />
 
         {isLoggedIn && (
           <Switch>

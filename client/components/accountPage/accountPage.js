@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {me, updateUserAddress} from '../../store/user'
+import {Link} from 'react-router-dom'
 
 // view and change user info (name, email, password)
 // change delivery addresses
@@ -44,7 +45,9 @@ const _AccountPage = ({user, getMe, updateAddress}) => {
   return (
     <div>
       <h2>Account management</h2>
-
+      <div>
+        <Link to="./orders">Order History</Link>
+      </div>
       <div>
         <h1>Manage account for: {user.email}</h1>
         <div>

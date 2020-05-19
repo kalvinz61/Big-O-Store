@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js'
 import axios from 'axios'
-import {Confirmation} from './confirmation'
+import Confirmation from './confirmation'
 // eslint-disable-next-line complexity
 export const CheckoutForm = ({user, total}) => {
   const userName = user.name || null

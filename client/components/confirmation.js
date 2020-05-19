@@ -15,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export const Confirmation = props => {
+const Confirmation = props => {
   const classes = useStyles()
   return (
     <div>
@@ -28,3 +28,5 @@ export const Confirmation = props => {
     </div>
   )
 }
+
+export default Confirmation

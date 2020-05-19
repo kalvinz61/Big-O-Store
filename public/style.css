@@ -2,8 +2,8 @@ body {
   font-family: sans-serif;
   background-color: rgb(255, 255, 255);
   font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  margin: 0;
 }
-
 a {
   text-decoration: none;
 }
@@ -13,7 +13,7 @@ label {
 }
 
 #app > div > :nth-child(2) {
-  padding-top: 150px;
+  padding-top: 110px;
 }
 
 nav a {
@@ -61,7 +61,12 @@ h1 {
   margin: 0;
   padding: 0;
 }
-
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  background-color: rgb(156, 0, 0);
+  flex-grow: 1;
+}
 .searchbar-input-button-container {
   display: flex;
   flex-direction: row;
@@ -206,4 +211,7 @@ input {
 }
 label {
   align-self: flex-end;
+}
+span {
+  color: #d6d6d6;
 }
