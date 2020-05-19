@@ -39,11 +39,7 @@ const Checkout = ({cart, fetchCart, newOrder, user}) => {
       <div>
         1. Shipping Address & Payment Method
         <Elements stripe={stripePromise}>
-          <CheckoutForm
-            total={total}
-            user={user}
-            // success={() => setSuccess('succeeded')}
-          />
+          <CheckoutForm total={total} user={user} />
         </Elements>
         {}
       </div>

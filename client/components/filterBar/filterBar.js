@@ -12,7 +12,7 @@ import IconButton from '@material-ui/core/IconButton'
 import ArrowRightIcon from '@material-ui/icons/ArrowRight'
 import {Button} from '@material-ui/core'
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
     flexWrap: 'wrap',
@@ -32,8 +32,7 @@ const useStyles = makeStyles(theme => ({
     background:
       'linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)'
   }
-})) //TODO
-
+}))
 const _FilterBar = props => {
   const [showCategories, setShowCategories] = useState(false)
   const [showDepartments, setShowDepartments] = useState(false)

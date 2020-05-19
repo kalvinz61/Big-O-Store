@@ -1,18 +1,11 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import CartItem from './cartItem'
 import {Link} from 'react-router-dom'
 import {loadCart, addToCart} from '../store/cart'
-import {CheckoutForm} from './CheckoutForm'
-import {loadStripe} from '@stripe/stripe-js'
-import {Elements} from '@stripe/react-stripe-js'
-import checkout from './checkout'
 import {Button} from '@material-ui/core'
 
-const stripePromise = loadStripe('pk_test_qviMXIYeSYKSLyLvzB2yHbIC00QTT2iEZr')
-
-const Cart = ({user, cart, fetchCart}) => {
-  const [success, setSuccess] = useState('incomplete')
+const Cart = ({cart, fetchCart}) => {
   const {products} = cart
   let total = 0
 
