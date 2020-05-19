@@ -2,6 +2,7 @@ import React, {useState, useRef, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {addProduct, loadProducts} from '../../store/allProducts'
 import axios from 'axios'
+import {Button, Select} from '@material-ui/core'
 
 import {loadCategories} from '../../store/categories'
 import {loadDepartments} from '../../store/departments'
@@ -136,27 +137,27 @@ const _AddProductForm = ({
         value={rating}
         onChange={e => setRating(e.target.value)}
       />
-      <select value={category} onChange={e => setCategory(e.target.value)}>
+      <Select value={category} onChange={e => setCategory(e.target.value)}>
         <option>Select one..</option>
         {categories.map(c => (
           <option key={c.id} value={c.name}>
             {c.name}
           </option>
         ))}
-      </select>
-      <select value={department} onChange={e => setDepartment(e.target.value)}>
+      </Select>
+      <Select value={department} onChange={e => setDepartment(e.target.value)}>
         <option>Select one..</option>
         {departments.map(d => (
           <option key={d.id} value={d.name}>
             {d.name}
           </option>
         ))}
-      </select>
+      </Select>
       <input type="file" ref={el} onChange={e => handleChange(e)} />
       {showProgress && <div>{progress}</div>}
       {showImage && <img src={imageUrl} />}
       {error && <div className="submit-error">{error}</div>}
-      <button
+      <Button
         disabled={
           !!(
             showProgress &&
@@ -167,7 +168,7 @@ const _AddProductForm = ({
         type="submit"
       >
         Submit
-      </button>
+      </Button>
     </form>
   )
 }

@@ -7,6 +7,7 @@ import {CheckoutForm} from './CheckoutForm'
 import {loadStripe} from '@stripe/stripe-js'
 import {Elements} from '@stripe/react-stripe-js'
 import checkout from './checkout'
+import {Button} from '@material-ui/core'
 
 const stripePromise = loadStripe('pk_test_qviMXIYeSYKSLyLvzB2yHbIC00QTT2iEZr')
 
@@ -34,14 +35,16 @@ const Cart = ({user, cart, fetchCart}) => {
         return <CartItem key={product.id} {...product} />
       })}
       Total: ${total}
-      <Link to="/checkout">Checkout</Link>
+      <Button variant="contained" color="primary">
+        <Link to="/checkout">Checkout</Link>
+      </Button>
     </div>
   ) : (
     <div>
       <div>Your Cart is empty, go buy some stuff!</div>
-      <button type="button">
+      <Button variant="contained" color="primary">
         <Link to="/home">Home</Link>
-      </button>
+      </Button>
     </div>
   )
 }

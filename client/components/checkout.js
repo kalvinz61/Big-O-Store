@@ -58,7 +58,7 @@ const Checkout = ({cart, fetchCart, newOrder, user}) => {
           })}
       </div>
       <hr />
-      <Button color="inherit">
+      <Button variant="contained" color="primary">
         <Link
           to="/confirmation"
           onClick={() => {

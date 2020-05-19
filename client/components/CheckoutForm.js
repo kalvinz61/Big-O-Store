@@ -210,12 +210,12 @@ export const CheckoutForm = ({user, total}) => {
         </label>
       </div>
       <CardElement />
-      <input
+      {/* <input
         type="submit"
         value="Checkout"
         style={{alignSelf: 'center'}}
         //disabled={processing}
-      />
+      /> */}
     </form>
   )
 }
