@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react'
 import {connect} from 'react-redux'
 import {me, updateUserAddress} from '../../store/user'
 
+import {default as Orders} from './ordersPage'
+
 // view and change user info (name, email, password)
 // change delivery addresses
 // view orders
@@ -20,6 +22,8 @@ const _AccountPage = ({user, getMe, updateAddress}) => {
   const [zip, setZip] = useState('')
   const [country, setCountry] = useState('')
   const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+
+  const [showOrders, setShowOrders] = useState(false)
 
   const [error, setError] = useState('')
   useEffect(() => {
@@ -117,6 +121,12 @@ const _AccountPage = ({user, getMe, updateAddress}) => {
               {error && <div className="submit-error">{error}</div>}
             </form>
           )}
+        </div>
+        <div>
+          <button type="button" onClick={() => setShowOrders(!showOrders)}>
+            Show past Orders
+          </button>
+          {showOrders && <Orders />}
         </div>
       </div>
     </div>
