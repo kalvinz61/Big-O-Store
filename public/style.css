@@ -191,3 +191,14 @@ label {
   flex-direction: column;
   padding-top: 5rem;
 }
+.cartListProduct {
+  display: flex;
+  flex-direction: row;
+  margin: 0.3rem;
+  align-items: center;
+  background-color: #ffce0766;
+  border: solid black 1px;
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  height: 5vh;
+}
